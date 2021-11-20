@@ -9,12 +9,14 @@ open_marketplace :-
     write('---------------------------'), nl,
     write('Welcome to the Marketplace!'), nl,
     write('---------------------------'), nl,
-
-    write('What do you want to do here?'), nl,
-    write('1. Buy items'), nl,
-    write('2. Sell items'), nl,
-    write('3. I want to leave'), nl,
-    write('4. Guide'), nl,
+    
+    write('---------------------------------------'), nl,
+    write('|?|   What do you want to do here?  |?|'), nl,
+    write('|-|1. Buy items                     |-|'), nl,
+    write('|-|2. Sell items                    |-|'), nl,
+    write('|-|3. I want to leave               |-|'), nl,
+    write('|-|4. See guide                     |-|'), nl,
+    write('---------------------------------------'), nl,
 
     read_integer(user_choice), nl,
     (
