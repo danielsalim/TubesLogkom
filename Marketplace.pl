@@ -157,14 +157,7 @@ show_panel_buy :-
         );
 
         user_choice = 10 -> (
-            (
-                total >= 1000 ->
-                newAmount is total - 1000,
-                update_amount(newAmount),
-                save_inventory(horse),
-                write('You are proven worthy to get the horse.'), nl,
-                ; write('You are not worthy to get the horse.'), nl,
-            )
+         
         );
 
         user_choice = 11 -> (
