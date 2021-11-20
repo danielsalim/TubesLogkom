@@ -1,3 +1,8 @@
+#barang specialty (level, harga) flat harga naik konstan sebanyak 200 gold
+shovel_price(2, 200)
+fishing_price(2, 200)
+bucket_price(2, 200)
+
 
 open_marketplace :- 
  
@@ -36,12 +41,15 @@ show_panel_buy :-
     write('*1. Coconut Seeds: 50 gold        *'), nl,
     write('*2. Chocolate Seeds: 100 gold     *'), nl,
     write('*3. Mango Seeds: 250 gold         *'), nl,
-    write('*4. Corn Bait: 100 gold           *'), nl,
-    write('*5. Anchovy Bait: 500 gold        *'), nl,
-    write('*6. Cow: 1000 gold                *'), nl,
-    write('*7. Horse: 1500 gold              *'), nl,
-    write('*8. Upgrade Fishing Rod           *'), nl,
-    write('*9. Upgrade Bucket                *'), nl,
+    write('*4. Corn Bait: 50 gold            *'), nl,
+    write('*5. Basic Bait: 100 gold          *'), nl,
+    write('*6. Anchovy Bait: 250 gold        *'), nl,
+    write('*7. Chicken: 200 gold             *'), nl,
+    write('*8. Goat: 500 gold                *'), nl,
+    write('*9. Cow: 1000 gold                *'), nl,
+    write('*10. Upgrade Fishing Rod          *'), nl,
+    write('*11. Upgrade Bucket               *'), nl,
+    write('*12. Upgrade Shovel               *'), nl,
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
@@ -56,7 +64,7 @@ show_panel_buy :-
                 update_amount(newAmount),
                 save_inventory(coconut_seeds),
                 write('You are proven worthy to wield these coconut seeds.'), nl,
-                ; write('You are not worthy to wield these coconut seeds.').
+                ; write('You are not worthy to wield these coconut seeds.'), nl,
             )
         );
 
@@ -67,7 +75,7 @@ show_panel_buy :-
                 update_amount(newAmount),
                 save_inventory(choco_seeds),
                 write('You are proven worthy to wield these chocolate seeds.'), nl,
-                ; write('You are not worthy to wield these chocolate seeds.').
+                ; write('You are not worthy to wield these chocolate seeds.'), nl,
             )
         );
 
@@ -78,51 +86,51 @@ show_panel_buy :-
                 update_amount(newAmount),
                 save_inventory(mango_seeds),
                 write('You are proven worthy to wield these mango seeds.'), nl,
-                ; write('You are not worthy to wield these mango seeds.').
+                ; write('You are not worthy to wield these mango seeds.'), nl,
             )
         );
 
         user_choice = 4 -> (
             (
-                total >= 100 ->
-                newAmount is total - 100,
+                total >= 50 ->
+                newAmount is total - 50,
                 update_amount(newAmount),
                 save_inventory(corn_bait),
                 write('You are proven worthy to wield these corn bait.'), nl,
-                ; write('You are not worthy to wield these corn bait.').
+                ; write('You are not worthy to wield these corn bait.'), nl,
             )
         );
 
         user_choice = 5 -> (
             (
-                total >= 500 ->
-                newAmount is total - 500,
+                total >= 100 ->
+                newAmount is total - 100,
                 update_amount(newAmount),
-                save_inventory(anchovy_bait),
-                write('You are proven worthy to wield these anchovy bait.'), nl,
-                ; write('You are not worthy to wield these anchovy bait.').
+                save_inventory(basic_bait),
+                write('You are proven worthy to wield these basic bait.'), nl,
+                ; write('You are not worthy to wield these basic bait.'), nl,
             )
         );
 
         user_choice = 6 -> (
             (
-                total >= 1000 ->
-                newAmount is total - 1000,
+                total >= 250 ->
+                newAmount is total - 250,
                 update_amount(newAmount),
-                save_inventory(Cow),
-                write('You are proven worthy to get the cow.'), nl,
-                ; write('You are not worthy to get the cow.').
+                save_inventory(anchovy_bait),
+                write('You are proven worthy to get this anchovy_bait.'), nl,
+                ; write('You are not worthy to get this anchovy_bait.'), nl,
             )
         );
 
         user_choice = 7 -> (
             (
-                total >= 1500 ->
-                newAmount is total - 1500,
+                total >= 200 ->
+                newAmount is total - 200,
                 update_amount(newAmount),
-                save_inventory(blueberry_seeds),
-                write('You are proven worthy to get the horse.'), nl,
-                ; write('You are not worthy to get the horse.').
+                save_inventory(chicken),
+                write('You are proven worthy to get the chicken.'), nl,
+                ; write('You are not worthy to get the chicken.'), nl,
             )
         );
 
@@ -131,21 +139,56 @@ show_panel_buy :-
                 total >= 500 ->
                 newAmount is total - 500,
                 update_amount(newAmount),
-                save_inventory(blueberry_seeds),
-                write('You are proven worthy to wield these blueberry seeds.'), nl,
-                ; write('You are not worthy to wield these blueberry seeds.').
+                save_inventory(goat),
+                write('You are proven worthy to get the goat.'), nl,
+                ; write('You are not worthy to get the goat.'), nl,
             )
+        );
+
+        user_choice = 9 -> (
+            (
+                total >= 1000 ->
+                newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(cow),
+                write('You are proven worthy to get the cow.'), nl,
+                ; write('You are not worthy to get the cow.'), nl,
+            )
+        );
+
+        user_choice = 10 -> (
+            (
+                total >= 1000 ->
+                newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(horse),
+                write('You are proven worthy to get the horse.'), nl,
+                ; write('You are not worthy to get the horse.'), nl,
+            )
+        );
+
+        user_choice = 11 -> (
+            
+        );
+
+        user_choice = 12 -> (
+            
         );
 
     ).
 
+show_panel_sell :-
+    #show inventory
+    #tunggu implementasi inventory
+    #semua item specialty flat dijual seharga 50 gold, kalau udah ga kepake
+
 
 help_market :-
-    write('*****************************************************************************'), nl,
-    write('Hint: maximize the output of Marketplace to win the game!'), nl,
-    write('-----------------------------------------------------------------------------'), nl,
-    write('Selling guide: You could sell your item, any item to gain the gold you need.'), nl,
-    write('-----------------------------------------------------------------------------'), nl,
-    write('Buying guide: Buy the item you need to gain rare items and get more money.'), nl,
-    write('*****************************************************************************'), nl,
+    write('******************************************************************************'), nl,
+    write('*Hint: maximize the output of Marketplace to win the game!                   *'), nl,
+    write('*----------------------------------------------------------------------------*'), nl,
+    write('*Selling guide: You could sell your item, any item to gain the gold you need.*'), nl,
+    write('*----------------------------------------------------------------------------*'), nl,
+    write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
+    write('******************************************************************************'), nl,
     
