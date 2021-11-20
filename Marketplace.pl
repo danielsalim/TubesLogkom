@@ -53,7 +53,7 @@ show_panel_buy :-
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
-
+    #inisialisasi jumlah gold
     gold(_, total),
     read_integer(item_choice), nl,
     (
