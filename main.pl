@@ -1,7 +1,9 @@
 /* main.pl */
 
 /* supporting files */
-:- include('character.pl').
+:- include('src/character.pl').
+:- include('src/inventory.pl').
+:- include('src/map.pl').
 
 startGame :-
     nl,
@@ -21,7 +23,10 @@ startGame :-
     write('$                    2. Help                 $'), nl,
     write('$                    3. Quit                 $'), nl,
     write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
-    write('').
+    write('>'), read_integer(menu),
+    (menu = 1 -> start,
+    menu = 2 -> help,
+    menu = 3 -> quit).
 
 /* insert algoritma start , ini masi template */
 
@@ -105,3 +110,15 @@ start    :-     write('Welcome to Harvest Star. Choose your job'), nl, nl,
                 write('        ,&&&@@                      @&&&                         ***  **     ), nl,
 
                 write('You choose Rancher!, let's start ranching!'), nl;
+
+help :-
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
+    write('$    1. start    : start the game            $'), nl,
+    write('$    2. map      : display map               $'), nl,
+    write('$    3. status   : display player status     $'), nl,
+    write('$    4. w        : move north 1 tile         $'), nl,
+    write('$    5. s        : move south 1 tile         $'), nl,
+    write('$    6. d        : move east 1 tile          $'), nl,
+    write('$    7. a        : move west 1 tile          $'), nl,
+    write('$    8. help     : display help              $'), nl,
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl.
