@@ -6,31 +6,31 @@ sapu_fish(_, Y)
 lele_fish(_, Y)
 salmon_fish(_, Y)
 
-corn_bait :-
+corn_bait (_, amount):-
 
     #idenya itu ini stat dasar dari mendapatkan ikan yang raritynya kecil / gede
 
     sapu_fish(_, Y)
-    newAmount is Y + 4,
+    newAmount is (Y + 4) * amount,
     update_sapu,
     save_inventory(sapu_fish(_, newAmount)).
 
-basic_bait :-
+basic_bait (_, amount):-
 
     #idenya itu ini stat dasar dari mendapatkan ikan yang raritynya kecil / gede
 
     lele_fish(_, Y)
-    newAmount is Y + 2,
+    newAmount is (Y + 2) * amount,
     update_lele,
     save_inventory(lele_fish(_, newAmount)).
 
 
-anchovy_bait :-
+anchovy_bait (_, amount):-
 
     #idenya itu ini stat dasar dari mendapatkan ikan yang raritynya kecil / gede
 
     salmon_fish(_, Y)
-    newAmount is Y + 1,
+    newAmount is (Y + 1) * amount,
     update_salmon,
     save_inventory(salmon_fish(_, newAmount)).
 
