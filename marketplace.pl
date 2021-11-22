@@ -18,6 +18,7 @@ open_marketplace :-
     write('|-|4. See guide                     |-|'), nl,
     write('---------------------------------------'), nl,
 
+
     read_integer(user_choice), nl,
     (
         user_choice = 1 -> (
@@ -55,7 +56,7 @@ show_panel_buy :-
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
-    #inisialisasi jumlah gold
+
     gold(_, total),
     read_integer(item_choice), nl,
     (
@@ -159,7 +160,14 @@ show_panel_buy :-
         );
 
         user_choice = 10 -> (
-         
+            (
+                total >= 1000 ->
+                newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(horse),
+                write('You are proven worthy to get the horse.'), nl,
+                ; write('You are not worthy to get the horse.'), nl,
+            )
         );
 
         user_choice = 11 -> (
@@ -177,6 +185,11 @@ show_panel_sell :-
     #tunggu implementasi inventory
     #semua item specialty flat dijual seharga 50 gold, kalau udah ga kepake
 
+update_amount :- 
+    retract(gold(X,_)), asserta(gold(X, newAmount)).
+
+leave :-
+    write('Goodbye. Come back when you are worthy enough to wield these items.').
 
 help_market :-
     write('******************************************************************************'), nl,
@@ -186,4 +199,3 @@ help_market :-
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
     write('******************************************************************************'), nl,
-    
