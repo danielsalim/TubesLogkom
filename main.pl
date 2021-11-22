@@ -1,3 +1,6 @@
+:- include('src/map.pl').
+:- include('src/inventory.pl').
+
 startGame :-
     nl,
     write(' $$\\   $$\\                                                     $$\\            $$$$$$\\    $$\\                                    '), nl,
@@ -8,5 +11,12 @@ startGame :-
     write(' $$ |  $$ |$$  __$$ |$$ |       \\$$$  /  $$   ____| \\____$$\\   $$ |$$\\       $$\\   $$ |  $$ |$$\\ $$  __$$ |$$ |                '), nl,
     write(' $$ |  $$ |\\$$$$$$$ |$$ |        \\$  /   \\$$$$$$$\\ $$$$$$$  |  \\$$$$  |      \\$$$$$$  |  \\$$$$  |\\$$$$$$$ |$$ |              '), nl,
     write(' \\__|  \\__| \\_______|\\__|         \\_/     \\_______|\\_______/    \\____/        \\______/    \\____/  \\_______|\\__|          '), nl,
-    nl, nl, nl,         
-    write('Let\'s play and pay our debts together').                                                                                           
+    nl, nl,
+    write('Welcome to Harvest Star.'), nl,
+    write('Let\'s play and pay our debts together!'), nl, nl,
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
+    write('$            1. Start Your Journey           $'), nl,
+    write('$                    2. Help                 $'), nl,
+    write('$                    3. Quit                 $'), nl,
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
+    write('').
