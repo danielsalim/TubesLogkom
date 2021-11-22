@@ -161,21 +161,77 @@ show_panel_buy :-
 
         user_choice = 10 -> (
             (
-                total >= 1000 ->
-                newAmount is total - 1000,
-                update_amount(newAmount),
-                save_inventory(horse),
-                write('You are proven worthy to get the horse.'), nl,
-                ; write('You are not worthy to get the horse.'), nl,
+                Y <= 4 ->
+                    #konfigurasi level fishing rod
+                    fishing_price(Y, X),
+                    newPrice X + 200,
+                    newLevel Y + 1,
+
+
+                    #Jika uang cukup, maka akan ada proses pembelian
+                    total >= newPrice ->
+                    newAmount is total - newPrice,
+                    update_amount(newAmount),
+
+
+                    #update informasi fishing rod
+                    update_level_fishing,
+
+                    save_inventory(fishing_rod(newLevel)),
+                    write('You have leveled up your fishing rod.'), nl,
+                    ; write('You are not worthy to wield this fishing rod.'), nl,
+                ;max_level
             )
         );
 
         user_choice = 11 -> (
-            
+            (
+                Y <= 4 ->
+                    #konfigursi level shovel
+                    shovel_price(Y, X),
+                    newPrice X + 200,
+                    newLevel Y + 1,
+
+
+                    #Jika uang cukup, maka akan ada proses pembelian
+                    total >= newPrice ->
+                    newAmount is total - newPrice,
+                    update_amount(newAmount),
+
+
+                    #update informasi shovel
+                    update_level_shovel,
+
+                    save_inventory(shovel(newLevel)),
+                    write('You have leveled up your shovel.'), nl,
+                    ; write('You are not worthy to wield this shovel.'), nl,
+                ;max_level
+            )
         );
 
         user_choice = 12 -> (
-            
+            (
+                #konfigurasi level bucket
+                bucket_price(Y, X),
+                Y <= 4 ->
+                    newPrice X + 200,
+                    newLevel Y + 1,
+
+
+                    #Jika uang cukup, maka akan ada proses pembelian
+                    total >= newPrice ->
+                    newAmount is total - newPrice,
+                    update_amount(newAmount),
+
+
+                    #update informasi bucket
+                    update_level_bucket,
+
+                    save_inventory(bucket(newLevel)),
+                    write('You have leveled up your bucket.'), nl,
+                    ; write('You are not worthy to wield this bucket.'), nl,
+                ;max_level
+            )
         );
 
     ).
@@ -185,8 +241,23 @@ show_panel_sell :-
     #tunggu implementasi inventory
     #semua item specialty flat dijual seharga 50 gold, kalau udah ga kepake
 
+max_level :-
+    write('Your item is maxed up.').
+
 update_amount :- 
     retract(gold(X,_)), asserta(gold(X, newAmount)).
+
+update_level_fishing :-
+    retract(fishing_price(_, X)), asserta(fishing_price(newLevel, X)),
+    retract(fishing_price(Y, _)), asserta(fishing_price(Y, newPrice)).
+
+update_level_shovel :-
+    retract(shovel_price(_, X)), asserta(shovel_price(newLevel, X)),
+    retract(shovel_price(Y, _)), asserta(shovel_price(Y, newPrice)).
+
+update_level_bucket :-
+    retract(bucket_price(_, X)), asserta(bucket_price(newLevel, X)),
+    retract(bucket_price(Y, _)), asserta(bucket_price(Y, newPrice)).
 
 leave :-
     write('Goodbye. Come back when you are worthy enough to wield these items.').
@@ -199,3 +270,4 @@ help_market :-
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
     write('******************************************************************************'), nl,
+    
