@@ -1,7 +1,10 @@
 #barang specialty (level, harga) flat harga naik konstan sebanyak 200 gold
-shovel_price(X, Y)
-fishing_price(X, Y)
-bucket_price(X, Y)
+shovel(U)
+fishing_rod(V)
+bucket(W)
+shovel_price(U, X)
+fishing_price(V, Y)
+bucket_price(W, Z)
 
 
 open_marketplace :- 
