@@ -19,23 +19,23 @@ open_marketplace :-
     write('---------------------------------------'), nl,
 
 
-    read_integer(user_choice), nl,
+    read_integer(User), nl,
     (
-        user_choice = 1 -> (
+        User = 1 -> (
             show_panel_buy,
         );
 
-        user_choice = 2 -> (
+        User = 2 -> (
             show_panel_sell,
         );
 
-        user_choice = 3 -> (
+        User = 3 -> (
             leave,
         );
 
-        user_choice = 4 -> {
+        User = 4 -> (
             help_market,
-        };
+        );
 
     )
 
@@ -58,9 +58,9 @@ show_panel_buy :-
     write('Show me what you have!'), nl,
 
     gold(_, total),
-    read_integer(item_choice), nl,
+    read_integer(Item), nl,
     (
-        item_choice = 1 -> (
+        Item = 1 -> (
             (
                 total >= 50 ->
                 newAmount is total - 50,
@@ -71,7 +71,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 2 -> (
+        Item = 2 -> (
             (
                 total >= 100 ->
                 newAmount is total - 100,
@@ -82,7 +82,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 3 -> (
+        Item = 3 -> (
             (
                 total >= 250 ->
                 newAmount is total - 250,
@@ -93,7 +93,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 4 -> (
+        Item = 4 -> (
             (
                 total >= 50 ->
                 newAmount is total - 50,
@@ -104,7 +104,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 5 -> (
+        Item = 5 -> (
             (
                 total >= 100 ->
                 newAmount is total - 100,
@@ -115,7 +115,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 6 -> (
+        Item = 6 -> (
             (
                 total >= 250 ->
                 newAmount is total - 250,
@@ -126,7 +126,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 7 -> (
+        Item = 7 -> (
             (
                 total >= 200 ->
                 newAmount is total - 200,
@@ -137,7 +137,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 8 -> (
+        Item = 8 -> (
             (
                 total >= 500 ->
                 newAmount is total - 500,
@@ -148,7 +148,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 9 -> (
+        Item = 9 -> (
             (
                 total >= 1000 ->
                 newAmount is total - 1000,
@@ -159,7 +159,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 10 -> (
+        Item = 10 -> (
             (
                 Y <= 4 ->
                     #konfigurasi level fishing rod
@@ -184,7 +184,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 11 -> (
+        Item = 11 -> (
             (
                 Y <= 4 ->
                     #konfigursi level shovel
@@ -209,7 +209,7 @@ show_panel_buy :-
             )
         );
 
-        user_choice = 12 -> (
+        Item = 12 -> (
             (
                 #konfigurasi level bucket
                 bucket_price(Y, X),
