@@ -1,10 +1,10 @@
 #barang specialty (level, harga) flat harga naik konstan sebanyak 200 gold
-shovel(U)
-fishing_rod(V)
-bucket(W)
-shovel_price(U, X)
-fishing_price(V, Y)
-bucket_price(W, Z)
+shovel(U).
+fishing_rod(V).
+bucket(W).
+shovel_price(U, X).
+fishing_price(V, Y).
+bucket_price(W, Z).
 
 
 open_marketplace :- 
@@ -25,37 +25,43 @@ open_marketplace :-
     read_integer(User), nl,
     (
         User = 1 -> (
-            show_panel_buy,
+            show_panel_buy
         );
 
         User = 2 -> (
-            show_panel_sell,
+            show_panel_sell
         );
 
         User = 3 -> (
-            leave,
+            leave
         );
 
         User = 4 -> (
-            help_market,
+            help_market
         );
 
-    )
+    !).
 
 show_panel_buy :- 
     write('***********************************'), nl,
     write('*1. Coconut Seeds: 50 gold        *'), nl,
     write('*2. Chocolate Seeds: 100 gold     *'), nl,
     write('*3. Mango Seeds: 250 gold         *'), nl,
-    write('*4. Corn Bait: 50 gold            *'), nl,
-    write('*5. Basic Bait: 100 gold          *'), nl,
-    write('*6. Anchovy Bait: 250 gold        *'), nl,
-    write('*7. Chicken: 200 gold             *'), nl,
-    write('*8. Goat: 500 gold                *'), nl,
-    write('*9. Cow: 1000 gold                *'), nl,
-    write('*10. Upgrade Fishing Rod          *'), nl,
-    write('*11. Upgrade Bucket               *'), nl,
-    write('*12. Upgrade Shovel               *'), nl,
+    write('*4. Blueberry Seeds: 500 gold     *'), nl,
+    write('*5. Baobab Seeds: 1000 gold       *'), nl,
+    write('*1. Corn Bait: 50 gold            *'), nl,
+    write('*2. Basic Bait: 100 gold          *'), nl,
+    write('*3. Anchovy Bait: 250 gold        *'), nl,
+    write('*4. Squid Bait: 500 gold          *'), nl,
+    write('*5. Mixed Bait: 1000 gold         *'), nl,
+    write('*6. Chicken: 200 gold             *'), nl,
+    write('*7. Goat: 500 gold                *'), nl,
+    write('*8. Sheep: 1000 gold              *'), nl,
+    write('*9. Cow: 1500 gold                *'), nl,
+    write('*10.Horse: 2000 gold             *'), nl,
+    write('*11. Upgrade Fishing Rod          *'), nl,
+    write('*12. Upgrade Bucket               *'), nl,
+    write('*13. Upgrade Shovel               *'), nl,
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
@@ -69,8 +75,8 @@ show_panel_buy :-
                 newAmount is total - 50,
                 update_amount(newAmount),
                 save_inventory(coconut_seeds),
-                write('You are proven worthy to wield these coconut seeds.'), nl,
-                ; write('You are not worthy to wield these coconut seeds.'), nl,
+                write('You are proven worthy to wield these coconut seeds.'), nl
+                ; write('You are not worthy to wield these coconut seeds.'), nl
             )
         );
 
@@ -80,8 +86,8 @@ show_panel_buy :-
                 newAmount is total - 100,
                 update_amount(newAmount),
                 save_inventory(choco_seeds),
-                write('You are proven worthy to wield these chocolate seeds.'), nl,
-                ; write('You are not worthy to wield these chocolate seeds.'), nl,
+                write('You are proven worthy to wield these chocolate seeds.'), nl
+                ; write('You are not worthy to wield these chocolate seeds.'), nl
             )
         );
 
@@ -91,8 +97,8 @@ show_panel_buy :-
                 newAmount is total - 250,
                 update_amount(newAmount),
                 save_inventory(mango_seeds),
-                write('You are proven worthy to wield these mango seeds.'), nl,
-                ; write('You are not worthy to wield these mango seeds.'), nl,
+                write('You are proven worthy to wield these mango seeds.'), nl
+                ; write('You are not worthy to wield these mango seeds.'), nl
             )
         );
 
@@ -102,8 +108,8 @@ show_panel_buy :-
                 newAmount is total - 50,
                 update_amount(newAmount),
                 save_inventory(corn_bait),
-                write('You are proven worthy to wield these corn bait.'), nl,
-                ; write('You are not worthy to wield these corn bait.'), nl,
+                write('You are proven worthy to wield these corn bait.'), nl
+                ; write('You are not worthy to wield these corn bait.'), nl
             )
         );
 
@@ -113,8 +119,8 @@ show_panel_buy :-
                 newAmount is total - 100,
                 update_amount(newAmount),
                 save_inventory(basic_bait),
-                write('You are proven worthy to wield these basic bait.'), nl,
-                ; write('You are not worthy to wield these basic bait.'), nl,
+                write('You are proven worthy to wield these basic bait.'), nl
+                ; write('You are not worthy to wield these basic bait.'), nl
             )
         );
 
@@ -124,8 +130,8 @@ show_panel_buy :-
                 newAmount is total - 250,
                 update_amount(newAmount),
                 save_inventory(anchovy_bait),
-                write('You are proven worthy to get this anchovy_bait.'), nl,
-                ; write('You are not worthy to get this anchovy_bait.'), nl,
+                write('You are proven worthy to get this anchovy_bait.'), nl
+                ; write('You are not worthy to get this anchovy_bait.'), nl
             )
         );
 
@@ -135,8 +141,8 @@ show_panel_buy :-
                 newAmount is total - 200,
                 update_amount(newAmount),
                 save_inventory(chicken),
-                write('You are proven worthy to get the chicken.'), nl,
-                ; write('You are not worthy to get the chicken.'), nl,
+                write('You are proven worthy to get the chicken.'), nl
+                ; write('You are not worthy to get the chicken.'), nl
             )
         );
 
@@ -146,8 +152,8 @@ show_panel_buy :-
                 newAmount is total - 500,
                 update_amount(newAmount),
                 save_inventory(goat),
-                write('You are proven worthy to get the goat.'), nl,
-                ; write('You are not worthy to get the goat.'), nl,
+                write('You are proven worthy to get the goat.'), nl
+                ; write('You are not worthy to get the goat.'), nl
             )
         );
 
@@ -157,92 +163,90 @@ show_panel_buy :-
                 newAmount is total - 1000,
                 update_amount(newAmount),
                 save_inventory(cow),
-                write('You are proven worthy to get the cow.'), nl,
-                ; write('You are not worthy to get the cow.'), nl,
+                write('You are proven worthy to get the cow.'), nl
+                ; write('You are not worthy to get the cow.'), nl
             )
         );
 
         Item = 10 -> (
             (
-                Y <= 4 ->
-                    #konfigurasi level fishing rod
+                fisher_level(Y),
+                Y =< 4 ->
+                    
                     fishing_price(Y, X),
-                    newPrice X + 200,
-                    newLevel Y + 1,
+                    newPrice is X + 200,
+                    newLevel is Y + 1,
 
 
-                    #Jika uang cukup, maka akan ada proses pembelian
+                    
                     total >= newPrice ->
                     newAmount is total - newPrice,
                     update_amount(newAmount),
 
 
-                    #update informasi fishing rod
+                    
                     update_level_fishing,
 
                     save_inventory(fishing_rod(newLevel)),
-                    write('You have leveled up your fishing rod.'), nl,
-                    ; write('You are not worthy to wield this fishing rod.'), nl,
+                    write('You have leveled up your fishing rod.'), nl
+                    ; write('You are not worthy to wield this fishing rod.'), nl
                 ;max_level
             )
         );
 
         Item = 11 -> (
             (
-                Y <= 4 ->
-                    #konfigursi level shovel
+                fisher_level(Y),
+                Y =< 4 ->
+                   
                     shovel_price(Y, X),
-                    newPrice X + 200,
-                    newLevel Y + 1,
+                    newPrice is X + 200,
+                    newLevel is Y + 1,
 
 
-                    #Jika uang cukup, maka akan ada proses pembelian
+                    
                     total >= newPrice ->
                     newAmount is total - newPrice,
                     update_amount(newAmount),
 
 
-                    #update informasi shovel
+                    
                     update_level_shovel,
 
                     save_inventory(shovel(newLevel)),
-                    write('You have leveled up your shovel.'), nl,
-                    ; write('You are not worthy to wield this shovel.'), nl,
+                    write('You have leveled up your shovel.'), nl
+                    ; write('You are not worthy to wield this shovel.'), nl
                 ;max_level
             )
         );
 
         Item = 12 -> (
             (
-                #konfigurasi level bucket
-                bucket_price(Y, X),
-                Y <= 4 ->
-                    newPrice X + 200,
-                    newLevel Y + 1,
+                
+                fisher_level(Y),
+                Y =< 4 ->
+                    newPrice is X + 200,
+                    newLevel  is Y + 1,
 
 
-                    #Jika uang cukup, maka akan ada proses pembelian
+                    
                     total >= newPrice ->
                     newAmount is total - newPrice,
                     update_amount(newAmount),
 
 
-                    #update informasi bucket
+                    
                     update_level_bucket,
 
                     save_inventory(bucket(newLevel)),
-                    write('You have leveled up your bucket.'), nl,
-                    ; write('You are not worthy to wield this bucket.'), nl,
+                    write('You have leveled up your bucket.'), nl
+                    ; write('You are not worthy to wield this bucket.'), nl
                 ;max_level
             )
         );
 
-    ).
+    !).
 
-show_panel_sell :-
-    #show inventory
-    #tunggu implementasi inventory
-    #semua item specialty flat dijual seharga 50 gold, kalau udah ga kepake
 
 max_level :-
     write('Your item is maxed up.').
@@ -272,5 +276,4 @@ help_market :-
     write('*Selling guide: You could sell your item, any item to gain the gold you need.*'), nl,
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
-    write('******************************************************************************'), nl,
-    
+    write('******************************************************************************'), nl.
