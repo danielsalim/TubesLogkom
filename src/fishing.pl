@@ -1,3 +1,5 @@
+
+
 fishing :-
     write('***************************************************** '), nl,
     write('____ _ ____ _  _ _ _   _ ____    ___  ____ _  _ ___   '), nl,
@@ -84,26 +86,53 @@ guide :-
     write('**********************************************************************************************'), nl.
 
 
+
 alce_clue :- 
 
+    write('                                       MASTER KANG                                             '), nl, nl,
     write('Yes did the Old Man tell you about this? This pond is so legendary'), nl,
     write('This was used by warlocks or alchemist from the magic era to spend their free time'), nl,
     write('There was only one Alchemist left in this realm. He would come really soon.'), nl,
     write('Some even speculated that he was already here in disguised.'), nl,
     write('His name is Alce, I believe. Dealing with him comes with a heavy price, but will give you fortune.'), nl,
     write('Now, do you want to catch some good ol\' fish?'), nl,nl,
-    fishing.
+    write('continue? (yes or no)'), nl,
+
+    read(Users),
+    (
+        Users = yes ->
+            fishing
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
 
 pond_story :-
 
+    write('                                       MASTER KANG                                            '), nl, nl,
     write('You can get the best fish only in the pond in this village. The pond is blessed with expensive fishes.'), nl,
     write('Even this pond is more profitable than fishing in the sea. Probably because this pond used to be the place for the alchemists.'), nl,
     write('Back in the day, they would use magic to make this pond breed only the best fish'), nl,
     write('Even the legendary Old man would fish here sometimes, eh.'), nl,
     write('Only uncultured people did not want to do some fishing here.'), nl,
-    write('So are you one of those uncultured masses?'), nl, nl, 
-    fishing.
+    write('So are you one of those uncultured masses?'), nl, nl,
+    write('continue? (yes or no)'), nl,
+
+    read(Users),
+    (
+        Users = yes ->
+            fishing
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
+
 
 leave :-
-
+    write('                                       MASTER KANG                                             '), nl, nl,
     write('Come again really soon. Fish is the best asset in these desperate times.').
+
