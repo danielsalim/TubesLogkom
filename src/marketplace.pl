@@ -1,18 +1,42 @@
+
 open_marketplace :- 
  
-    write('---------------------------'), nl,
-    write('Welcome to the M ArketpLaCE!'), nl,
-    write('---------------------------'), nl,   
+    write('------------------------------------------'), nl,
+    write('-----------The Old Man\'s Shop------------'), nl,
+    write('------------------------------------------'), nl,
+
+    write('              _,._           '), nl,
+    write(' .||,       /_ _\\           '), nl,
+    write('\\.`",/     |\'L\'| |        '), nl,
+    write('= ,. =     | -,| L          '), nl,
+    write('/ || |    ,-"\"/,"`.         '), nl,
+    write('  ||     ,"   `,,. `.        '), nl,
+    write('  ,|____," ``  " \\| |       '), nl,
+    write('  (3|\\    _/|/"   _| |      '), nl,
+    write('  ||/,-"  | >-" _,\\         '), nl,
+    write('  ||`      ==\\ ,-"`  ,``    '), nl,
+    write('  ||       |  V\\ ,||        '), nl,
+    write('  ||       |    |` ||        '), nl,
+    write('  ||       |    |   \\       '), nl,
+    write('  ||       |    |    \\      '), nl,
+    write('  ||       |     \\   \\     '), nl,
+    write('  ||       |      \\_,-"     '), nl,
+    write('  ||       |___,,--")_\\     '), nl,
+    write('  ||         |_|   ccc/      '), nl,
+    write('  ||        ccc/             '), nl,
+    write('  ||                         '), nl,
                 
     write('---------------------------------------'), nl,
     write('|?|   What do you want to do here?  |?|'), nl,
     write('|-|1. Buy items                     |-|'), nl,
     write('|-|2. Sell items                    |-|'), nl,
-    write('|-|3. I want to leave               |-|'), nl,
+    write('|-|3. Leave                         |-|'), nl,
     write('|-|4. See guide                     |-|'), nl,
+    write('|-|5. Talk                          |-|'), nl,
     write('---------------------------------------'), nl,
 
-
+    write('I want to...'), nl, nl,
+    
     read_integer(User), nl,
     (
         User = 1 -> (
@@ -29,6 +53,10 @@ open_marketplace :-
 
         User = 4 -> (
             help_market
+        );
+
+        User = 5 -> (
+            alce_msg
         );
 
     !).
@@ -305,6 +333,7 @@ show_panel_buy :-
     !).
 
 alce :-
+
     write('                        .    '), nl,
     write('                             '), nl,
     write('                    .        '), nl,
@@ -320,7 +349,11 @@ alce :-
     write('    ||    |  I   _________   '), nl,
     write('    ||    |  I c(`       ")o '), nl,
     write('    ||    l  I   \\.     /   '), nl,
-    write('   _||/j  L l\\_!_//^---^\\_ '), nl. 
+    write('   _||/j  L l\\_!_//^---^\\_ '), nl, nl,
+
+    write('I am the Alchemist. The Legend that people talk about.        '), nl,
+    write('Are you worthy to wield my legendary potions?                 '), nl,
+    write('People come at me to become rich. Thy opportunity are limited.'), nl, nl.
 
 max_level :-
     write('Your item is maxed up.').
@@ -351,4 +384,12 @@ help_market :-
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
     write('******************************************************************************'), nl, nl, nl,
-    write('*Someone is coming to town. People are talking about him. I heard his name started with an a.'), nl.
+    open_marketplace.
+
+alce_msg :-
+
+    write('Someone is coming to town. People are talking about him. I heard he is bringing some goodies. Psh!                       '), nl,
+    write('I do not believe in those kind of superstition. People are in desperate times. They try to make things up.               '), nl,
+    write('Legend says that this person would catch the rarest fish around, as his hobby is fishing. But that is just his side job..'), nl,
+    write('I do not have time for this superstitious nonsense. So are you here to bring me some gold, eh? Don\'t waste my time.     '), nl, nl, nl,
+    open_marketplace.
