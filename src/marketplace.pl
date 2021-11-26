@@ -1,7 +1,7 @@
 open_marketplace :- 
  
     write('---------------------------'), nl,
-    write('Welcome to the Marketplace!'), nl,
+    write('Welcome to the M ArketpLaCE!'), nl,
     write('---------------------------'), nl,   
                 
     write('---------------------------------------'), nl,
@@ -304,7 +304,23 @@ show_panel_buy :-
 
     !).
 
-
+alce :-
+    write('                        .    '), nl,
+    write('                             '), nl,
+    write('                    .        '), nl,
+    write('            /\\     .        '), nl,
+    write('      /\\   "V"              '), nl,
+    write('     /__\\   I      O  o     '), nl,
+    write('    //..\\|  I     .         '), nl, 
+    write('    \\].`[// I               '), nl,
+    write('    /l\\|j\\ (]    .  O      '), nl,
+    write('   /. ~~ ,\\/I          .    '), nl,
+    write('   \\L__j^\\/I       o       '), nl,
+    write('    \\/--v}\\I     o   .     '), nl,
+    write('    ||    |  I   _________   '), nl,
+    write('    ||    |  I c(`       ")o '), nl,
+    write('    ||    l  I   \\.     /   '), nl,
+    write('   _||/j  L l\\_!_//^---^\\_ '), nl. 
 
 max_level :-
     write('Your item is maxed up.').
@@ -334,4 +350,5 @@ help_market :-
     write('*Selling guide: You could sell your item, any item to gain the gold you need.*'), nl,
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
-    write('******************************************************************************'), nl.
+    write('******************************************************************************'), nl, nl, nl,
+    write('*Someone is coming to town. People are talking about him. I heard his name started with an a.'), nl.
