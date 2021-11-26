@@ -1,8 +1,13 @@
+/* Belom bisa cek tempat pas gerak */
+
+
 :- dynamic(object/3).
+:- dynamic(dug/2).
+
 
 % Fakta
+object(1 , 1 ,'P').
 object(3,14, 'A').
-object(11,4, 'F').
 object(10,5, 'R').
 object(7,6, 'H').
 object(10,12, 'M').
@@ -21,11 +26,19 @@ object(7, 10, 'o').
 
 
 map_size(14, 17).
-
-
-% Inisialisasi
-init :- asserta(object(1,1,'P')).
 		
+waterTile :- object(_,_,'o').
+questTile :- object(7,3,'Q').
+alchemistTile :- object(3,14,'A').
+marketplaceTile :- object(10,12, 'M').
+ranchTile :- object(10,5, 'R').
+houseTile :- object(7,6, 'H').
+isGround :- \+object(_,_,_).
+
+
+digGround(X,Y) :- isGround,
+				asserta(dug(X,Y)).
+				
 
 
 % DRAW MAP BORDERS
@@ -61,21 +74,7 @@ point_map(X, Y) :- map_size(W, H),
 					Y =:= H + 1,
 					write('# '),
 					NewX is X+1,
-					point_map(NewX, Y).					
-
-
-point_map(X, Y) :- map_size(W, H),
-					X < W + 1,
-					X > 0,
-					Y < H + 1,
-					Y > 0,
-					object(X, Y, 'P'),
-					object(X, Y, 'G'), !,
-					write('P'),
-					write(' '),
-					NewX is X+1,
-					point_map(NewX, Y).
-					
+					point_map(NewX, Y).										
 
 point_map(X, Y) :- map_size(W, H),
 					X < W + 1,
@@ -83,7 +82,6 @@ point_map(X, Y) :- map_size(W, H),
 					Y < H + 1,
 					Y > 0,
 					object(X, Y, Obj), !,
-
 					write(Obj),
 					write(' '),
 					NewX is X+1,
@@ -100,4 +98,20 @@ point_map(X, Y) :- map_size(W, H),
 					point_map(NewX, Y).
 
 % init sementara (move to main)
-drawmap :- init, point_map(0, 0).
+drawmap :- point_map(0, 0).
+
+w :- object(X,Y,'P') , NewY is Y - 1,
+	retract(object(X,Y,'P')),
+	asserta(object(X,NewY,'P')), drawmap.
+
+a :- object(X,Y,'P') , NewX is X - 1,
+	retract(object(X,Y,'P')),
+	asserta(object(NewX,Y,'P')), drawmap.
+
+s :- object(X,Y,'P') , NewY is Y + 1,
+	retract(object(X,Y,'P')),
+	asserta(object(X,NewY,'P')), drawmap.
+
+d :- object(X,Y,'P') , NewX is X + 1,
+	retract(object(X,Y,'P')),
+	asserta(object(NewX,Y,'P')), drawmap.
