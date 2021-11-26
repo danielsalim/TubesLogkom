@@ -37,7 +37,7 @@ plantSeed :-
                     newStamina is totalStamina - 10,
                     update_Stamina(newStamina),
 
-                    timeToHarvestC = 2,
+                    timeToHarvestC = 1,
                     update_TimeCoconut(timeToHarvestC),
 
                     write('Planting finished! you have just planted a coconut seed!'), nl
@@ -77,7 +77,7 @@ plantSeed :-
                     newStamina is totalStamina - 10,
                     update_Stamina(newStamina),
                     
-                    timeToHarvestM = 2,
+                    timeToHarvestM = 3,
                     update_TimeMango(timeToHarvestM),
                     
                     write('Planting finished! you have just planted a mango seed!'), nl
@@ -97,7 +97,7 @@ plantSeed :-
                     newStamina is totalStamina - 10,
                     update_Stamina(newStamina),
                     
-                    timeToHarvestS = 2,
+                    timeToHarvestS = 3,
                     update_TimeStrawberry(timeToHarvestS),
                     
                     write('Planting finished! you have just planted a coconut seed!'), nl
@@ -117,7 +117,7 @@ plantSeed :-
                     newStamina is totalStamina - 10,
                     update_Stamina(newStamina),
                     
-                    timeToHarvestB = 2, 
+                    timeToHarvestB = 4, 
                     update_TimeBaobab(timeToHarvestB),
                     
                     write('Planting finished! you have just planted a coconut seed!'), nl
