@@ -1,9 +1,18 @@
+/* INISIALISASI NANTI DISINI */
 
-open_marketplace :- 
+
+marketplace :- 
  
-    write('------------------------------------------'), nl,
-    write('-----------The Old Man\'s Shop------------'), nl,
-    write('------------------------------------------'), nl,
+    write('************************************************************************************************************'), nl, nl,
+
+    write(' .d88b.  db      d8888b.      .88b  d88.  .d8b.  d8b   db Cb .d8888.      .d8888. db   db  .d88b.  d8888b.  '), nl,
+    write('.8P  Y8. 88      88  `8D      88 YbdP 88 d8" 8b 888o  88 `D 88"  YP      88"  YP 88   88 .8P  Y8. 88  `8D   '), nl,
+    write('88    88 88      88   88      88  88  88 88ooo88 88V8o 88  "  8bo.        `8bo.   88ooo88 88    88 88oodD   '), nl,
+    write('88    88 88      88   88      88  88  88 88~~~88 88 V8o88      Y8b.        `Y8b. 88~~~88 88    88 88~~~      '), nl,
+    write('`8b  d8" 88booo. 88  .8D      88  88  88 88   88 88  V888    db   8D      db   8D 88   88 `8b  d8 88        '), nl,
+    write(' `Y88P"  Y88888P Y8888D       YP  YP  YP YP   YP VP   V8P    `8888Y      `8888Y YP   YP   Y88P"  88         '), nl, nl,
+
+    write('************************************************************************************************************'), nl, nl,
 
     write('              _,._           '), nl,
     write(' .||,       /_ _\\           '), nl,
@@ -30,13 +39,13 @@ open_marketplace :-
     write('|?|   What do you want to do here?  |?|'), nl,
     write('|-|1. Buy items                     |-|'), nl,
     write('|-|2. Sell items                    |-|'), nl,
-    write('|-|3. Leave                         |-|'), nl,
+    write('|-|3. I want to leave               |-|'), nl,
     write('|-|4. See guide                     |-|'), nl,
-    write('|-|5. Talk                          |-|'), nl,
+    write('|-|5. I want to talk                |-|'), nl,
     write('---------------------------------------'), nl,
 
     write('I want to...'), nl, nl,
-    
+
     read_integer(User), nl,
     (
         User = 1 -> (
@@ -332,6 +341,9 @@ show_panel_buy :-
 
     !).
 
+
+/* ALCHEMIST DISINI AKSESNYA */
+
 alce :-
 
     write('                        .    '), nl,
@@ -350,10 +362,26 @@ alce :-
     write('    ||    |  I c(`       ")o '), nl,
     write('    ||    l  I   \\.     /   '), nl,
     write('   _||/j  L l\\_!_//^---^\\_ '), nl, nl,
-
+    write('                                       ALCHEMIST                                             '), nl, nl,
     write('I am the Alchemist. The Legend that people talk about.        '), nl,
     write('Are you worthy to wield my legendary potions?                 '), nl,
     write('People come at me to become rich. Thy opportunity are limited.'), nl, nl.
+
+
+
+/* PANEL BELI */
+
+
+
+
+
+
+
+
+
+
+
+/* INFORMASI LAINNYA */
 
 max_level :-
     write('Your item is maxed up.').
@@ -374,9 +402,10 @@ update_level_bucket :-
     retract(bucket_price(Y, _)), asserta(bucket_price(Y, newPrice)).
 
 leave :-
-    write('Goodbye. Come back when you are worthy enough to wield these items.').
+    write('Goodbye. Come back when you are worthy enough to wield these items.'), nl.
 
 help_market :-
+    write('                                 GUIDE BOOK                                   '), nl,
     write('******************************************************************************'), nl,
     write('*Hint: maximize the output of Marketplace to win the game!                   *'), nl,
     write('*----------------------------------------------------------------------------*'), nl,
@@ -384,12 +413,32 @@ help_market :-
     write('*----------------------------------------------------------------------------*'), nl,
     write('*Buying guide: Buy the item you need to gain rare items and get more money.  *'), nl,
     write('******************************************************************************'), nl, nl, nl,
-    open_marketplace.
+    write('continue? (yes or no)'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes ->
+            marketplace
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
 
 alce_msg :-
-
+    write('                                       MYSTERIOUS OLD MAN                                             '), nl, nl,
     write('Someone is coming to town. People are talking about him. I heard he is bringing some goodies. Psh!                       '), nl,
     write('I do not believe in those kind of superstition. People are in desperate times. They try to make things up.               '), nl,
     write('Legend says that this person would catch the rarest fish around, as his hobby is fishing. But that is just his side job..'), nl,
     write('I do not have time for this superstitious nonsense. So are you here to bring me some gold, eh? Don\'t waste my time.     '), nl, nl, nl,
-    open_marketplace.
+    write('continue? (yes or no)'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes ->
+            marketplace
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
