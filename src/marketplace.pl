@@ -1,18 +1,9 @@
-#barang specialty (level, harga) flat harga naik konstan sebanyak 200 gold
-shovel(U).
-fishing_rod(V).
-bucket(W).
-shovel_price(U, X).
-fishing_price(V, Y).
-bucket_price(W, Z).
-
-
 open_marketplace :- 
  
     write('---------------------------'), nl,
     write('Welcome to the Marketplace!'), nl,
-    write('---------------------------'), nl,
-    
+    write('---------------------------'), nl,   
+                
     write('---------------------------------------'), nl,
     write('|?|   What do you want to do here?  |?|'), nl,
     write('|-|1. Buy items                     |-|'), nl,
@@ -49,19 +40,19 @@ show_panel_buy :-
     write('*3. Mango Seeds: 250 gold         *'), nl,
     write('*4. Blueberry Seeds: 500 gold     *'), nl,
     write('*5. Baobab Seeds: 1000 gold       *'), nl,
-    write('*1. Corn Bait: 50 gold            *'), nl,
-    write('*2. Basic Bait: 100 gold          *'), nl,
-    write('*3. Anchovy Bait: 250 gold        *'), nl,
-    write('*4. Squid Bait: 500 gold          *'), nl,
-    write('*5. Mixed Bait: 1000 gold         *'), nl,
-    write('*6. Chicken: 200 gold             *'), nl,
-    write('*7. Goat: 500 gold                *'), nl,
-    write('*8. Sheep: 1000 gold              *'), nl,
-    write('*9. Cow: 1500 gold                *'), nl,
-    write('*10.Horse: 2000 gold             *'), nl,
-    write('*11. Upgrade Fishing Rod          *'), nl,
-    write('*12. Upgrade Bucket               *'), nl,
-    write('*13. Upgrade Shovel               *'), nl,
+    write('*6. Corn Bait: 50 gold            *'), nl,
+    write('*7. Basic Bait: 100 gold          *'), nl,
+    write('*8. Anchovy Bait: 250 gold        *'), nl,
+    write('*9. Squid Bait: 500 gold          *'), nl,
+    write('*10. Magic Bait: 1000 gold        *'), nl,
+    write('*11. Chicken: 200 gold            *'), nl,
+    write('*12. Goat: 500 gold               *'), nl,
+    write('*13. Sheep: 1000 gold             *'), nl,
+    write('*14. Cow: 1500 gold               *'), nl,
+    write('*15. Horse: 2000 gold             *'), nl,
+    write('*16. Upgrade Fishing Rod          *'), nl,
+    write('*17. Upgrade Bucket               *'), nl,
+    write('*18. Upgrade Shovel               *'), nl,
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
@@ -104,6 +95,28 @@ show_panel_buy :-
 
         Item = 4 -> (
             (
+                total >= 500 ->
+                newAmount is total - 500,
+                update_amount(newAmount),
+                save_inventory(blu_seeds),
+                write('You are proven worthy to wield these blueberry seeds.'), nl
+                ; write('You are not worthy to wield these blueberry seeds.'), nl
+            )
+        );
+
+        Item = 5 -> (
+            (
+                total >= 1000 ->
+                newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(baobab_seeds),
+                write('You are proven worthy to wield these baobab seeds.'), nl
+                ; write('You are not worthy to wield these baobab seeds.'), nl
+            )
+        );
+
+        Item = 6 -> (
+            (
                 total >= 50 ->
                 newAmount is total - 50,
                 update_amount(newAmount),
@@ -113,7 +126,7 @@ show_panel_buy :-
             )
         );
 
-        Item = 5 -> (
+        Item = 7 -> (
             (
                 total >= 100 ->
                 newAmount is total - 100,
@@ -124,7 +137,7 @@ show_panel_buy :-
             )
         );
 
-        Item = 6 -> (
+        Item = 8 -> (
             (
                 total >= 250 ->
                 newAmount is total - 250,
@@ -135,7 +148,29 @@ show_panel_buy :-
             )
         );
 
-        Item = 7 -> (
+        Item = 9 -> (
+            (
+                total >= 500 ->
+                newAmount is total - 500,
+                update_amount(newAmount),
+                save_inventory(squid_bait),
+                write('You are proven worthy to get this squid bait.'), nl
+                ; write('You are not worthy to get this squid bait.'), nl
+            )
+        );
+
+        Item = 10 -> (
+            (
+                total >= 1000 ->
+                newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(magic_bait),
+                write('You are proven worthy to get this magic bait.'), nl
+                ; write('You are not worthy to get this magic bait.'), nl
+            )
+        );
+
+        Item = 11 -> (
             (
                 total >= 200 ->
                 newAmount is total - 200,
@@ -146,7 +181,7 @@ show_panel_buy :-
             )
         );
 
-        Item = 8 -> (
+        Item = 12 -> (
             (
                 total >= 500 ->
                 newAmount is total - 500,
@@ -157,10 +192,21 @@ show_panel_buy :-
             )
         );
 
-        Item = 9 -> (
+        Item = 13 -> (
             (
                 total >= 1000 ->
                 newAmount is total - 1000,
+                update_amount(newAmount),
+                save_inventory(sheep),
+                write('You are proven worthy to get the cow.'), nl
+                ; write('You are not worthy to get the cow.'), nl
+            )
+        );
+
+        Item = 14 -> (
+            (
+                total >= 1500 ->
+                newAmount is total - 1500,
                 update_amount(newAmount),
                 save_inventory(cow),
                 write('You are proven worthy to get the cow.'), nl
@@ -168,7 +214,18 @@ show_panel_buy :-
             )
         );
 
-        Item = 10 -> (
+        Item = 15 -> (
+            (
+                total >= 2000 ->
+                newAmount is total - 2000,
+                update_amount(newAmount),
+                save_inventory(cow),
+                write('You are proven worthy to get the cow.'), nl
+                ; write('You are not worthy to get the cow.'), nl
+            )
+        );
+
+        Item = 16 -> (
             (
                 fisher_level(Y),
                 Y =< 4 ->
@@ -194,9 +251,9 @@ show_panel_buy :-
             )
         );
 
-        Item = 11 -> (
+        Item = 17 -> (
             (
-                fisher_level(Y),
+                farming_level(Y),
                 Y =< 4 ->
                    
                     shovel_price(Y, X),
@@ -220,10 +277,10 @@ show_panel_buy :-
             )
         );
 
-        Item = 12 -> (
+        Item = 18 -> (
             (
                 
-                fisher_level(Y),
+                ranching_level(Y),
                 Y =< 4 ->
                     newPrice is X + 200,
                     newLevel  is Y + 1,
@@ -246,6 +303,7 @@ show_panel_buy :-
         );
 
     !).
+
 
 
 max_level :-
