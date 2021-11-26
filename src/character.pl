@@ -56,11 +56,11 @@ createRancher(X) :-   asserta(job(X, fisherman)),
 checkStatus(Username) :-write(' _____  _                         _____ _        _              '), nl,             
                         write('|  __ \\| |                       / ____| |      | |             '), nl,
                         write('| |__) | | __ _ _   _  ___ _ _  | (___ | |_ __ _| |_ _   _ ___  '), nl,
-                        write('|  ___/| |/ _` | | | |/ _ \\ ''_|  \\___ \\| __/ _` | __| | | / __| '), nl,
+                        write('|  ___/| |/ _` | | | |/ _ \\ \'\'_|  \\___ \\| __/ _` | __| | | / __| '), nl,
                         write('| |    | | (_| | |_| |  __/ |    ____) | || (_| | |_| |_| \\__ \\ '), nl,
                         write('|_|    |_|\\__,_|\\__, |\\___|_|   |_____/ \\__\\__,_|\\__|\\__,_|___/ '), nl,
                         write('                 __/ |                                          '), nl,
-                        write('                |___/                                           '), nl, n1
+                        write('                |___/                                           '), nl, nl,
 
                         write('---------Your Status---------'), nl, nl,
                         write('Username       : '), write(Username), nl,
@@ -77,6 +77,6 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('--- Raching ---'), n1,
                         write('Level Rancher  : '), level_rancher(Username, LvlRancher), write(LvlRancher), nl,
                         write('EXP Rancher    : '), exp_rancher(Username, ExpRancher), write(ExpRancher), nl, n1,
-                        write('Stamina        : '), stamina(Username, Stamina), write(Stamina), n1
+                        write('Stamina        : '), stamina(Username, Stamina), write(Stamina), nl,
                         write('EXP            : '), exp(Username, EXP), write(EXP), nl,
                         write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl.
