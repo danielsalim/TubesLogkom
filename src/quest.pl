@@ -1,116 +1,132 @@
+/* belom Add rewardquest */
+
+
 :-dynamic(isHaveQuest/1).
-:-dynamic(TodoQuest/2).
-:-dynamic(QuestReward/3).
+:-dynamic(todoQuest/2).
 
 :-dynamic(getQuest/0).
+:-dynamic(player/1).
 
 isHaveQuest(no).
 
-TodoQuest(fishing,0).
-TodoQuest(ranching,0).
-TodoQuest(harvesting,0).
+isQuest(fishing).
+isQuest(ranching).
+isQuest(harvesting).
+
+todoQuest(fishing,0).
+todoQuest(ranching,0).
+todoQuest(harvesting,0).
+
+player(9).
 
 
-QuestReward(X,X,0).
+getQuest :- write('Welcome, you have a quest to do'),nl,player(Level),
+                ((0<Level) , (Level=< 10) ->
+                    retract(todoQuest(fishing,_)),
+                    retract(todoQuest(ranching,_)),
+                    retract(todoQuest(harvesting,_)),
+                    random(5,11,X),
+                    random(5,11,Y),
+                    random(5,11,Z),
+                    asserta(todoQuest(fishing,X)),
+                    asserta(todoQuest(ranching,Y)),
+                    asserta(todoQuest(harvesting,Z)),
+                    retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
+                    harvestingQuest,
+                    fishingQuest,
+                    ranchingQuest;
+                (10 < Level) , (Level=<20) -> 
+                    retract(todoQuest(fishing,_)),
+                    retract(todoQuest(ranching,_)),
+                    retract(todoQuest(harvesting,_)),
+                    random(11,16,X),
+                    random(11,16,Y),
+                    random(11,16,Z),
+                    asserta(todoQuest(fishing,X)),
+                    asserta(todoQuest(ranching,Y)),
+                    asserta(todoQuest(harvesting,Z)),
+                    retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
+                    harvestingQuest,
+                    fishingQuest,
+                    ranchingQuest;
+                (20 < Level), (Level=<30) ->
+                    retract(todoQuest(fishing,_)),
+                    retract(todoQuest(ranching,_)),
+                    retract(todoQuest(harvesting,_)),
+                    random(16,21,X),
+                    random(16,21,Y),
+                    random(16,21,Z),
+                    asserta(todoQuest(fishing,X)),
+                    asserta(todoQuest(ranching,Y)),
+                    asserta(todoQuest(harvesting,Z)),
+                    retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
+                    harvestingQuest,
+                    fishingQuest,
+                    ranchingQuest;
+                (30 < Level), (Level=<40) ->
+                    retract(todoQuest(fishing,_)),
+                    retract(todoQuest(ranching,_)),
+                    retract(todoQuest(harvesting,_)),
+                    random(21,26,X),
+                    random(21,26,Y),
+                    random(21,26,Z),
+                    asserta(todoQuest(fishing,X)),
+                    asserta(todoQuest(ranching,Y)),
+                    asserta(todoQuest(harvesting,Z)),
+                    retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
+                    harvestingQuest,
+                    fishingQuest,
+                    ranchingQuest;
+                (40 < Level), (Level=<50) ->
+                    retract(todoQuest(fishing,_)),
+                    retract(todoQuest(ranching,_)),
+                    retract(todoQuest(harvesting,_)),
+                    random(26,31,X),
+                    random(26,31,Y),
+                    random(26,31,Z),
+                    asserta(todoQuest(fishing,X)),
+                    asserta(todoQuest(ranching,Y)),
+                    asserta(todoQuest(harvesting,Z)),
+                    retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
+                    harvestingQuest,
+                    fishingQuest,
+                    ranchingQuest
+                ).
 
-getQuest :- write('Welcome, may you help us?'),nl,
-            0 < player(level) <=10 ->(
-                retract(fishing,_),
-                retract(ranching,_),
-                retract(harvesting,_),
-                random(1,11,X),
-                random(1,11,Y),
-                random(1,11,Z),
-                asserta(fishing,X),
-                asserta(ranching,Y),
-                asserta(harvesting,Z),
-                retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
-            );
-            10 < player(level) <=20 ->(
-                retract(fishing,_),
-                retract(ranching,_),
-                retract(harvesting,_),
-                random(11,16,X),
-                random(11,16,Y),
-                random(11,16,Z),
-                asserta(fishing,X),
-                asserta(ranching,Y),
-                asserta(harvesting,Z),
-                retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
-            );
-            20 < player(level) <=30 ->(
-                retract(fishing,_),
-                retract(ranching,_),
-                retract(harvesting,_),
-                random(16,21,X),
-                random(16,21,Y),
-                random(16,21,Z),
-                asserta(fishing,X),
-                asserta(ranching,Y),
-                asserta(harvesting,Z),
-                retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
-            );
-            30 < player(level) <=40 ->(
-                retract(fishing,_),
-                retract(ranching,_),
-                retract(harvesting,_),
-                random(21,26,X),
-                random(21,26,Y),
-                random(21,26,Z),
-                asserta(fishing,X),
-                asserta(ranching,Y),
-                asserta(harvesting,Z),
-                retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
-            );
-            40 < player(level) <=50 ->(
-                retract(fishing,_),
-                retract(ranching,_),
-                retract(harvesting,_),
-                random(26,31,X),
-                random(26,31,Y),
-                random(26,31,Z),
-                asserta(fishing,X),
-                asserta(ranching,Y),
-                asserta(harvesting,Z),
-                retract(isHaveQuest(no)), asserta(isHaveQuest(yes)),
-            ).
-
-fishingQuest :- TodoQuest(fishing,FishtoCollect),
-                FishtoCollect > 0 ->(
+fishingQuest :- todoQuest(fishing,FishtoCollect),
+                (FishtoCollect > 0 ->
                     write(FishtoCollect),
-                    write('fish'),
-                );
-                FishtoCollect < 1 ->(
-                    write('0 fish'),
+                    write(' fish'),nl;
+                FishtoCollect < 1 ->
+                    write('0 fish'),nl
                 ).
-ranchingQuest :- TodoQuest(ranching,RanchtoCollect),
-                RanchtoCollect > 0 ->(
+ranchingQuest :- todoQuest(ranching,RanchtoCollect),
+                (RanchtoCollect > 0 ->
                     write(RanchtoCollect),
-                    write('ranch item'),
-                );
-                RanchtoCollect < 1 ->(
-                    write('0 ranch item'),
+                    write(' ranch item'),nl;
+                RanchtoCollect < 1 ->
+                    write('0 ranch item'),nl
                 ).
 
-harvestingQuest :- TodoQuest(fishing,HarvesttoCollect),
-                    HarvesttoCollect > 0 ->(
+harvestingQuest :- todoQuest(fishing,HarvesttoCollect),
+                    (HarvesttoCollect > 0 ->
                         write(HarvesttoCollect),
-                        write('harvest item'),
-                    );
-                    HarvesttoCollect < 1 ->(
-                        write('0 harvest item'),
+                        write(' harvest item'),nl;
+                    HarvesttoCollect < 1 ->
+                        write('0 harvest item'),nl
                     ).
 
 quest :- isHaveQuest(Check),
-        (
-            Check = yes ->
+            (Check = yes ->
                 write('Sorry, you need to finish your quest first to get another quest'),nl,
                 harvestingQuest,
                 fishingQuest,
                 ranchingQuest,
                 exitQuest;
-            Check = no ->(
-                getQuest,
-            )
-        ).
+            Check = no ->
+                getQuest
+            ).
 
+
+
+exitQuest :- write('Go finish your task bruhh may god bless you'),nl.
