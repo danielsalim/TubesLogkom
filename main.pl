@@ -1,6 +1,7 @@
 /* main.pl */
 
 /* supporting files */
+
 :- include('src/character.pl').
 :- include('src/inventory.pl').
 :- include('src/map.pl').
@@ -15,18 +16,23 @@ startGame :-
     write(' $$ |  $$ |$$  __$$ |$$ |       \\$$$  /  $$   ____| \\____$$\\   $$ |$$\\       $$\\   $$ |  $$ |$$\\ $$  __$$ |$$ |                '), nl,
     write(' $$ |  $$ |\\$$$$$$$ |$$ |        \\$  /   \\$$$$$$$\\ $$$$$$$  |  \\$$$$  |      \\$$$$$$  |  \\$$$$  |\\$$$$$$$ |$$ |              '), nl,
     write(' \\__|  \\__| \\_______|\\__|         \\_/     \\_______|\\_______/    \\____/        \\______/    \\____/  \\_______|\\__|          '), nl,
-    nl, nl, nl,         
-    write('Let\'s play and pay our debts together').         
+    nl, nl, nl,              
     write('Let\'s play and pay our debts together!'), nl, nl,
     write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
     write('$            1. Start Your Journey           $'), nl,
     write('$                    2. Help                 $'), nl,
     write('$                    3. Quit                 $'), nl,
     write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
-    write('>'), read_integer(menu),
-    (menu = 1 -> start,
-    menu = 2 -> help,
-    menu = 3 -> quit).
+    write('>'), read_integer(Menu),
+    (Menu = 1 ->
+        start
+    ;
+    Menu = 2 -> 
+        help
+    ;
+    Menu = 3 -> 
+        quit
+    ; !).
 
 /* insert algoritma start , ini masi template */
 
@@ -107,9 +113,10 @@ start    :-     write('Welcome to Harvest Star. Choose your job'), nl, nl,
                 write('         .. .**   ,                .&&&&   .**,                   #% %%%/    '), nl,              
                 write('         ....*                      &&&.(****                     %%  %&     '), nl,                     
                 write('         ...**                      ....&&                        **  **     '), nl,                     
-                write('        ,&&&@@                      @&&&                         ***  **     '), nl,nl.
+                write('        ,&&&@@                      @&&&                         ***  **     '), nl,nl,
 
                 write('You choose Rancher!, let\'s start ranching!'), nl).
+
             
 help :-
     write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
@@ -121,4 +128,15 @@ help :-
     write('$    6. d        : move east 1 tile          $'), nl,
     write('$    7. a        : move west 1 tile          $'), nl,
     write('$    8. help     : display help              $'), nl,
-    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl.
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
+    write('continue? (yes or no)'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes ->
+            startGame
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
