@@ -36,43 +36,21 @@ newItem(Var, Used) :-
     write('You have added new item.'), nl.
 
 itemCounter(Items, Counter) :-
-    storeditem(Items, Count).
-
-delete_inventory(X, Used) :-
-
-    write('Are you sure you want to delete this item?'), nl, nl,
-    read(Users), nl,
-    (
-        Users = yes ->
-            storeditem(X, Y) -> (
-                retract(storeditem(X, Y)),
-                NewAmount is Y - 1,
-                asserta(storeditem(X, NewAmount)),
-                retract(reservedSpace(Used)),
-                NewAmount is Used -1,
-                asserta(reservedSpace(NewAmount)),
-                write('You have deleted this item'), nl
-            ); write('You do not own this item.')
-        ;
-
-        Users = no ->
-            inventory
-        ;
-    !).
+    storeditem(Items, Counter).
 
 /* akses user interface untuk inventory, untuk delete harus ketik nama item */
 
-inventory :-
+inv :-
 
-    write('*******************************************************'), nl, nl,
+    write('****************************************************'), nl, nl,
 
-    write('___ _   ___     _______ _   _ _____ ___  ______   __'), nl,
+    write('___ _   ___     _______ _   _ _____ ___  ______ '), nl,
     write('|_ _|\\ |\\ \\  / | ____|\\ | |_   _/ _\\|  _\\\\ / /'), nl,
     write('| | | \\| |\\\\ //|  _| | \\| | | || | || |_)\\ V /'), nl, 
     write('| | | |\\ |\\ V /| |___| |\\ | | || |_||  _ < | |'), nl,  
     write('|___|_|\\_| \\_/ |_____|_|\\_| |_|\\___/|_| \\_\\|_|'), nl, nl,
 
-    write('*******************************************************'), nl, nl,
+    write('*****************************************************'), nl, nl,
 
     write('---------------------------------------'), nl,
     write('|?|   What do you want to do here?  |?|'), nl,
@@ -91,10 +69,9 @@ inventory :-
         );
 
         UserChoice = 2 -> (
-            show_inventory,
             write('Type your item name: '), nl,
-            read(UserInput),
-            delete_inventory(UserInput, UsedItems)
+            read(UserInput), nl, nl,
+            delete_inventory(UserInput, UsedItems) 
             
         );
 
@@ -102,10 +79,32 @@ inventory :-
     
 show_inventory :-
 
-    write('Used Space: '), inventory(X), write(X), write('/'), write('100.'), nl, nl,
-
+    write('Used Space: '), 
+    inventory(X), write(X), write('/'), write('100.'), nl, nl,
     write('                        INVENTORY ITEMS                          '), nl, nl,
-    forall((inInventory(Items))),
-    (itemCounter(Items, Count), write(Items), write(' : '), write(Count), nl), nl.
+    forall((inInventory(Items)),(itemCounter(Items, Count), write(Items), write(' : '), write(Count), write('count'), nl)), 
+    nl.
 
+delete_inventory(X, Used) :-
 
+    write('Are you sure you want to delete this item?'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes -> (
+            storeditem(X, Y) -> (
+                retract(storeditem(X, Y)),
+                Z is Y - 1,
+                asserta(storeditem(X, Z)),
+                retract(reservedSpace(Used)),
+                NewAmount is Used - 1,
+                asserta(reservedSpace(NewAmount)),
+                write('You have deleted this item'), nl
+            ); write('You do not own this item.'), nl, nl
+        )
+        ;
+
+        Users = no ->(
+            inv
+        )
+        ;
+    !).
