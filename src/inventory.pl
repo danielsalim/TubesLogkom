@@ -27,14 +27,14 @@ drop(Item, Count) :-
     (member([Item, CountInv], Inv) ->
         (CountInv > Count ->
             NewCount is CountInv - Count,
+            retract(inventory(Inv)),
             delete(Inv, [Item, CountInv], TempInv),
             append(TempInv, [[Item, NewCount]], NewInv),
-            retract(inventory(Inv)),
-            assertz(inventory(NewInv))
+            asserta(inventory(NewInv))
         ; CountInv =:= Count ->
-            delete(Inv, [Item, CountInv], NewInv),
             retract(inventory(Inv)),
-            assertz(inventory(NewInv))
+            delete(Inv, [Item, CountInv], NewInv),
+            asserta(inventory(NewInv))
         ;
             write('You do not have that many item in your inventory')
         )
@@ -51,14 +51,14 @@ addItem(Item, Count) :-
     (Count + IC =< 100 ->
         (member([Item, CountInv], Inv) ->
             NewCount is CountInv + Count,
+            retract(inventory(Inv)),
             delete(Inv, [Item, CountInv], TempInv),
             append(TempInv, [[Item, NewCount]], NewInv),
-            retract(inventory(Inv)),
-            assertz(inventory(NewInv ))
+            asserta(inventory(NewInv ))
         ;
-            append(Inv, [[Item, Count]], NewInv),
             retract(inventory(Inv)),
-            assertz(inventory(NewInv))
+            append(Inv, [[Item, Count]], NewInv),
+            asserta(inventory(NewInv))
         )
     ;
         write('Failed to add item, inventory full')
