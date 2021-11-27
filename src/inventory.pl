@@ -1,5 +1,3 @@
-/* DEFINISI INVENTORY */
-
 :- dynamic(reservedSpace/1).
 
 inventory(X) :- 
@@ -39,3 +37,64 @@ newItem(Var, Used) :-
 
 itemCounter(Items, Counter) :-
     storeditem(Items, Count).
+
+delete_inventory(X, Used) :-
+
+    write('Are you sure you want to delete this item?'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes ->
+            storeditem(X, Y) -> (
+                retract(storeditem(X, Y)),
+                NewAmount is Y - 1,
+                asserta(storeditem(X, NewAmount)),
+                retract(reservedSpace(Used)),
+                NewAmount is Used -1,
+                asserta(reservedSpace(NewAmount)),
+                write('You have deleted this item'), nl
+            ); write('You do not own this item.').
+        ;
+
+        Users = no ->
+            inventory
+        ;
+    !).
+
+inventory :-
+
+    write('*******************************************************'), nl, nl,
+
+    write('___ _   ___     _______ _   _ _____ ___  ______   __'), nl,
+    write('|_ _|\\ |\\ \\  / | ____|\\ | |_   _/ _\\|  _\\\\ / /'), nl,
+    write('| | | \\| |\\\\ //|  _| | \\| | | || | || |_)\\ V /'), nl, 
+    write('| | | |\\ |\\ V /| |___| |\\ | | || |_||  _ < | |'), nl,  
+    write('|___|_|\\_| \\_/ |_____|_|\\_| |_|\\___/|_| \\_\\|_|'), nl, nl,
+
+    write('*******************************************************'), nl, nl,
+
+    write('---------------------------------------'), nl,
+    write('|?|   What do you want to do here?  |?|'), nl,
+    write('|-|1. See Inventory                 |-|'), nl,
+    write('|-|2. Delete Item                   |-|'), nl,
+    write('---------------------------------------'), nl,
+
+    write('I want to...'), nl, nl,
+
+    inventory(UsedItems), 
+
+    read_integer(User), nl,
+    (
+        User = 1 -> (
+            show_inventory
+        );
+
+        User = 2 -> (
+            show_inventory,
+            write('Type your item name: '), nl,
+            read(UserInput),
+            delete_inventory(UserInput, UsedItems),
+            
+        );
+
+    !).
+    
