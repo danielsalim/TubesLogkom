@@ -80,3 +80,23 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('Stamina        : '), stamina(Username, Stamina), write(Stamina), nl,
                         write('EXP            : '), exp(Username, EXP), write(EXP), nl,
                         write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl.
+
+/* Inventory Definition */
+inventory :-
+
+    write('*******************************************************'), nl, nl,
+
+    write('___ _   ___     _______ _   _ _____ ___  ______   __'), nl,
+    write('|_ _|\\ |\\ \\  / | ____|\\ | |_   _/ _\\|  _\\\\ / /'), nl,
+    write('| | | \\| |\\\\ //|  _| | \\| | | || | || |_)\\ V /'), nl, 
+    write('| | | |\\ |\\ V /| |___| |\\ | | || |_||  _ < | |'), nl,  
+    write('|___|_|\\_| \\_/ |_____|_|\\_| |_|\\___/|_| \\_\\|_|'), nl, nl,
+
+    write('*******************************************************'), nl,
+
+    write('Used Space: '), inventory(X), write(X), write('/'), write('100.'), nl, nl,
+
+    write('                        INVENTORY ITEMS                          '), nl, nl,
+    forall((inInventory(Items))),
+    (itemCounter(Items, Count), write(Items), write(' : '), write(Count), nl), nl.
+    
