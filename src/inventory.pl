@@ -100,3 +100,12 @@ inventory :-
 
     !).
     
+show_inventory :-
+
+    write('Used Space: '), inventory(X), write(X), write('/'), write('100.'), nl, nl,
+
+    write('                        INVENTORY ITEMS                          '), nl, nl,
+    forall((inInventory(Items))),
+    (itemCounter(Items, Count), write(Items), write(' : '), write(Count), nl), nl.
+
+
