@@ -318,10 +318,12 @@ show_panel_buy :-
                         newPrice is priceqfish + 500,
                         total >= newPrice ->
                             newLevel is eqlvlfish + 1,
-                            newAmount is total - newPrice,
-                            save_inventory(fishingrod(newLevel)),
-                            write('Congratulations. You will become one of the legendaries.'), nl,
-                            update_level_fishing(newLevel, newPrice)
+                            lvlfish == newLevel ->
+                                newAmount is total - newPrice,
+                                save_inventory(fishingrod(newLevel)),
+                                write('Congratulations. You will become one of the legendaries.'), nl,
+                                update_level_fishing(newLevel, newPrice)
+                            ; level_req
                             
                         ; write('Too bad you do not have what it takes to wield this equipment.'), nl
             
@@ -349,10 +351,12 @@ show_panel_buy :-
                         newPrice is priceqfarm + 500,
                         total >= newPrice ->
                             newLevel is eqlvlfarm + 1,
-                            newAmount is total - newPrice,
-                            save_inventory(shovel(newLevel)),
-                            write('Congratulations. You will become one of the legendaries.'), nl,
-                            update_level_farming(newLevel, newPrice)
+                            lvlfarm == newLevel -> 
+                                newAmount is total - newPrice,
+                                save_inventory(shovel(newLevel)),
+                                write('Congratulations. You will become one of the legendaries.'), nl,
+                                update_level_farming(newLevel, newPrice)
+                            ; level_req
                             
                         ; write('Too bad you do not have what it takes to wield this equipment.'), nl
             
@@ -380,14 +384,14 @@ show_panel_buy :-
                         newPrice is priceqranch + 500,
                         total >= newPrice ->
                             newLevel is eqlvlranch + 1,
-                            newAmount is total - newPrice,
-                            save_inventory(bucket(newLevel)),
-                            write('Congratulations. You will become one of the legendaries.'), nl,
-                            update_level_ranch(newLevel, newPrice)
+                            lvlranch == newLevel -> 
+                                newAmount is total - newPrice,
+                                save_inventory(bucket(newLevel)),
+                                write('Congratulations. You will become one of the legendaries.'), nl,
+                                update_level_ranch(newLevel, newPrice)
+                            ;level_req
                             
                         ; write('Too bad you do not have what it takes to wield this equipment.'), nl
-            
-
                     ); max_level
                 );
             )
@@ -500,7 +504,18 @@ alce_msg :-
     !).
 
 level_req :-
-    write('Level up your specialty first'), nl.
+    write('Level up your specialty first.'), nl.
+    write('Do not waste my time. Do you want to buy another item? (yes or no)'), nl, nl,
+    read(Users), nl,
+    (
+        Users = yes ->
+            marketplace
+        ;
+
+        Users = no ->
+            leave
+        ;
+    !).
 
 oldmanask :-
     write(' You only have two options.'), nl,
