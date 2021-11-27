@@ -1,19 +1,16 @@
-/* Belom bisa cek tempat pas gerak */
-
 
 :- dynamic(object/3).
 :- dynamic(dug/2).
-:- dynamic(waterTile/2).
-:- dynamic(questTile/2).
-:- dynamic(alchemistTile/2).
-:- dynamic(marketplaceTile/2).
-:- dynamic(ranchTile/2).
-:- dynamic(houseTile/2).
-:- dynamic(isGround/2).
 :- dynamic(isWall/2).
 :- dynamic(playerPosition/3).
-:- dynamic(isTempatfishing/2).
-:- dynamic(plantingtile/2).
+:- dynamic(plantingMango/2).
+:- dynamic(plantingTomato/2).
+:- dynamic(plantingCoconut/2).
+:- dynamic(plantingStrawberry/2).
+:- dynamic(harvestingMango/2).
+:- dynamic(harvestingTomato/2).
+:- dynamic(harvestingCoconut/2).
+:- dynamic(harvestingStrawberry/2).
 
 
 
@@ -47,7 +44,6 @@ isWall(X,Y) :- map_size(A,B),
 				X =:= 0;
 				Y =:= 0
 			).
-  		
 waterTile(X,Y) :- object(X,Y,'o').
 questTile(X,Y) :- object(X,Y,'Q').
 alchemistTile(X,Y) :- object(X,Y,'A').
@@ -65,8 +61,89 @@ isTempatfishing(X,Y) :- AtasY is Y - 1,
 							waterTile(X,AtasY);
 							waterTile(X,BawahY)
 						).
+isdugGround(X,Y) :- dug(X,Y).
 
-plantingtile(X,Y) :- isdigGround(X,Y).
+
+plantCoconut(X,Y) :- 
+					isdugGround(X,Y),
+					asserta(plantingCoconut(X,Y)),
+					retract(dug(X,Y)),
+					NewY is Y - 1, 
+					RightX is X + 1, 
+					LeftX is X - 1,
+					(
+						\+isWall(X,NewY),\+waterTile(X,NewY),! ->
+							w;
+						\+isWall(RightX,Y),\+waterTile(RightX,Y),! ->
+							d;
+						\+isWall(LeftX,Y),\+waterTile(LeftX,Y),! ->
+							a
+					).
+
+plantTomato(X,Y) :- 
+					isdugGround(X,Y),
+					asserta(plantingTomato(X,Y)),
+					retract(dug(X,Y)),
+					NewY is Y - 1, 
+					RightX is X + 1, 
+					LeftX is X - 1,
+					(
+						\+isWall(X,NewY),\+waterTile(X,NewY),! ->
+							w;
+						\+isWall(RightX,Y),\+waterTile(RightX,Y),! ->
+							d;
+						\+isWall(LeftX,Y),\+waterTile(LeftX,Y),! ->
+							a
+					).
+
+plantMango(X,Y) :- 
+					isdugGround(X,Y),
+					asserta(plantingMango(X,Y)),
+					retract(dug(X,Y)),
+					NewY is Y - 1, 
+					RightX is X + 1, 
+					LeftX is X - 1,
+					(
+						\+isWall(X,NewY),\+waterTile(X,NewY),! ->
+							w;
+						\+isWall(RightX,Y),\+waterTile(RightX,Y),! ->
+							d;
+						\+isWall(LeftX,Y),\+waterTile(LeftX,Y),! ->
+							a
+					).
+
+plantStrawberry(X,Y) :- 
+						isdugGround(X,Y),
+						asserta(plantingStrawberry(X,Y)),
+						retract(dug(X,Y)),
+						NewY is Y - 1, 
+						RightX is X + 1, 
+						LeftX is X - 1,
+						(
+							\+isWall(X,NewY),\+waterTile(X,NewY),! ->
+								w;
+							\+isWall(RightX,Y),\+waterTile(RightX,Y),! ->
+								d;
+							\+isWall(LeftX,Y),\+waterTile(LeftX,Y),! ->
+								a
+						).
+
+harvestTimeCoconut(X,Y) :- retract(plantingCoconut(X,Y)),
+						asserta(harvestingCoconut(X,Y)).
+
+harvestTimeTomato(X,Y) :- retract(plantingTomato(X,Y)),
+							asserta(harvestingTomato(X,Y)).
+
+harvestTimeMango(X,Y) :- retract(plantingMango(X,Y)),
+						asserta(harvestingMango(X,Y)).
+
+harvestTimeStrawberry(X,Y) :- retract(plantingStrawberry(X,Y)),
+							asserta(harvestingStrawberry(X,Y)).
+
+harvestedCoconut(X,Y) :- retract(harvestingCoconut(X,Y)).
+harvestedTomato(X,Y) :- retract(harvestingTomato(X,Y)).
+harvestedMango(X,Y) :- retract(harvestingMango(X,Y)).
+harvestedStrawberry(X,Y) :- retract(harvestingStrawberry(X,Y)).
 
 
 digGround :-	
@@ -83,11 +160,7 @@ digGround :-
 					d;
 				\+isWall(LeftX,Y),\+waterTile(LeftX,Y),! ->
 					a
-			); write('Ga bisa gali di sini bosss').
-
-isdigGround(X,Y) :- dug(X,Y).
-
-					
+			); write('Ga bisa gali di sini bosss').					
 
 % DRAW MAP BORDERS
 % batas kanan
@@ -151,8 +224,88 @@ point_map(X, Y) :- map_size(W, H),
 					X > 0,
 					Y < H + 1,
 					Y > 0,
-					isdigGround(X,Y),!,
+					isdugGround(X,Y),!,
 					write('= '),
+					NewX is X+1,
+					point_map(NewX, Y).
+					
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					plantingCoconut(X,Y),!,
+					write('c '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					plantingMango(X,Y),!,
+					write('m '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					plantingTomato(X,Y),!,
+					write('t '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					plantingStrawberry(X,Y),!,
+					write('s '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					harvestingCoconut(X,Y),!,
+					write('|c| '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					harvestingMango(X,Y),!,
+					write('|m| '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					harvestingTomato(X,Y),!,
+					write('|t| '),
+					NewX is X+1,
+					point_map(NewX, Y).
+
+point_map(X, Y) :- map_size(W, H),
+					X < W + 1,
+					X > 0,
+					Y < H + 1,
+					Y > 0,
+					harvestingStrawberry(X,Y),!,
+					write('|s| '),
 					NewX is X+1,
 					point_map(NewX, Y).
 
