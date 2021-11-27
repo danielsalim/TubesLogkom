@@ -60,6 +60,8 @@ delete_inventory(X, Used) :-
         ;
     !).
 
+/* akses user interface untuk inventory, untuk delete harus ketik nama item */
+
 inventory :-
 
     write('*******************************************************'), nl, nl,
