@@ -52,7 +52,7 @@ delete_inventory(X, Used) :-
                 NewAmount is Used -1,
                 asserta(reservedSpace(NewAmount)),
                 write('You have deleted this item'), nl
-            ); write('You do not own this item.').
+            ); write('You do not own this item.')
         ;
 
         Users = no ->
@@ -82,17 +82,17 @@ inventory :-
 
     inventory(UsedItems), 
 
-    read_integer(User), nl,
+    read_integer(UserChoice), nl,
     (
-        User = 1 -> (
+        UserChoice = 1 -> (
             show_inventory
         );
 
-        User = 2 -> (
+        UserChoice = 2 -> (
             show_inventory,
             write('Type your item name: '), nl,
             read(UserInput),
-            delete_inventory(UserInput, UsedItems),
+            delete_inventory(UserInput, UsedItems)
             
         );
 
