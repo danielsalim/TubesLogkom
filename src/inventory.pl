@@ -5,17 +5,13 @@ item('hehe').
 inventory :- inventory(Inv), 
     itemCount(Inv, Total),
     (Total > 0 ->
-    write('Your inventory ('), write(Total), write('/100):'), nl)
+    write('Your inventory ('), write(Total), write('/100):'), nl
+    ; write('You don\'t have any items.')),
     displayInventory(Inv).
-    
-displayInventory([]) :- !.
-    %write('Your inventory (0/100):'), nl,
-    %write('You don\'t have any item.').
-displayInventory([[Name, Count]|T]) :-
-    %itemCount(T, Total),
-    %write('Your inventory ('), write(Total), write('/100):'), nl,
-    write(Count), write(' '), write(Name), nl, displayInventory(T).
 
+displayInventory([]) :- !.
+displayInventory([[Name, Count]|T]) :-
+    write(Count), write(' '), write(Name), nl, displayInventory(T).
 
 /* itemCount(X, Y) berarti dalam inventory X terdapat Y item */
 itemCount([], 0).
