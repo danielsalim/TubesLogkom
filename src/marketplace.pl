@@ -504,7 +504,7 @@ alce_msg :-
     !).
 
 level_req :-
-    write('Level up your specialty first.'), nl.
+    write('Level up your specialty first.'), nl,
     write('Do not waste my time. Do you want to buy another item? (yes or no)'), nl, nl,
     read(Users), nl,
     (
