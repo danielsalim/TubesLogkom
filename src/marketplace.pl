@@ -87,255 +87,309 @@ show_panel_buy :-
     write('*13. Sheep: 1000 gold             *'), nl,
     write('*14. Cow: 1500 gold               *'), nl,
     write('*15. Horse: 2000 gold             *'), nl,
-    write('*16. Upgrade Fishing Rod          *'), nl,
-    write('*17. Upgrade Bucket               *'), nl,
-    write('*18. Upgrade Shovel               *'), nl,
+    write('*16. Upgraded Fishing Rod         *'), nl,
+    write('*17. Upgraded Bucket              *'), nl,
+    write('*18. Upgraded Shovel              *'), nl,
     write('***********************************'), nl,
 
     write('Show me what you have!'), nl,
 
     gold(_, total),
     read_integer(Item), nl,
+    level_fishing(_, lvlfish), 
+    level_farming(_, lvlfarm),
+    level_rancher(_, lvlranch),
+    eq_fish(_, eqlvlfish, priceqfish),
+    eq_farm(_, eqlvlfarm, priceqfarm),
+    eq_ranch(_, eqlvlranch, priceqranch),
+
+    
     (
         Item = 1 -> (
             (
-                total >= 50 ->
-                newAmount is total - 50,
-                update_amount(newAmount),
-                save_inventory(coconut_seeds),
-                write('You are proven worthy to wield these coconut seeds.'), nl
-                ; write('You are not worthy to wield these coconut seeds.'), nl
+                lvlfarm >= 1 ->(
+                    total >= 50 ->
+                        newAmount is total - 50,
+                        update_amount(newAmount),
+                        save_inventory(coconut_seeds),
+                        write('You are proven worthy to wield these coconut seeds.'), nl
+                    ; write('You are not worthy to wield these coconut seeds.'), nl
+                ); level_req
             )
         );
 
         Item = 2 -> (
             (
-                total >= 100 ->
-                newAmount is total - 100,
-                update_amount(newAmount),
-                save_inventory(choco_seeds),
-                write('You are proven worthy to wield these chocolate seeds.'), nl
-                ; write('You are not worthy to wield these chocolate seeds.'), nl
+                lvlfarm >= 2 -> (
+                    total >= 100 ->
+                        newAmount is total - 100,
+                        update_amount(newAmount),
+                        save_inventory(choco_seeds),
+                        write('You are proven worthy to wield these chocolate seeds.'), nl
+                    ; write('You are not worthy to wield these chocolate seeds.'), nl
+                ); level_req
             )
         );
 
         Item = 3 -> (
             (
-                total >= 250 ->
-                newAmount is total - 250,
-                update_amount(newAmount),
-                save_inventory(mango_seeds),
-                write('You are proven worthy to wield these mango seeds.'), nl
-                ; write('You are not worthy to wield these mango seeds.'), nl
+                lvlfarm >= 3 -> (
+                    total >= 250 ->
+                        newAmount is total - 250,
+                        update_amount(newAmount),
+                        save_inventory(mango_seeds),
+                        write('You are proven worthy to wield these mango seeds.'), nl
+                    ; write('You are not worthy to wield these mango seeds.'), nl
+                ); level_req
             )
         );
 
         Item = 4 -> (
             (
-                total >= 500 ->
-                newAmount is total - 500,
-                update_amount(newAmount),
-                save_inventory(blu_seeds),
-                write('You are proven worthy to wield these blueberry seeds.'), nl
-                ; write('You are not worthy to wield these blueberry seeds.'), nl
+                lvlfarm >= 4 -> (
+                    total >= 500 ->
+                        newAmount is total - 500,
+                        update_amount(newAmount),
+                        save_inventory(blu_seeds),
+                        write('You are proven worthy to wield these blueberry seeds.'), nl
+                    ; write('You are not worthy to wield these blueberry seeds.'), nl
+                ); level_req
             )
         );
 
         Item = 5 -> (
             (
-                total >= 1000 ->
-                newAmount is total - 1000,
-                update_amount(newAmount),
-                save_inventory(baobab_seeds),
-                write('You are proven worthy to wield these baobab seeds.'), nl
-                ; write('You are not worthy to wield these baobab seeds.'), nl
+                lvlfarm >= 5 -> (
+                    total >= 1000 ->
+                        newAmount is total - 1000,
+                        update_amount(newAmount),
+                        save_inventory(baobab_seeds),
+                        write('You are proven worthy to wield these baobab seeds.'), nl
+                    ; write('You are not worthy to wield these baobab seeds.'), nl
+                ); level_req
             )
         );
 
         Item = 6 -> (
             (
-                total >= 50 ->
-                newAmount is total - 50,
-                update_amount(newAmount),
-                save_inventory(corn_bait),
-                write('You are proven worthy to wield these corn bait.'), nl
-                ; write('You are not worthy to wield these corn bait.'), nl
+                lvlfish >= 1 -> (
+                    total >= 50 ->
+                        newAmount is total - 50,
+                        update_amount(newAmount),
+                        save_inventory(corn_bait),
+                        write('You are proven worthy to wield these corn bait.'), nl
+                    ; write('You are not worthy to wield these corn bait.'), nl
+                ); level_req
             )
         );
 
         Item = 7 -> (
             (
-                total >= 100 ->
-                newAmount is total - 100,
-                update_amount(newAmount),
-                save_inventory(basic_bait),
-                write('You are proven worthy to wield these basic bait.'), nl
-                ; write('You are not worthy to wield these basic bait.'), nl
+                lvlfish >= 2 ->(
+                    total >= 100 ->
+                        newAmount is total - 100,
+                        update_amount(newAmount),
+                        save_inventory(basic_bait),
+                        write('You are proven worthy to wield these basic bait.'), nl
+                    ; write('You are not worthy to wield these basic bait.'), nl
+                ); level_req
             )
         );
 
         Item = 8 -> (
             (
-                total >= 250 ->
-                newAmount is total - 250,
-                update_amount(newAmount),
-                save_inventory(anchovy_bait),
-                write('You are proven worthy to get this anchovy_bait.'), nl
-                ; write('You are not worthy to get this anchovy_bait.'), nl
+                lvlfish >= 3 -> (
+                    total >= 250 ->
+                        newAmount is total - 250,
+                        update_amount(newAmount),
+                        save_inventory(anchovy_bait),
+                        write('You are proven worthy to get this anchovy_bait.'), nl
+                    ; write('You are not worthy to get this anchovy_bait.'), nl
+                ); level_req
             )
         );
 
         Item = 9 -> (
             (
-                total >= 500 ->
-                newAmount is total - 500,
-                update_amount(newAmount),
-                save_inventory(squid_bait),
-                write('You are proven worthy to get this squid bait.'), nl
-                ; write('You are not worthy to get this squid bait.'), nl
+                lvlfish >= 4 -> (
+                    total >= 500 ->
+                    newAmount is total - 500,
+                    update_amount(newAmount),
+                    save_inventory(squid_bait),
+                    write('You are proven worthy to get this squid bait.'), nl
+                    ; write('You are not worthy to get this squid bait.'), nl
+                ); level_req
             )
         );
 
         Item = 10 -> (
             (
-                total >= 1000 ->
-                newAmount is total - 1000,
-                update_amount(newAmount),
-                save_inventory(magic_bait),
-                write('You are proven worthy to get this magic bait.'), nl
-                ; write('You are not worthy to get this magic bait.'), nl
+                lvlfish >= 5 -> (
+                    total >= 1000 ->
+                        newAmount is total - 1000,
+                        update_amount(newAmount),
+                        save_inventory(magic_bait),
+                        write('You are proven worthy to get this magic bait.'), nl
+                    ; write('You are not worthy to get this magic bait.'), nl
+                ); level_req
             )
         );
 
         Item = 11 -> (
             (
-                total >= 200 ->
-                newAmount is total - 200,
-                update_amount(newAmount),
-                save_inventory(chicken),
-                write('You are proven worthy to get the chicken.'), nl
-                ; write('You are not worthy to get the chicken.'), nl
+                lvlranch >= 1 -> (
+                    total >= 200 ->
+                        newAmount is total - 200,
+                        update_amount(newAmount),
+                        save_inventory(chicken),
+                        write('You are proven worthy to get the chicken.'), nl
+                    ; write('You are not worthy to get the chicken.'), nl
+                ); level_req
             )
         );
 
         Item = 12 -> (
             (
-                total >= 500 ->
-                newAmount is total - 500,
-                update_amount(newAmount),
-                save_inventory(goat),
-                write('You are proven worthy to get the goat.'), nl
-                ; write('You are not worthy to get the goat.'), nl
+                lvlranch >= 2 -> (
+                    total >= 500 ->
+                        newAmount is total - 500,
+                        update_amount(newAmount),
+                        save_inventory(goat),
+                        write('You are proven worthy to get the goat.'), nl
+                    ; write('You are not worthy to get the goat.'), nl
+                ); level_req
             )
         );
 
         Item = 13 -> (
             (
-                total >= 1000 ->
-                newAmount is total - 1000,
-                update_amount(newAmount),
-                save_inventory(sheep),
-                write('You are proven worthy to get the cow.'), nl
-                ; write('You are not worthy to get the cow.'), nl
+                lvlranch >= 3 -> (
+                    total >= 1000 ->
+                        newAmount is total - 1000,
+                        update_amount(newAmount),
+                        save_inventory(sheep),
+                        write('You are proven worthy to get the sheep.'), nl
+                    ; write('You are not worthy to get the sheep.'), nl
+                ); level_req
             )
         );
 
         Item = 14 -> (
             (
-                total >= 1500 ->
-                newAmount is total - 1500,
-                update_amount(newAmount),
-                save_inventory(cow),
-                write('You are proven worthy to get the cow.'), nl
-                ; write('You are not worthy to get the cow.'), nl
+                lvlranch >= 4 -> (
+                    total >= 1500 ->
+                        newAmount is total - 1500,
+                        update_amount(newAmount),
+                        save_inventory(cow),
+                        write('You are proven worthy to get the cow.'), nl
+                    ; write('You are not worthy to get the cow.'), nl
+                ); level_req
             )
         );
 
         Item = 15 -> (
             (
-                total >= 2000 ->
-                newAmount is total - 2000,
-                update_amount(newAmount),
-                save_inventory(cow),
-                write('You are proven worthy to get the cow.'), nl
-                ; write('You are not worthy to get the cow.'), nl
+                lvlranch >= 5 -> (
+                    total >= 2000 ->
+                        newAmount is total - 2000,
+                        update_amount(newAmount),
+                        save_inventory(horse),
+                        write('You are proven worthy to get the horse.'), nl
+                    ; write('You are not worthy to get the horse.'), nl
+                ); level_req
             )
         );
 
         Item = 16 -> (
+            oldmanask,
+            read_integer(User2), nl,
             (
-                fisher_level(Y),
-                Y =< 4 ->
-                    
-                    fishing_price(Y, X),
-                    newPrice is X + 200,
-                    newLevel is Y + 1,
+                User2 = 1 ->(
+                    total >= priceqfish ->
+                        newAmount is total - priceqfish,
+                        update_amount(newAmount),
+                        save_inventory(fishingrod(eq_lvl_fish)),
+                        write('Next time you should upgrade your equipment.'), nl
+                    ; write('You do not have enough gold, kids.'), nl
+                );
 
+                User2 = 2 ->(
+                    eqlvlfish =< 4 ->(
+                        newPrice is priceqfish + 500,
+                        total >= newPrice ->
+                            newLevel is eqlvlfish + 1,
+                            newAmount is total - newPrice,
+                            save_inventory(fishingrod(newLevel)),
+                            write('Congratulations. You will become one of the legendaries.'), nl,
+                            update_level_fishing(newLevel, newPrice)
+                            
+                        ; write('Too bad you do not have what it takes to wield this equipment.'), nl
+            
 
-                    
-                    total >= newPrice ->
-                    newAmount is total - newPrice,
-                    update_amount(newAmount),
-
-
-                    
-                    update_level_fishing,
-
-                    save_inventory(fishing_rod(newLevel)),
-                    write('You have leveled up your fishing rod.'), nl
-                    ; write('You are not worthy to wield this fishing rod.'), nl
-                ;max_level
+                    ); max_level
+                );
             )
         );
 
         Item = 17 -> (
+            oldmanask,
+            read_integer(User2), nl,
             (
-                farming_level(Y),
-                Y =< 4 ->
-                   
-                    shovel_price(Y, X),
-                    newPrice is X + 200,
-                    newLevel is Y + 1,
+                User2 = 1 ->(
+                    total >= priceqfarm ->
+                        newAmount is total - priceqfarm,
+                        update_amount(newAmount),
+                        save_inventory(shovel(eq_lvl_farm)),
+                        write('Next time you should upgrade your equipment.'), nl
+                    ; write('You do not have enough gold, kids.'), nl
+                );
 
+                User2 = 2 ->(
+                    eqlvlfarm =< 4 ->(
+                        newPrice is priceqfarm + 500,
+                        total >= newPrice ->
+                            newLevel is eqlvlfarm + 1,
+                            newAmount is total - newPrice,
+                            save_inventory(shovel(newLevel)),
+                            write('Congratulations. You will become one of the legendaries.'), nl,
+                            update_level_farming(newLevel, newPrice)
+                            
+                        ; write('Too bad you do not have what it takes to wield this equipment.'), nl
+            
 
-                    
-                    total >= newPrice ->
-                    newAmount is total - newPrice,
-                    update_amount(newAmount),
-
-
-                    
-                    update_level_shovel,
-
-                    save_inventory(shovel(newLevel)),
-                    write('You have leveled up your shovel.'), nl
-                    ; write('You are not worthy to wield this shovel.'), nl
-                ;max_level
+                    ); max_level
+                );
             )
         );
 
         Item = 18 -> (
+            oldmanask,
+            read_integer(User2), nl,
             (
-                
-                ranching_level(Y),
-                Y =< 4 ->
-                    newPrice is X + 200,
-                    newLevel  is Y + 1,
+                User2 = 1 ->(
+                    total >= priceqranch ->
+                        newAmount is total - priceqranch,
+                        update_amount(newAmount),
+                        save_inventory(bucket(eq_lvl_ranch)),
+                        write('Next time you should upgrade your equipment.'), nl
+                    ; write('You do not have enough gold, kids.'), nl
+                );
 
+                User2 = 2 ->(
+                    eqlvlranch =< 4 ->(
+                        newPrice is priceqranch + 500,
+                        total >= newPrice ->
+                            newLevel is eqlvlranch + 1,
+                            newAmount is total - newPrice,
+                            save_inventory(bucket(newLevel)),
+                            write('Congratulations. You will become one of the legendaries.'), nl,
+                            update_level_ranch(newLevel, newPrice)
+                            
+                        ; write('Too bad you do not have what it takes to wield this equipment.'), nl
+            
 
-                    
-                    total >= newPrice ->
-                    newAmount is total - newPrice,
-                    update_amount(newAmount),
-
-
-                    
-                    update_level_bucket,
-
-                    save_inventory(bucket(newLevel)),
-                    write('You have leveled up your bucket.'), nl
-                    ; write('You are not worthy to wield this bucket.'), nl
-                ;max_level
+                    ); max_level
+                );
             )
         );
 
@@ -371,7 +425,9 @@ alce :-
 
 /* PANEL BELI */
 
-
+/* nuggu inventory mau gimana
+show_panel_sell :-
+*/
 
 
 
@@ -386,20 +442,20 @@ alce :-
 max_level :-
     write('Your item is maxed up.').
 
-update_amount :- 
+update_amount(newAmount) :- 
     retract(gold(X,_)), asserta(gold(X, newAmount)).
 
-update_level_fishing :-
-    retract(fishing_price(_, X)), asserta(fishing_price(newLevel, X)),
-    retract(fishing_price(Y, _)), asserta(fishing_price(Y, newPrice)).
+update_level_fishing(NewLevel, NewPrice):-
+    retract(eq_fish(A, _, X)), asserta(eq_fish(A, NewLevel, X)),
+    retract(eq_fish(A, Y, _)), asserta(eq_fish(A, Y, NewPrice)).
 
-update_level_shovel :-
-    retract(shovel_price(_, X)), asserta(shovel_price(newLevel, X)),
-    retract(shovel_price(Y, _)), asserta(shovel_price(Y, newPrice)).
+update_level_shovel(NewLevel, NewPrice):-
+    retract(eq_farm(A, _, X)), asserta(eq_farm(A, NewLevel, X)),
+    retract(eq_farm(A, Y, _)), asserta(eq_farm(A, Y, NewPrice)).
 
-update_level_bucket :-
-    retract(bucket_price(_, X)), asserta(bucket_price(newLevel, X)),
-    retract(bucket_price(Y, _)), asserta(bucket_price(Y, newPrice)).
+update_level_bucket(NewLevel, NewPrice):-
+    retract(eq_ranch(A, _, X)), asserta(eq_ranch(A, NewLevel, X)),
+    retract(eq_ranch(A, Y, _)), asserta(eq_ranch(A, Y, NewPrice)).
 
 leave :-
     write('Goodbye. Come back when you are worthy enough to wield these items.'), nl.
@@ -442,3 +498,12 @@ alce_msg :-
             leave
         ;
     !).
+
+level_req :-
+    write('Level up your specialty first'), nl.
+
+oldmanask :-
+    write(' You only have two options.'), nl,
+    write(' What do you want to do? '), nl, nl,
+    write('1. Buy the item with current level unlocked'), nl,
+    write('2. Upgrade item to the next level'), nl.
