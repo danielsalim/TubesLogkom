@@ -1,3 +1,5 @@
+/* DEFINISI INVENTORY */
+
 :- dynamic(reservedSpace/1).
 
 inventory(X) :- 
@@ -9,7 +11,7 @@ inInventory(X) :-
     storeditem(X,Y),
     Y > 0.
 
-saveItem(X) :- 
+save_inventory(X) :- 
     (
         inventory(Reserved), Reserved < 100 ->
 
@@ -34,6 +36,6 @@ newItem(Var, Used) :-
     NewAmount is Used + 1,
     asserta(reservedSpace(NewAmount)), 
     write('You have added new item.'), nl.
-    
+
 itemCounter(Items, Counter) :-
     storeditem(Items, Count).
