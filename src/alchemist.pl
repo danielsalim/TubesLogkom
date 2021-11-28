@@ -1,0 +1,28 @@
+alce :-
+
+    write('                        .    '), nl,
+    write('                             '), nl,
+    write('                    .        '), nl,
+    write('            /\\     .        '), nl,
+    write('      /\\   "V"              '), nl,
+    write('     /__\\   I      O  o     '), nl,
+    write('    //..\\|  I     .         '), nl, 
+    write('    \\].`[// I               '), nl,
+    write('    /l\\|j\\ (]    .  O      '), nl,
+    write('   /. ~~ ,\\/I          .    '), nl,
+    write('   \\L__j^\\/I       o       '), nl,
+    write('    \\/--v}\\I     o   .     '), nl,
+    write('    ||    |  I   _________   '), nl,
+    write('    ||    |  I c(`       ")o '), nl,
+    write('    ||    l  I   \\.     /   '), nl,
+    write('   _||/j  L l\\_!_//^---^\\_ '), nl, nl,
+    write('                                       ALCHEMIST                                             '), nl, nl,
+    write('I am the Alchemist. The Legend that people talk about.        '), nl,
+    write('Are you worthy to wield my legendary potions?                 '), nl,
+    write('People come at me to become rich. Thy opportunity are limited.'), nl, nl,
+
+    write('             ITEM LIST             '), nl,
+    write('***********************************'), nl,
+    write('*1. Stamina Potion: 700 gold      *'), nl,
+    write('*2. Book of Wisdom: 1500 gold     *'), nl,
+    write('***********************************'), nl.
