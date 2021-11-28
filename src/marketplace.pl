@@ -54,7 +54,7 @@ marketplace :-
         );
 
         User = 3 -> (
-            leave
+            leavemarket
         );
 
         User = 4 -> (
@@ -303,34 +303,40 @@ show_panel_buy :-
 
         Item = 16 -> (
             LevelReq is LvlEqFish + 1,
-            Lvlfish  == LevelReq, LvlEqFish =< 4 -> (
+            Lvlfish  >= LevelReq, LvlEqFish =< 4 -> (
                 NewPrice is PriceFish + 300,
-                Price is Total - NewPrice,
-                update_fishing(LevelReq, NewPrice),
-                update_amount(Price),
-                write('You have succesfully upgraded your item.'), nl, nl
+                Total >= NewPrice -> (
+                    Price is Total - NewPrice,
+                    update_fishing(LevelReq, NewPrice),
+                    update_amount(Price),
+                    write('You have succesfully upgraded your item.'), nl, nl
+                ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
 
         Item = 17 -> (
             LevelReq is LvlEqFarm + 1,
-            Lvlfarm  == LevelReq, LvlEqFarm =< 4 -> (
+            Lvlfarm  >= LevelReq, LvlEqFarm =< 4 -> (
                 NewPrice is PriceFarm + 300,
-                Price is Total - NewPrice,
-                update_farm(LevelReq, NewPrice),
-                update_amount(Price),
-                write('You have succesfully upgraded your item.'), nl, nl
+                Total >= NewPrice ->(
+                    Price is Total - NewPrice,
+                    update_farm(LevelReq, NewPrice),
+                    update_amount(Price),
+                    write('You have succesfully upgraded your item.'), nl, nl
+                ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
 
         Item = 18 -> (
             LevelReq is LvlEqRanch + 1,
-            Lvlranch  == LevelReq, LvlEqRanch =< 4 -> (
+            Lvlranch  >= LevelReq, LvlEqRanch =< 4 -> (
                 NewPrice is PriceRanch + 300,
-                Price is Total - NewPrice,
-                update_ranch(LevelReq, NewPrice),
-                update_amount(Price),
-                write('You have succesfully upgraded your item.'), nl, nl
+                Total >= NewPrice ->(
+                    Price is Total - NewPrice,
+                    update_ranch(LevelReq, NewPrice),
+                    update_amount(Price),
+                    write('You have succesfully upgraded your item.'), nl, nl
+                ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
 
@@ -533,8 +539,8 @@ update_ranch(NewLevel, NewPrice):-
     retract(bucket(A, _, X)), asserta(bucket(A, NewLevel, X)),
     retract(bucket(A, Y, _)), asserta(bucket(A, Y, NewPrice)).
 
-leave :-
-    write('Goodbye. Come back when you are worthy enough to wield these items.'), nl, !.
+leavemarket :-
+    write('Goodbye. Come back when you are worthy enough to wield these items.'), nl, marketplaceTileMenu, !.
 
 help_market :-
     write('                                 GUIDE BOOK                                   '), nl,
@@ -589,11 +595,6 @@ level_req :-
         ;
     !).
 
-oldmanask :-
-    write(' You only have two options.'), nl,
-    write(' What do you want to do? '), nl, nl,
-    write('1. Buy the item with current level unlocked'), nl,
-    write('2. Upgrade item to the next level'), nl.
 
 sell_items(X, Used, Amount) :-
 
