@@ -541,4 +541,3 @@ d :- playerPosition(X,Y,'P') , NewX is X + 1,
 			retract(playerPosition(X,Y,'P')),
 			asserta(playerPosition(NewX,Y,'P')), drawmap	
 	).
-

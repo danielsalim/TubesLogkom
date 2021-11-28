@@ -15,11 +15,11 @@ plantSeed :-
         write('****************************************             '), nl, nl,
         
         write('What a sunny day! perfect time to do some Planting, right now you have:')
-        write('1.'), write(CoconutSeedCount), write('coconut seed'), nl,
-        write('2.'), write(TomatoSeedCount), write('tomato seed'), nl,
-        write('3.'), write(MangoSeedCount), write('mango seed'), nl,
-        write('4.'), write(StrawberrySeedCount), write('strawberry seed'), nl,
-        write('5.'), write(BaobabSeedCount), write('baobab seed'), nl, nl,
+        (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed.')), nl,
+        (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat.')), nl,
+        (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed.')), nl,
+        (inInventory(Strawberry_seed)),(itemCounter(Strawberry_seed, Count), write('4.'), write(Count), write('Strawberry_seed.')), nl,
+        (inInventory(Baobab_seed)),(itemCounter(Baobab_seed, Count), write('5.'), write(Count), write('Baobab_seed.')), nl, nl,
 
         write('So, what are you planning to plant..?'), nl,
         write('<< Stamina requirement = 10 >>'), nl,
@@ -27,9 +27,10 @@ plantSeed :-
         (
             User = 1 -> /* nanem coconut */
             (
-                totalStamina >= 10
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
                 (
-                    storeditem(coconut_seed,Y) ->
+                    storeditem(coconut_seed,Y), Y > 0  ->
                     (
                         delete_inventory(coconut_seed,Used),
                         playerPosition(X,Y,'P'),
@@ -48,9 +49,10 @@ plantSeed :-
 
             User = 2 -> /* nanem tomato */
             (
-                totalStamina >= 10
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
                 (
-                    storeditem(coconut_seed,Y)->
+                    storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,Used),
                         playerPosition(X,Y,'P'),
@@ -70,9 +72,10 @@ plantSeed :-
 
             User = 3 -> /* nanem mango */
             (
-                totalStamina >= 10
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
                 (
-                    storeditem(coconut_seed,Y)->
+                    storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,Used),
                         playerPosition(X,Y,'P'),
@@ -92,9 +95,10 @@ plantSeed :-
 
             User = 4 -> /* nanem strawberry */
             (
-                totalStamina >= 10
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
                 (
-                    storeditem(coconut_seed,Y)->
+                    storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,Used),
                         playerPosition(X,Y,'P'),
@@ -113,9 +117,10 @@ plantSeed :-
 
             User = 5 -> /* nanem baobab */
             (
-                totalStamina >= 10
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
                 (
-                    storeditem(coconut_seed,Y)->
+                    storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,Used),
                         playerPosition(X,Y,'P'),
@@ -179,7 +184,9 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
 
         plantTomato(X,Y), playerPosition(X,Y,'P') ->
         (
+            
             save_inventory(tomato),
+            
             write('the wait is over! you successfully harvested a tomato!'), nl,
 
         ); stillGrowing.
