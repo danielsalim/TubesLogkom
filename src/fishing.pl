@@ -1,5 +1,4 @@
 
-
 fishing :-
     write('***************************************************** '), nl,
     write('____ _ ____ _  _ _ _   _ ____    ___  ____ _  _ ___   '), nl,
@@ -31,7 +30,7 @@ fishing :-
     write('________________________________________________|||||    '), nl,
     write('                                                |||||    '), nl,
 
-    write('I am a Respected Fisherman. I know the best spot to fish here. Most people consult to me first.'), nl, nl,
+    write('I am the Revered Fisherman. I know the best spot to fish here. Most people consult to me first.'), nl, nl,
     
     write('-----------------------------------------'), nl,
     write('|?|   What do you want to do here?    |?|'), nl,
@@ -72,6 +71,95 @@ fishing :-
 
 /* here to start fishing */
 
+startfish :- 
+
+    inventory(Reserved), job(_, Jobs),
+
+    write('So you want to start fishing now? Choose your bait first!'), nl, nl,
+    show_inventory,
+    write('Input your bait name here: '), read(UserInputs), nl,
+    (
+        write('Are you sure you want to use this bait?: '), read(User), nl,
+        
+        User = yes -> (
+            UserInputs = corn -> (
+                storeditem(UserInputs, Y) -> (
+                    use_bait(UserInputs, Reserved),
+                    Jobs == fisherman ->(
+                        fish_generator(sapu, UserInputs),
+                        fish_generator(lele, UserInputs),
+                        fish_generator(cupang, UserInputs),
+                        fish_generator(tuna, UserInputs),
+                        fish_generator(salmon, UserInputs),nl, 
+                        fishing,
+
+                    !);
+                    
+                !); noitem
+            );
+
+            UserInputs = basic -> (
+                storeditem(UserInputs, Y) -> (
+                    use_bait(UserInputs, Reserved),
+                    Jobs == fisherman ->(
+                        fish_generator(sapu, UserInputs),
+                        fish_generator(lele, UserInputs),
+                        fish_generator(cupang, UserInputs),
+                        fish_generator(tuna, UserInputs),
+                        fish_generator(salmon, UserInputs),nl, 
+                        fishing,
+                    !); 
+                !);noitem
+            );
+
+            UserInputs = anchovy -> (
+                storeditem(UserInputs, Y) -> (
+                    use_bait(UserInputs, Reserved),
+                    Jobs == fisherman ->(
+                        fish_generator(sapu, UserInputs),
+                        fish_generator(lele, UserInputs),
+                        fish_generator(cupang, UserInputs),
+                        fish_generator(tuna, UserInputs),
+                        fish_generator(salmon, UserInputs),nl, 
+                        fishing,
+
+                    !); 
+                !);noitem
+            );
+
+            UserInputs = squid -> (
+                storeditem(UserInputs, Y) -> (
+                    use_bait(UserInputs, Reserved),
+                    Jobs == fisherman ->(
+                        fish_generator(sapu, UserInputs),
+                        fish_generator(lele, UserInputs),
+                        fish_generator(cupang, UserInputs),
+                        fish_generator(tuna, UserInputs),
+                        fish_generator(salmon, UserInputs),nl, 
+                        fishing,
+                    !); 
+                !); noitem
+            );
+
+            UserInputs = magic -> (
+                storeditem(UserInputs, Y) -> (
+                    use_bait(magic, Reserved), nl,
+                    Jobs == fisherman -> (
+                        fish_generator(sapu, UserInputs),
+                        fish_generator(lele, UserInputs),
+                        fish_generator(cupang, UserInputs),
+                        fish_generator(tuna, UserInputs),
+                        fish_generator(salmon, UserInputs), nl, 
+                        fishing,
+                    !);
+                !); noitem
+            );
+        !);
+
+        User = no -> (
+            fishing
+        );
+    !).
 
 
 
@@ -89,11 +177,11 @@ guide :-
 
 alce_clue :- 
 
-    write('                                       RESPECTED FISHERMAN                                             '), nl, nl,
+    write('                                       REVERED FISHERMAN                                             '), nl, nl,
     write('Yes did the Old Man tell you about this? This pond is so legendary'), nl,
     write('This was used by warlocks or alchemist from the magic era to spend their free time'), nl,
     write('There was only one Alchemist left in this realm. He would come really soon.'), nl,
-    write('Some even speculated that he was already here in disguised.'), nl,
+    write('Some even speculated that he was already here in disguise.'), nl,
     write('His name is Alce, I believe. Dealing with him comes with a heavy price, but will give you fortune.'), nl,
     write('Now, do you want to catch some good ol\' fish?'), nl,nl,
     write('continue? (yes or no)'), nl,
@@ -111,7 +199,7 @@ alce_clue :-
 
 pond_story :-
 
-    write('                                       RESPECTED FISHERMAN                                            '), nl, nl,
+    write('                                         REVERED FISHERMAN                                            '), nl, nl,
     write('You can get the best fish only in the pond in this village. The pond is blessed with expensive fishes.'), nl,
     write('Even this pond is more profitable than fishing in the sea. Probably because this pond used to be the place for the alchemists.'), nl,
     write('Back in the day, they would use magic to make this pond breed only the best fish'), nl,
@@ -132,7 +220,202 @@ pond_story :-
     !).
 
 
-leave :-
-    write('                                       RESPECTED FISHERMAN                                             '), nl, nl,
+leavefishpond :-
+    write('                                       REVERED FISHERMAN                                            '), nl, nl,
     write('Come again really soon. Fish is the best asset in these desperate times.').
 
+unlucky :-
+    write('You did not receive the highest prize.'), nl, nl,
+    startfish.
+
+noitem :-
+    write('You do not own this item. Try again.'), nl, nl, startfish.
+
+use_bait(X, Used) :-
+
+    storeditem(X, Y) -> (
+        retract(storeditem(X, Y)),
+        Z is Y - 1,
+        asserta(storeditem(X, Z)),
+        retract(reservedSpace(Used)),
+        NewAmount is Used - 1,
+        asserta(reservedSpace(NewAmount)),
+        write('You have used this bait'), nl, nl
+    ); write('You do not own this item.'), nl, nl.
+
+fish_generator(Fish, Bait) :-
+    (
+        /* SAPU - SAPU */
+
+        Fish == sapu, Bait == corn -> (
+            random(1, 100, Result),
+            Result =< 100 -> (
+                save_inventory(sapu),
+                write('You received sapu-sapu fish'), nl
+            );                   
+        !);
+
+        Fish == sapu, Bait == basic -> (
+            random(1, 100, Result),
+            Result =< 65 -> (
+            save_inventory(sapu),
+            write('You received sapu-sapu fish'), nl);
+        !);
+
+        Fish == sapu, Bait == anchovy -> (
+            random(1, 100, Result),
+            Result =< 35 -> (
+            save_inventory(sapu),
+            write('You received sapu-sapu fish'), nl);
+        !);
+
+        Fish == sapu, Bait == squid -> (
+            random(1, 100, Result),
+            Result =< 90 -> (
+            save_inventory(sapu),
+            write('You received sapu-sapu fish'), nl);
+        !);
+
+        Fish == sapu, Bait == magic -> (
+            random(1, 100, Result),
+            Result =< 80 -> (
+            save_inventory(sapu),
+            write('You received sapu-sapu fish'), nl);
+        !);
+
+        /* lele */
+
+        Fish == lele, Bait == corn -> (
+            random(1, 100, Result),
+            Result =< 50 -> (
+            save_inventory(lele),
+            write('You received lele fish'), nl);                
+        !);
+
+        Fish == lele, Bait == basic -> (
+            random(1, 100, Result),
+            Result =< 100 -> (
+            save_inventory(lele),
+            write('You received lele fish'), nl);
+        !);
+
+        Fish == lele, Bait == anchovy -> (
+            random(1, 100, Result),
+            Result =< 50 -> (
+            save_inventory(lele),
+            write('You received lele fish'), nl);
+        !);
+
+        Fish == lele, Bait == squid -> (
+            random(1, 100, Result),
+            Result =< 90 -> (
+            save_inventory(lele),
+            write('You received lele fish'), nl);
+        !);
+
+        Fish == lele, Bait == magic -> (
+            random(1, 100, Result),
+            Result =< 80 -> (
+            save_inventory(lele),
+            write('You received lele fish'), nl);
+        !);
+
+        /* cupang */
+
+        Fish == cupang, Bait == corn -> (
+            random(1, 100, Result),
+            Result =< 10 -> (
+            save_inventory(cupang),
+            write('You received cupang fish'), nl);                
+        !);
+        Fish == cupang, Bait == basic -> (
+            random(1, 100, Result),
+            Result =< 10 -> (
+            save_inventory(cupang),
+            write('You received cupang fish'), nl);                
+        !);
+        Fish == cupang, Bait == anchovy -> (
+            random(1, 100, Result),
+            Result =< 80 -> (
+            save_inventory(cupang),
+            write('You received cupang fish'), nl);                
+        !);
+
+        Fish == tuna, Bait == squid -> (
+            random(1, 100, Result),
+            Result =< 90 -> (
+            save_inventory(cupang),
+            write('You received cupang fish'), nl);                
+        !);
+
+        Fish == cupang, Bait == magic -> (
+            random(1, 100, Result),
+            Result =< 40 -> (
+            save_inventory(cupang),
+            write('You received cupang fish'), nl);
+        !);
+
+        /* TUNA */
+
+        Fish == tuna, Bait == corn -> (
+            random(1, 100, Result),
+            Result =< 1 -> (
+            save_inventory(tuna),
+            write('You received tuna fish'), nl);
+        !);
+        Fish == tuna, Bait == basic -> (
+            random(1, 100, Result),
+            Result =< 1 -> (
+            save_inventory(tuna),
+            write('You received tuna fish'), nl);
+        !);
+        Fish == tuna, Bait == anchovy -> (
+            random(1, 100, Result),
+            Result =< 5 -> (
+            save_inventory(tuna),
+            write('You received tuna fish'), nl);
+        !);
+        Fish == tuna, Bait == squid -> (
+            random(1, 100, Result),
+            Result =< 25 -> (
+            save_inventory(tuna),
+            write('You received tuna fish'), nl);
+        !);
+
+        Fish == tuna, Bait == magic -> (
+            random(1, 100, Result),
+            Result =< 80 -> (
+            save_inventory(tuna),
+            write('You received tuna fish'), nl);
+        !);
+
+        /* SALMON */
+        
+        Fish == salmon, Bait == basic -> (
+            random(1, 100, Result),
+            Result =< 1 -> (
+            save_inventory(salmon),
+            write('You received salmon fish'), nl);
+        !);
+
+        Fish == salmon, Bait == anchovy -> (
+            random(1, 100, Result),
+            Result =< 5 -> (
+            save_inventory(salmon),
+            write('You received salmon fish'), nl);
+        !);
+
+        Fish == salmon, Bait == squid -> (
+            random(1, 100, Result),
+            Result =< 10 -> (
+            save_inventory(salmon),
+            write('You received salmon fish'), nl);
+        !);
+
+        Fish == salmon, Bait == magic -> (
+            random(1, 100, Result),
+            Result =< 15 -> (
+            save_inventory(salmon),
+            write('You received salmon fish'), nl);
+        !);
+    !).
