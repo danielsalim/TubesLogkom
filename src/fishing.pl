@@ -1,4 +1,3 @@
-
 fishing :-
     write('***************************************************** '), nl,
     write('____ _ ____ _  _ _ _   _ ____    ___  ____ _  _ ___   '), nl,
@@ -136,7 +135,7 @@ startfish :-
 
 
 
-/* fungsi lain yang dibutuhkan */
+/* STORYLINE */
 
 addFishExp :-
     job(Username, Chosenjob), 
@@ -286,7 +285,8 @@ pond_story :-
 
 leavefishpond :-
     write('                                       REVERED FISHERMAN                                            '), nl, nl,
-    write('Come again really soon. Fish is the best asset during these desperate times.').
+    write('Come again really soon. Fish is the best asset during these desperate times.'), nl,
+    waterTileMenu.
 
 noitem :-
     write('You do not own this item. Try again.'), nl, nl, fishing.
