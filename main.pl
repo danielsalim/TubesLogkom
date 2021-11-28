@@ -3,8 +3,13 @@
 /* supporting files */
 
 :- include('src/character.pl').
+:- include('src/farming.pl').
+:- include('src/fishing.pl').
+:- include('src/house.pl').
 :- include('src/inventory.pl').
 :- include('src/map.pl').
+:- include('src/marketplace.pl').
+:- include('src/quest.pl').
 
 startGame :-
     nl,
@@ -16,22 +21,18 @@ startGame :-
     write(' $$ |  $$ |$$  __$$ |$$ |       \\$$$  /  $$   ____| \\____$$\\   $$ |$$\\       $$\\   $$ |  $$ |$$\\ $$  __$$ |$$ |                '), nl,
     write(' $$ |  $$ |\\$$$$$$$ |$$ |        \\$  /   \\$$$$$$$\\ $$$$$$$  |  \\$$$$  |      \\$$$$$$  |  \\$$$$  |\\$$$$$$$ |$$ |              '), nl,
     write(' \\__|  \\__| \\_______|\\__|         \\_/     \\_______|\\_______/    \\____/        \\______/    \\____/  \\_______|\\__|          '), nl,
-    nl, nl, nl,              
+    nl, nl,            
     write('Let\'s play and pay our debts together!'), nl, nl,
-    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
-    write('$            1. Start Your Journey           $'), nl,
-    write('$                    2. Help                 $'), nl,
-    write('$                    3. Quit                 $'), nl,
-    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
+    write('$    1. Start Your Journey   $'), nl,
+    write('$    2. About This Game      $'), nl,
+    write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl, nl,
     write('>'), read_integer(Menu),
     (Menu = 1 ->
         start
     ;
     Menu = 2 -> 
-        help
-    ;
-    Menu = 3 -> 
-        quit
+        about
     ; !).
 
 /* insert algoritma start , ini masi template */
@@ -140,3 +141,7 @@ help :-
             leave
         ;
     !).
+
+about :-
+    write('You were a famous designer back then, but one of your client cheated and refused to pay your work.'), nl,
+    write('')  
