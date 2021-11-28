@@ -3,7 +3,6 @@
 
 :-dynamic(isHaveQuest/1).
 :-dynamic(todoQuest/2).
-
 :-dynamic(getQuest/0).
 :-dynamic(player/1).
 
@@ -17,10 +16,7 @@ todoQuest(fishing,0).
 todoQuest(ranching,0).
 todoQuest(harvesting,0).
 
-player(9).
-
-
-getQuest :- write('Welcome, you have a quest to do'),nl,player(Level),
+getQuest :- write('Welcome, you have a quest to do'),nl,level(_, Level),
                 ((0<Level) , (Level=< 10) ->
                     retract(todoQuest(fishing,_)),
                     retract(todoQuest(ranching,_)),
@@ -118,7 +114,7 @@ harvestingQuest :- todoQuest(fishing,HarvesttoCollect),
 
 quest :- isHaveQuest(Check),
             (Check = yes ->
-                write('Sorry, you need to finish your quest first to get another quest'),nl,
+                write('Sorry, you need to finish your quest first to get another quest'),nl,nl,
                 harvestingQuest,
                 fishingQuest,
                 ranchingQuest,
@@ -126,7 +122,5 @@ quest :- isHaveQuest(Check),
             Check = no ->
                 getQuest
             ).
-
-
 
 exitQuest :- write('Go finish your task bruhh may god bless you'),nl.
