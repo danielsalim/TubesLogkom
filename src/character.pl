@@ -19,9 +19,9 @@ createFisherman(X) :- asserta(job(X, fisherman)),
                       asserta(stamina(X,100,100)),
                       asserta(exp(X, 0)),
                       asserta(gold(X, 1000)),
-                      asserta(fishingrod(X, 5, 0)),
-                      asserta(shovel(X, 5, 200)),
-                      asserta(bucket(X, 5, 200)).
+                      asserta(fishingrod(X, 1, 0)),
+                      asserta(shovel(X, 1, 200)),
+                      asserta(bucket(X, 1, 200)).
 baru :- 
     asserta(reservedSpace(10)),  
     asserta(storeditem(squid, 5)), asserta(storeditem(magic, 5)).
