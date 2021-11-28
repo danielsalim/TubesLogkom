@@ -166,15 +166,30 @@ update_MapHarvest :- mapHarvest(0,0).
 update_WaktuTanaman(X,Y) :- 
 						(
 							plantingCoconut(X,Y),
-							update_TimeCoconut(X,Y);
+							update_TimeCoconut(X,Y),
+							(
+								time_coconut(X,Y,0),retract(plantingCoconut(X,Y)),asserta(harvestingCoconut(X,Y))
+							);
 							plantingMango(X,Y),
-							update_TimeTomato(X,Y);
+							update_TimeTomato(X,Y),
+							(
+								time_mango(X,Y,0),retract(plantingMango(X,Y)),asserta(harvestingMango(X,Y))
+							);
 							plantingTomato(X,Y),
-							update_TimeTomato(X,Y);
+							update_TimeTomato(X,Y),
+							(
+								time_tomato(X,Y,0),retract(plantingTomato(X,Y)),asserta(harvestingTomato(X,Y))
+							);
 							plantingStrawberry(X,Y),
-							update_TimeStrawberry(X,Y);
+							update_TimeStrawberry(X,Y),
+							(
+								time_strawberry(X,Y,0),retract(plantingStrawberry(X,Y)),asserta(harvestingStrawberry(X,Y))
+							);
 							plantingBaobab(X,Y),
-							update_TimeBaoba(X,Y)
+							update_TimeBaoba(X,Y),
+							(
+								time_baobab(X,Y,0),retract(plantingBaobab(X,Y)),asserta(harvestingBaobab(X,Y))
+							)
 						).
 
 
