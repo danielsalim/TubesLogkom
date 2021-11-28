@@ -32,8 +32,9 @@ save_inventory(X) :-
 
 save_inventory2(X, Amount) :- 
     (
-        inventory(Reserved), Reserved < 100 ->
-
+        inventory(Reserved),
+        Total is Reserved + Amount,
+        Total =< 100 ->
         (
             storeditem(X, Y) ->(
                 retract(storeditem(X, Y)),
@@ -43,9 +44,9 @@ save_inventory2(X, Amount) :-
                 NewAmount is Reserved + Amount, 
                 asserta(reservedSpace(NewAmount))
                 
-            ); newItem(X, Reserved)
+            );
 
-        )
+        !)
         
         ; write('Your inventory is full. Throw some useless items. Or Sell? perhaps.'), nl
 
