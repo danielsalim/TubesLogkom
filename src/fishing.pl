@@ -133,6 +133,6 @@ pond_story :-
 
 
 leave :-
-    write('                                       MASTER KANG                                             '), nl, nl,
+    write('                                       RESPECTED FISHERMAN                                             '), nl, nl,
     write('Come again really soon. Fish is the best asset in these desperate times.').
 
