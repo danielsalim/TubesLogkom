@@ -401,7 +401,7 @@ point_map(X, Y) :- map_size(W, H),
 
 drawmap :- point_map(0, 0).
 
-map :-
+map :- drawmap.
 
 w :- playerPosition(X,Y,'P') , NewY is Y - 1,
 	(	
