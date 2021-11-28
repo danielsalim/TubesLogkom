@@ -90,7 +90,7 @@ show_panel_buy :-
     write('***********************************'), nl,
 
     /* untuk inisiasi variabel terlebih dahulu */
-    gold(_, Total), nl ,
+    gold(_, Total), nl , write('Your gold: '), write(Total), nl,
     level_fishing(_, Lvlfish), 
     level_farming(_, Lvlfarm),
     level_rancher(_, Lvlranch),
@@ -190,7 +190,7 @@ show_panel_buy :-
                     Total >= 100 -> (
                         NewAmount is Total - 100,
                         update_amount(NewAmount),
-                        save_inventory(basic_bait),
+                        save_inventory(basic),
                         write('You are proven worthy to wield these basic bait.'), nl
                     ); write('You are not worthy to wield these basic bait.'), nl
                 ); level_req
@@ -203,7 +203,7 @@ show_panel_buy :-
                     Total >= 250 ->(
                         NewAmount is Total - 250,
                         update_amount(NewAmount),
-                        save_inventory(anchovy_bait),
+                        save_inventory(anchovy),
                         write('You are proven worthy to get this anchovy_bait.'), nl
                     ); write('You are not worthy to get this anchovy_bait.'), nl
                 ); level_req
@@ -216,7 +216,7 @@ show_panel_buy :-
                     Total >= 500 ->(
                         NewAmount is Total - 500,
                         update_amount(NewAmount),
-                        save_inventory(squid_bait),
+                        save_inventory(squid),
                         write('You are proven worthy to get this squid bait.'), nl
                     ); write('You are not worthy to get this squid bait.'), nl
                 ); level_req
@@ -229,7 +229,7 @@ show_panel_buy :-
                     Total >= 1000 ->(
                         NewAmount is Total - 1000,
                         update_amount(NewAmount),
-                        save_inventory(magic_bait),
+                        save_inventory(magic),
                         write('You are proven worthy to get this magic bait.'), nl
                     ); write('You are not worthy to get this magic bait.'), nl
                 ); level_req
@@ -338,38 +338,6 @@ show_panel_buy :-
     !).
 
 
-/* ALCHEMIST DISINI AKSESNYA */
-
-alce :-
-
-    write('                        .    '), nl,
-    write('                             '), nl,
-    write('                    .        '), nl,
-    write('            /\\     .        '), nl,
-    write('      /\\   "V"              '), nl,
-    write('     /__\\   I      O  o     '), nl,
-    write('    //..\\|  I     .         '), nl, 
-    write('    \\].`[// I               '), nl,
-    write('    /l\\|j\\ (]    .  O      '), nl,
-    write('   /. ~~ ,\\/I          .    '), nl,
-    write('   \\L__j^\\/I       o       '), nl,
-    write('    \\/--v}\\I     o   .     '), nl,
-    write('    ||    |  I   _________   '), nl,
-    write('    ||    |  I c(`       ")o '), nl,
-    write('    ||    l  I   \\.     /   '), nl,
-    write('   _||/j  L l\\_!_//^---^\\_ '), nl, nl,
-    write('                                       ALCHEMIST                                             '), nl, nl,
-    write('I am the Alchemist. The Legend that people talk about.        '), nl,
-    write('Are you worthy to wield my legendary potions?                 '), nl,
-    write('People come at me to become rich. Thy opportunity are limited.'), nl, nl,
-
-    write('             ITEM LIST             '), nl,
-    write('***********************************'), nl,
-    write('*1. Stamina Potion: 700 gold      *'), nl,
-    write('*2. Book of Wisdom: 1500 gold     *'), nl,
-    write('***********************************'), nl.
-
-
 
 /* PANEL BELI */
 
@@ -389,90 +357,90 @@ show_panel_sell :-
     (
         (
             UserInputs = coconut -> (
-                storeditem(coconut, X), !, X >= Amounts -> (
+                storeditem(coconut, X), !,  X >= Amounts -> (
                     sell_items(coconut, Space, Amounts), nl, nl,
-                    write('You gained 10 gold per item'), nl,
-                    Totalgold is 10 * Amounts,
+                    write('You gained 70 gold per item'), nl,
+                    Totalgold is 70 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold),
                 !);
             !); 
 
             UserInputs = tomato -> (
-                storeditem(tomato, X), !, X >= Amounts -> (
+                storeditem(tomato, X), !,  X >= Amounts -> (
                     sell_items(tomato, Space, Amounts), nl, nl,
-                    write('You gained 20 gold per item'), nl,
-                    Totalgold is 20 * Amounts,
+                    write('You gained 125 gold per item'), nl,
+                    Totalgold is 125 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = mango -> (
-                storeditem(mango, X), !, X >= Amounts -> (
+                storeditem(mango, X), !,  X >= Amounts -> (
                     sell_items(mango, Space, Amounts), nl, nl,
-                    write('You gained 30 gold per item'), nl,
-                    Totalgold is 30 * Amounts,
+                    write('You gained 275 gold per item'), nl,
+                    Totalgold is 275 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = strawberry -> (
-                storeditem(strawberry, X), !, X >= Amounts -> (
+                storeditem(strawberry, X), !,  X >= Amounts -> (
                     sell_items(strawberry, Space, Amounts), nl, nl,
-                    write('You gained 40 gold per item'), nl,
-                    Totalgold is 40 * Amounts,
+                    write('You gained 590 gold per item'), nl,
+                    Totalgold is 590 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = baobab -> (
-                storeditem(baobab, X), !, X >= Amounts -> (
+                storeditem(baobab, X), !,  X >= Amounts -> (
                     sell_items(baobab, Space, Amounts), nl, nl,
-                    write('You gained 50 gold per item'), nl,
-                    Totalgold is 50 * Amounts,
+                    write('You gained 1190 gold per item'), nl,
+                    Totalgold is 1190 * Amounts,
                     NewGold is Total + totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = sapu -> (
-                storeditem(sapu, X), !, X >= Amounts -> (
+                storeditem(sapu, X), !,  X >= Amounts -> (
                     sell_items(sapu, Space, Amounts), nl, nl,
-                    write('You gained 10 gold per item'), nl,
-                    Totalgold is 10 * Amounts,
+                    write('You gained 60 gold per item'), nl,
+                    Totalgold is 60 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = lele -> (
-                storeditem(lele, X),  !, X >= Amounts -> (
+                storeditem(lele, X), !,  X >= Amounts -> (
                     sell_items(lele, Space, Amounts), nl, nl,
-                    write('You gained 20 gold per item'), nl,
-                    Totalgold is 20 * Amounts,
+                    write('You gained 140 gold per item'), nl,
+                    Totalgold is 140 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = cupang -> (
-                storeditem(cupang, X), !, X >= Amounts -> (
+                storeditem(cupang, X), !,  X >= Amounts -> (
                     sell_items(cupang, Space, Amounts), nl, nl,
-                    write('You gained 30 gold per item'), nl,
-                    Totalgold is 30 * Amounts,
+                    write('You gained 320 gold per item'), nl,
+                    Totalgold is 320 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = tuna -> (
-                storeditem(tuna, X), !, X >= Amounts -> (
+                storeditem(tuna, X), !,  X >= Amounts -> (
                     sell_items(tuna, Space, Amounts), nl, nl,
-                    write('You gained 40 gold per item'), nl,
-                    Totalgold is 40 * Amounts,
+                    write('You gained 790 gold per item'), nl,
+                    Totalgold is 790 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
@@ -480,10 +448,10 @@ show_panel_sell :-
 
             
             UserInputs = salmon -> (
-                storeditem(salmon, X), !, X >= Amounts -> (
+                storeditem(salmon, X), !,  X >= Amounts -> (
                     sell_items(salmon, Space, Amounts), nl, nl,
-                    write('You gained 50 gold per item'), nl,
-                    Totalgold is 50 * Amounts,
+                    write('You gained 1550 gold per item'), nl,
+                    Totalgold is 1550 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
@@ -492,31 +460,30 @@ show_panel_sell :-
                 /* ranching */ 
 
             UserInputs = egg -> (
-                storeditem(egg, X), !, X >= Amounts -> (
-                    sell_items(cupang, Space, Amounts), nl, nl,
-                    write('You gained 30 gold per item'), nl,
-                    Totalgold is 30 * Amounts,
+                storeditem(egg, X), !,  X >= Amounts -> (
+                    sell_items(egg, Space, Amounts), nl, nl,
+                    write('You gained 60 gold per item'), nl,
+                    Totalgold is 60 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
             !);
 
             UserInputs = milk -> (
-                storeditem(milk, X), !, X >= Amounts -> (
+                storeditem(milk, X), !,  X >= Amounts -> (
                     sell_items(milk, Space, Amounts), nl, nl,
-                    write('You gained 40 gold per item'), nl,
-                    Totalgold is 40 * Amounts,
+                    write('You gained 100 gold per item'), nl,
+                    Totalgold is 100 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold),
-                    write(NewGold), nl
-                );
+                !);
             !);
 
             UserInputs = wool -> (
-                storeditem(wool, X), !, X >= Amounts -> (
+                storeditem(wool, X), !,  X >= Amounts -> (
                     sell_items(wool, Space, Amounts), nl, nl,
-                    write('You gained 50 gold per item'), nl,
-                    Totalgold is 50 * Amounts,
+                    write('You gained 150 gold per item'), nl,
+                    Totalgold is 150 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
@@ -525,8 +492,8 @@ show_panel_sell :-
             UserInputs = steak -> (
                 storeditem(steak, X), !, X >= Amounts -> (
                     sell_items(steak, Space, Amounts), nl, nl,
-                    write('You gained 90 gold per item'), nl,
-                    Totalgold is 90 * Amounts,
+                    write('You gained 250 gold per item'), nl,
+                    Totalgold is 250 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
@@ -535,8 +502,8 @@ show_panel_sell :-
             UserInputs = horsemilk -> (
                 storeditem(horsemilk, X), !, X >= Amounts -> (
                     sell_items(horsemilk, Space, Amounts), nl, nl,
-                    write('You gained 120 gold per item'), nl,
-                    Totalgold is 120 * Amounts,
+                    write('You gained 500 gold per item'), nl,
+                    Totalgold is 500 * Amounts,
                     NewGold is Total + Totalgold,
                     update_amount(NewGold)
                 );
