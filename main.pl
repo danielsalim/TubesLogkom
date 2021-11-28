@@ -2,14 +2,14 @@
 
 /* supporting files */
 
-:- include('character.pl').
-:- include('farming.pl').
-:- include('fishing.pl').
-:- include('house.pl').
-:- include('inventory.pl').
-:- include('map.pl').
-:- include('marketplace.pl').
-:- include('quest.pl').
+:- include('src/character.pl').
+:- include('src/farming.pl').
+:- include('src/fishing.pl').
+:- include('src/house.pl').
+:- include('src/inventory.pl').
+:- include('src/map.pl').
+:- include('src/marketplace.pl').
+:- include('src/quest.pl').
 
 :- dynamic(started/1).
 

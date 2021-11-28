@@ -79,7 +79,7 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('Level          : '),
                         (level(Username, 50), write('MAX LEVEL!'), nl;
                         level(Username, Level), Level =\= 50, write(Level), nl),
-                        write('Stamina        : '), stamina(Username, Stamina), write(Stamina), nl,
+                        write('Stamina        : '), stamina(Username, Stamina, StaminaCAP), write(Stamina), write('/'), write(StaminaCAP), nl,
                         write('EXP            : '), exp(Username, EXP), write(EXP), nl,
                         write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl,
                         write('--- Farming ---'), nl,
@@ -88,7 +88,7 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('--- Fishing ---'), nl,
                         write('Level Fisherman  : '), level_fishing(Username, LvlFishing), write(LvlFishing), nl,
                         write('EXP Fisherman    : '), exp_fishing(Username, ExpFishing), write(ExpFishing), nl, nl,
-                        write('--- Raching ---'), nl,
+                        write('--- Ranching ---'), nl,
                         write('Level Rancher  : '), level_rancher(Username, LvlRancher), write(LvlRancher), nl,
                         write('EXP Rancher    : '), exp_rancher(Username, ExpRancher), write(ExpRancher), nl, nl, !.
 
@@ -192,7 +192,7 @@ addExpRanching(X, Add) :-
     NewEXP is PrevEXP + Add, 
     asserta(exp_rancher(X, NewEXP)),
     level_rancher(X, Level),
-    write(Add), write(' Fishing EXP earned!'), nl,                  
+    write(Add), write(' Ranching EXP earned!'), nl,                  
     (
         Level < 2, NewEXP >= 1024 -> (
             retract(level_rancher(X, _)),
