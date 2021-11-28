@@ -16,15 +16,38 @@ save_inventory(X) :-
         (
             storeditem(X, Y) ->(
                 retract(storeditem(X, Y)),
-                NewAmount is Y + 1,
-                asserta(storeditem(X, NewAmount)),
+                Z is Y + 1,
+                asserta(storeditem(X, Z)),
                 retract(reservedSpace(Reserved)),
                 NewAmount is Reserved + 1, 
                 asserta(reservedSpace(NewAmount))
                 
             ); newItem(X, Reserved)
 
-        ); write('Your inventory is full. Throw some useless items. Or Sell? perhaps.'), nl
+        )
+        
+        ; write('Your inventory is full. Throw some useless items. Or Sell? perhaps.'), nl
+
+    ).
+
+save_inventory2(X, Amount) :- 
+    (
+        inventory(Reserved), Reserved < 100 ->
+
+        (
+            storeditem(X, Y) ->(
+                retract(storeditem(X, Y)),
+                Z is Y + Amount,
+                asserta(storeditem(X, Z)),
+                retract(reservedSpace(Reserved)),
+                NewAmount is Reserved + Amount, 
+                asserta(reservedSpace(NewAmount))
+                
+            ); newItem(X, Reserved)
+
+        )
+        
+        ; write('Your inventory is full. Throw some useless items. Or Sell? perhaps.'), nl
 
     ).
 
@@ -82,7 +105,7 @@ show_inventory :-
     write('Used Space: '), 
     inventory(X), write(X), write('/'), write('100.'), nl, nl,
     write('                        INVENTORY ITEMS                          '), nl, nl,
-    forall((inInventory(Items)),(itemCounter(Items, Count), write(Items), write(' : '), write(Count), write('count'), nl)), 
+    forall((inInventory(Items)),(itemCounter(Items, Count), write(Items), write(' : '), write(Count), write(' count'), nl)), 
     nl.
 
 delete_inventory(X, Used) :-
