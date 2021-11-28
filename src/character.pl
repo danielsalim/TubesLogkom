@@ -19,7 +19,10 @@ createFisherman(X) :- asserta(job(X, fisherman)),
                       asserta(exp_rancher(X, 56)),
                       asserta(stamina(X,0)),
                       asserta(exp(X, 0)),
-                      asserta(gold(X, 1000)).
+                      asserta(gold(X, 1000)),
+                      asserta(fishingrod(X, 1, 200)),
+                      asserta(shovel(X, 1, 200)),
+                      asserta(bucket(X, 1, 200)).
 
 /* Definisi job fisherman */
 
@@ -34,7 +37,10 @@ createFarmer(X) :-    asserta(job(X, fisherman)),
                       asserta(exp_rancher(X, 56)),
                       asserta(stamina(X,0)),
                       asserta(exp(X, 0)),
-                      asserta(gold(X, 1000)).
+                      asserta(gold(X, 1000)),
+                      asserta(fishingrod(X, 1, 200)),
+                      asserta(shovel(X, 1, 200)),
+                      asserta(bucket(X, 1, 200)).
 
 /* Definisi job fisherman */
 
@@ -49,7 +55,10 @@ createRancher(X) :-   asserta(job(X, fisherman)),
                       asserta(exp_rancher(X, 76)),
                       asserta(stamina(X,0)),
                       asserta(exp(X, 0)),
-                      asserta(gold(X, 1000)).
+                      asserta(gold(X, 1000)),
+                      asserta(fishingrod(X, 1, 200)),
+                      asserta(shovel(X, 1, 200)),
+                      asserta(bucket(X, 1, 200)).
 
 /* Definisi Check Status */
 
