@@ -29,100 +29,108 @@ plantSeed :-
             (
                 totalStamina >= 10
                 (
-                    totalCS >= 1 -> /* CS -> coconut seed */
-                    newCS is totalCS - 1,
-                    update_CSCount(newCS),
-                    plantCoconut(X,Y), /* nulis 'c' di tile + player pindah 1 tile di atas tile yg di plant */
+                    storeditem(coconut_seed,Y) ->
+                    (
+                        delete_inventory(coconut_seed,Used),
+                        playerPosition(X,Y,'P'),
+                        plantCoconut(X,Y), /* nulis 'c' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                    newStamina is totalStamina - 10,
-                    update_Stamina(newStamina),
+                        newStamina is totalStamina - 10,
+                        update_Stamina(newStamina),
 
-                    timeToHarvestC = 1,
-                    update_TimeCoconut(timeToHarvestC),
+                        timeToHarvestC = 1,
+                        update_TimeCoconut(timeToHarvestC),
 
-                    write('Planting finished! you have just planted a coconut seed!'), nl
-                    ; write('you don\'t have enough coconut seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                        write('Planting finished! you have just planted a coconut seed!'), nl
+                    ); write('you don\'t have enough coconut seed :('), nl
+                ); noStamina. /* + insert fungsi auto ganti hari */
             );
 
             User = 2 -> /* nanem tomato */
             (
                 totalStamina >= 10
                 (
-                    totalTS >= 1 ->
-                    newTS is totalTS - 1,
-                    update_TSCount(newTS),
-                    plantTomato(X,Y), /* nulis 't' di tile + player pindah 1 tile di atas tile yg di plant */
+                    storeditem(coconut_seed,Y)->
+                    (
+                        delete_inventory(coconut_seed,Used),
+                        playerPosition(X,Y,'P'),
+                        plantTomato(X,Y), /* nulis 't' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                    newStamina is totalStamina - 10,
-                    update_Stamina(newStamina),
-                    
-                    timeToHarvestT = 2,
-                    update_TimeTomato(timeToHarvestT),
-                    
-                    write('Planting finished! you have just planted a Tomato seed!'), nl
-                    ; write('you don\'t have enough Tomato seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                        newStamina is totalStamina - 10,
+                        update_Stamina(newStamina),
+                        
+                        timeToHarvestT = 2,
+                        update_TimeTomato(timeToHarvestT),
+                        
+                        write('Planting finished! you have just planted a Tomato seed!'), nl
+
+                    ); write('you don\'t have enough Tomato seed :('), nl
+                ); noStamina. /* + insert fungsi auto ganti hari */
             );
 
             User = 3 -> /* nanem mango */
             (
                 totalStamina >= 10
                 (
-                    totalMS >= 1 ->
-                    newMS is totalMS - 1,
-                    update_MSCount(newMS),
-                    plantMango(X,Y), /* nulis 'm' di tile + player pindah 1 tile di atas tile yg di plant */
+                    storeditem(coconut_seed,Y)->
+                    (
+                        delete_inventory(coconut_seed,Used),
+                        playerPosition(X,Y,'P'),
+                        plantMango(X,Y), /* nulis 'm' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                    newStamina is totalStamina - 10,
-                    update_Stamina(newStamina),
-                    
-                    timeToHarvestM = 3,
-                    update_TimeMango(timeToHarvestM),
-                    
-                    write('Planting finished! you have just planted a mango seed!'), nl
-                    ; write('you don\'t have enough mango seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                        newStamina is totalStamina - 10,
+                        update_Stamina(newStamina),
+                        
+                        timeToHarvestM = 3,
+                        update_TimeMango(timeToHarvestM),
+                        
+                        write('Planting finished! you have just planted a mango seed!'), nl
+
+                    ); write('you don\'t have enough mango seed :('), nl
+                ); noStamina. /* + insert fungsi auto ganti hari */
             );
 
             User = 4 -> /* nanem strawberry */
             (
                 totalStamina >= 10
                 (
-                    totalSS >= 1 ->
-                    newSS is totalSS - 1,
-                    update_SSCount(newSS),
-                    plantStrawberry(X,Y), /* nulis 's' di tile + player pindah 1 tile di atas tile yg di plant */
+                    storeditem(coconut_seed,Y)->
+                    (
+                        delete_inventory(coconut_seed,Used),
+                        playerPosition(X,Y,'P'),
+                        plantStrawberry(X,Y), /* nulis 's' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                    newStamina is totalStamina - 10,
-                    update_Stamina(newStamina),
-                    
-                    timeToHarvestS = 3,
-                    update_TimeStrawberry(timeToHarvestS),
-                    
-                    write('Planting finished! you have just planted a coconut seed!'), nl
-                    ; write('you don\'t have enough coconut seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                        newStamina is totalStamina - 10,
+                        update_Stamina(newStamina),
+                        
+                        timeToHarvestS = 3,
+                        update_TimeStrawberry(timeToHarvestS),
+                        
+                        write('Planting finished! you have just planted a coconut seed!'), nl
+                    ); write('you don\'t have enough coconut seed :('), nl
+                ); noStamina. /* + insert fungsi auto ganti hari */
             );
 
             User = 5 -> /* nanem baobab */
             (
                 totalStamina >= 10
                 (
-                    totalBS >= 1 ->
-                    newBS is totalBS - 1,
-                    update_BSCount(newBS),
-                    plantBaobab(X,Y), /* nulis 'b' di tile */
+                    storeditem(coconut_seed,Y)->
+                    (
+                        delete_inventory(coconut_seed,Used),
+                        playerPosition(X,Y,'P'),
+                        plantBaobab(X,Y), /* nulis 'b' di tile */
 
-                    newStamina is totalStamina - 10,
-                    update_Stamina(newStamina),
-                    
-                    timeToHarvestB = 4, 
-                    update_TimeBaobab(timeToHarvestB),
-                    
-                    write('Planting finished! you have just planted a coconut seed!'), nl
-                    ; write('you don\'t have enough coconut seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                        newStamina is totalStamina - 10,
+                        update_Stamina(newStamina),
+                        
+                        timeToHarvestB = 4, 
+                        update_TimeBaobab(timeToHarvestB),
+                        
+                        write('Planting finished! you have just planted a coconut seed!'), nl
+
+                    ); write('you don\'t have enough coconut seed :('), nl
+                ); noStamina. /* + insert fungsi auto ganti hari */
             );
         !).
     ); notDug.
@@ -137,21 +145,6 @@ noStamina :-
 update_Stamina :-
     retract(stamina(User,_)), asserta(stamina(User,newStamina)).
 
-/* update jumlah seed */
-update_CoconutSeedCount :- 
-    retract(coconut_seeds(User,_)), asserta(coconut_seeds(User,newCS)).
-
-update_TomatoSeedCount :-
-    retract(tomato_seeds(User,_)), asserta(tomato_seeds(User,newTS)).
-
-update_MangoSeedCount :-
-    retract(mango_seeds(User,_)), asserta(mango_seeds(User,newMS)).
-
-update_StrawberrySeedCount :-
-    retract(strawberry_seeds(User,_)), asserta(strawberry_seeds(User,newSS)).
-
-update_BaobabSeedCount :-
-    retract(baobab_seeds(User,_)), asserta(baobab_seeds(User,newBS)).
 
 /* update waktu panen */
 update_TimeCoconut :-
@@ -174,70 +167,48 @@ update_TimeBaobab :-
 /* Definisi fungsi panen taneman */
 harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin di harvest dengan indikator salah satu inisial tenaman (ex. 'c', 'm', dst) */
     (
-        plantCoconut(X,Y) ->
+        plantCoconut(X,Y), playerPosition(X,Y,'P') ->
         (
             time_coconut(X,Y,0) ->
             (
-                coconut(_,totalCoconut),
-                newAmount is totalCoconut + 1,
-                update_CoconutCount(newAmount),
+                save_inventory(coconut),
                 write('the wait is over! you successfully harvested a coconut!'), nl,
                 
-            ); stillGrowing
+            ); stillGrowing.
         );
 
-        plantTomato(X,Y) ->
+        plantTomato(X,Y), playerPosition(X,Y,'P') ->
         (
-            tomato(_,totalTomato),
-            newAmount is totalTomato + 1,
-            update_TomatoCount(newAmount),
+            save_inventory(tomato),
             write('the wait is over! you successfully harvested a tomato!'), nl,
 
-        ); stillGrowing
+        ); stillGrowing.
 
-        plantMango(X,Y) ->
+        plantMango(X,Y), playerPosition(X,Y,'P') ->
         (
-            mango(_,totalMango),
-            newAmount is totalMango + 1,
-            update_MangoCount(newAmount),
+            save_inventory(mango),
             write('the wait is over! you successfully harvested a mango!'), nl,
 
-        ); stillGrowing
+        ); stillGrowing.
 
-        plantStrawberry(X,Y) ->
+        plantStrawberry(X,Y), playerPosition(X,Y,'P') ->
         (
-            strawberry(_,totalStrawberry),
-            newAmount is totalStrawberry + 1,
-            update_StrawberryCount(newAmount),
+            save_inventory(strawberry),
+            expAdd
             write('the wait is over! you successfully harvested a strawberry!'), nl,
 
-        ); stillGrowing
+        ); stillGrowing.
 
-        plantBaobab(X,Y) ->
+        plantBaobab(X,Y), playerPosition(X,Y,'P') ->
         (
-            baobab(_,totalBaobab),
-            newAmount is totalBaobab + 1,
-            update_BaobabCount(newAmount),
+            save_inventory(baobab),
             write('the wait is over! you successfully harvested a baobab!'), nl,
     
-        ); stillGrowing
-    !).
+        ); stillGrowing.
+    ); noPlant.
 
 stillGrowing :-
     write('Your plant is not ready to harvest yet, comeback here after a few days ^_^'), nl.
 
-/* update jumlah taneman */
-update_CoconutCount :-
-    retract(coconut(User,_)), asserta(coconut(User,newAmount)).
-
-update_TomatoCount :-
-    retract(tomato(User,_)), asserta(tomato(User,newAmount)).
-
-update_MangoCount :-
-    retract(mango(User,_)), asserta(mango(User,newAmount)).
-
-update_StrawberryCount :-
-    retract(strawberry(User,_)), asserta(strawberry(User,newAmount)).
-
-update_BaobabCount :-
-    retract(baobab(User,_)), asserta(baobab(User,newAmount)).
+noPlant :-
+    write('There is no plant to harvest.')
