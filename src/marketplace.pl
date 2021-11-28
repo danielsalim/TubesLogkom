@@ -1,7 +1,3 @@
-/* INISIALISASI NANTI DISINI */
-
-:- include('inventory.pl').
-
 marketplace :- 
  
     write('************************************************************************************************************'), nl, nl,
@@ -93,24 +89,28 @@ show_panel_buy :-
     write('*18. Upgraded Shovel              *'), nl,
     write('***********************************'), nl,
 
+    /* untuk inisiasi variabel terlebih dahulu */
+    gold(_, Total), nl ,
+    level_fishing(_, Lvlfish), 
+    level_farming(_, Lvlfarm),
+    level_rancher(_, Lvlranch),
+
+    /* item specialty */ 
+    fishingrod(_, LvlEqFish, PriceFish), 
+    shovel(_, LvlEqFarm, PriceFarm), 
+    bucket(_, LvlEqRanch, PriceRanch),
+
     write('Show me what you have!'), nl,
 
-    gold(_, total),
-    read_integer(Item), nl,
-    level_fishing(_, lvlfish), 
-    level_farming(_, lvlfarm),
-    level_rancher(_, lvlranch),
-    fishingrod(_, eqlvlfish, priceqfish),
-    shovel(_, eqlvlfarm, priceqfarm),
-    bucket(_, eqlvlranch, priceqranch),
 
-    
+    read_integer(Item), nl,
+
     (
         Item = 1 -> (
             (
-                lvlfarm >= 1 ->(
-                    total >= 50 ->(
-                        NewAmount is total - 50,
+                Lvlfarm >= 1 -> (
+                    Total >= 50 -> (
+                        NewAmount is Total - 50,
                         update_amount(NewAmount),
                         save_inventory(coconut),
                         write('You are proven worthy to wield these coconut seeds.'), nl
@@ -121,9 +121,9 @@ show_panel_buy :-
 
         Item = 2 -> (
             (
-                lvlfarm >= 2 -> (
-                    total >= 100 ->(
-                        NewAmount is total - 100,
+                Lvlfarm >= 2 -> (
+                    Total >= 100 ->(
+                        NewAmount is Total - 100,
                         update_amount(NewAmount),
                         save_inventory(tomato),
                         write('You are proven worthy to wield these chocolate seeds.'), nl
@@ -134,9 +134,9 @@ show_panel_buy :-
 
         Item = 3 -> (
             (
-                lvlfarm >= 3 -> (
-                    total >= 250 ->(
-                        NewAmount is total - 250,
+                Lvlfarm >= 3 -> (
+                    Total >= 250 ->(
+                        NewAmount is Total - 250,
                         update_amount(NewAmount),
                         save_inventory(mango),
                         write('You are proven worthy to wield these mango seeds.'), nl
@@ -147,9 +147,9 @@ show_panel_buy :-
 
         Item = 4 -> (
             (
-                lvlfarm >= 4 -> (
-                    total >= 500 ->(
-                        NewAmount is total - 500,
+                Lvlfarm >= 4 -> (
+                    Total >= 500 ->(
+                        NewAmount is Total - 500,
                         update_amount(NewAmount),
                         save_inventory(strawberry),
                         write('You are proven worthy to wield these blueberry seeds.'), nl
@@ -160,9 +160,9 @@ show_panel_buy :-
 
         Item = 5 -> (
             (
-                lvlfarm >= 5 -> (
-                    total >= 1000 ->(
-                        NewAmount is total - 1000,
+                Lvlfarm >= 5 -> (
+                    Total >= 1000 ->(
+                        NewAmount is Total - 1000,
                         update_amount(NewAmount),
                         save_inventory(baobab),
                         write('You are proven worthy to wield these baobab seeds.'), nl
@@ -173,9 +173,9 @@ show_panel_buy :-
 
         Item = 6 -> (
             (
-                lvlfish >= 1 -> (
-                    total >= 50 ->(
-                        NewAmount is total - 50,
+                Lvlfish >= 1 -> (
+                    Total >= 50 ->(
+                        NewAmount is Total - 50,
                         update_amount(NewAmount),
                         save_inventory(corn),
                         write('You are proven worthy to wield these corn bait.'), nl
@@ -186,9 +186,9 @@ show_panel_buy :-
 
         Item = 7 -> (
             (
-                lvlfish >= 2 ->(
-                    total >= 100 -> (
-                        NewAmount is total - 100,
+                Lvlfish >= 2 ->(
+                    Total >= 100 -> (
+                        NewAmount is Total - 100,
                         update_amount(NewAmount),
                         save_inventory(basic_bait),
                         write('You are proven worthy to wield these basic bait.'), nl
@@ -199,9 +199,9 @@ show_panel_buy :-
 
         Item = 8 -> (
             (
-                lvlfish >= 3 -> (
-                    total >= 250 ->(
-                        NewAmount is total - 250,
+                Lvlfish >= 3 -> (
+                    Total >= 250 ->(
+                        NewAmount is Total - 250,
                         update_amount(NewAmount),
                         save_inventory(anchovy_bait),
                         write('You are proven worthy to get this anchovy_bait.'), nl
@@ -212,9 +212,9 @@ show_panel_buy :-
 
         Item = 9 -> (
             (
-                lvlfish >= 4 -> (
-                    total >= 500 ->(
-                        NewAmount is total - 500,
+                Lvlfish >= 4 -> (
+                    Total >= 500 ->(
+                        NewAmount is Total - 500,
                         update_amount(NewAmount),
                         save_inventory(squid_bait),
                         write('You are proven worthy to get this squid bait.'), nl
@@ -225,9 +225,9 @@ show_panel_buy :-
 
         Item = 10 -> (
             (
-                lvlfish >= 5 -> (
-                    total >= 1000 ->(
-                        NewAmount is total - 1000,
+                Lvlfish >= 5 -> (
+                    Total >= 1000 ->(
+                        NewAmount is Total - 1000,
                         update_amount(NewAmount),
                         save_inventory(magic_bait),
                         write('You are proven worthy to get this magic bait.'), nl
@@ -238,9 +238,9 @@ show_panel_buy :-
 
         Item = 11 -> (
             (
-                lvlranch >= 1 -> (
-                    total >= 200 ->
-                        NewAmount is total - 200,
+                Lvlranch >= 1 -> (
+                    Total >= 200 ->
+                        NewAmount is Total - 200,
                         update_amount(NewAmount),
                         save_inventory(chicken),
                         write('You are proven worthy to get the chicken.'), nl
@@ -251,8 +251,8 @@ show_panel_buy :-
 
         Item = 12 -> (
             (
-                lvlranch >= 2 -> (
-                    total >= 500 ->
+                Lvlranch >= 2 -> (
+                    Total >= 500 ->
                         NewAmount is total - 500,
                         update_amount(NewAmount),
                         save_inventory(goat),
@@ -264,8 +264,8 @@ show_panel_buy :-
 
         Item = 13 -> (
             (
-                lvlranch >= 3 -> (
-                    total >= 1000 ->(
+                Lvlranch >= 3 -> (
+                    Total >= 1000 ->(
                         NewAmount is total - 1000,
                         update_amount(NewAmount),
                         save_inventory(sheep),
@@ -277,8 +277,8 @@ show_panel_buy :-
 
         Item = 14 -> (
             (
-                lvlranch >= 4 -> (
-                    total >= 1500 ->(
+                Lvlranch >= 4 -> (
+                    Total >= 1500 ->(
                         NewAmount is total - 1500,
                         update_amount(NewAmount),
                         save_inventory(cow),
@@ -290,9 +290,9 @@ show_panel_buy :-
 
         Item = 15 -> (
             (
-                lvlranch >= 5 -> (
-                    total >= 2000 ->(
-                        NewAmount is total - 2000,
+                Lvlranch >= 5 -> (
+                    Total >= 2000 ->(
+                        NewAmount is Total - 2000,
                         update_amount(NewAmount),
                         save_inventory(horse),
                         write('You are proven worthy to get the horse.'), nl
@@ -302,102 +302,38 @@ show_panel_buy :-
         );
 
         Item = 16 -> (
-            oldmanask,
-            read_integer(User2), nl,
-            (
-                User2 = 1 ->(
-                    total >= priceqfish ->(
-                        NewAmount is total - priceqfish,
-                        update_amount(NewAmount),
-                        save_inventory(fishingrod(eq_lvl_fish)),
-                        write('Next time you should upgrade your equipment.'), nl
-                    ); write('You do not have enough gold, kids.'), nl
-                );
-
-                User2 = 2 ->(
-                    eqlvlfish =< 4 -> (
-                        NewPrice is priceqfish + 500,
-                        total >= newPrice -> (
-                            newLevel is eqlvlfish + 1,
-                            lvlfish = newLevel -> (
-                                NewAmount is total - NewPrice,
-                                save_inventory(fishingrod(newLevel)),
-                                write('Congratulations. You will become one of the legendaries.'), nl,
-                                update_level_fishing(NewLevel, NewPrice)
-                            ); level_req
-                            
-                        ); write('Too bad you do not have what it takes to wield this equipment.'), nl
-            
-
-                    ); max_level
-                );
-            !)
+            LevelReq is LvlEqFish + 1,
+            Lvlfish  == LevelReq, LvlEqFish =< 4 -> (
+                NewPrice is PriceFish + 300,
+                Price is Total - NewPrice,
+                update_fishing(LevelReq, NewPrice),
+                update_amount(Price),
+                write('You have succesfully upgraded your item.'), nl, nl
+            ); insufficient
         );
 
         Item = 17 -> (
-            oldmanask,
-            read_integer(User2), nl,
-            (
-                User2 = 1 ->(
-                    total >= priceqfarm ->(
-                        NewAmount is total - priceqfarm,
-                        update_amount(NewAmount),
-                        save_inventory(shovel(eq_lvl_farm)),
-                        write('Next time you should upgrade your equipment.'), nl
-                    ); write('You do not have enough gold, kids.'), nl
-                );
-
-                User2 = 2 ->(
-                    eqlvlfarm =< 4 -> (
-                        NewPrice is priceqfarm + 500,
-                        total >= newPrice ->(
-                            NewLevel is eqlvlfarm + 1,
-                            lvlfarm = NewLevel ->( 
-                                NewAmount is total - NewPrice,
-                                update_amount(NewAmount),
-                                save_inventory(shovel(NewLevel)),
-                                write('Congratulations. You will become one of the legendaries.'), nl,
-                                update_level_farming(NewLevel, NewPrice)
-                            ); level_req
-                            
-                        ); write('Too bad you do not have what it takes to wield this equipment.'), nl
-            
-
-                    ); max_level
-                );
-            !)
+            LevelReq is LvlEqFarm + 1,
+            Lvlfarm  == LevelReq, LvlEqFarm =< 4 -> (
+                NewPrice is PriceFarm + 300,
+                Price is Total - NewPrice,
+                update_farm(LevelReq, NewPrice),
+                update_amount(Price),
+                write('You have succesfully upgraded your item.'), nl, nl
+            ); insufficient
         );
 
         Item = 18 -> (
-            oldmanask,
-            read_integer(User2), nl,
-            (
-                User2 = 1 ->(
-                    total >= priceqranch ->(
-                        newAmount is total - priceqranch,
-                        update_amount(newAmount),
-                        save_inventory(bucket(eq_lvl_ranch)),
-                        write('Next time you should upgrade your equipment.'), nl
-                    ); write('You do not have enough gold, kids.'), nl
-                );
-
-                User2 = 2 ->(
-                    eqlvlranch =< 4 ->(
-                        newPrice is priceqranch + 500,
-                        total >= newPrice ->(
-                            newLevel is eqlvlranch + 1,
-                            lvlranch = NewLevel ->( 
-                                newAmount is total - NewPrice,
-                                save_inventory(bucket(NewLevel)),
-                                write('Congratulations. You will become one of the legendaries.'), nl,
-                                update_level_ranch(NewLevel, NewPrice)
-                            );level_req
-                            
-                        ); write('Too bad you do not have what it takes to wield this equipment.'), nl
-                    ); max_level
-                );
-            !)
+            LevelReq is LvlEqRanch + 1,
+            Lvlranch  == LevelReq, LvlEqRanch =< 4 -> (
+                NewPrice is PriceRanch + 300,
+                Price is Total - NewPrice,
+                update_ranch(LevelReq, NewPrice),
+                update_amount(Price),
+                write('You have succesfully upgraded your item.'), nl, nl
+            ); insufficient
         );
+
 
     !).
 
@@ -425,7 +361,13 @@ alce :-
     write('                                       ALCHEMIST                                             '), nl, nl,
     write('I am the Alchemist. The Legend that people talk about.        '), nl,
     write('Are you worthy to wield my legendary potions?                 '), nl,
-    write('People come at me to become rich. Thy opportunity are limited.'), nl, nl.
+    write('People come at me to become rich. Thy opportunity are limited.'), nl, nl,
+
+    write('             ITEM LIST             '), nl,
+    write('***********************************'), nl,
+    write('*1. Stamina Potion: 700 gold      *'), nl,
+    write('*2. Book of Wisdom: 1500 gold     *'), nl,
+    write('***********************************'), nl.
 
 
 
@@ -435,7 +377,7 @@ alce :-
 
 show_panel_sell :-
 
-    gold(_, total),
+    gold(_, Total),
 
     inventory(Space),
     show_inventory,
@@ -445,184 +387,187 @@ show_panel_sell :-
     write('Enter Amount: '), nl,
     read_integer(Amounts), nl,
     (
-        UserInputs = coconut -> (
-            storeditem(coconut, X),  X >= Amounts -> (
-                sell_items(coconut, Space, Amounts), nl, nl,
-                write('You gained 10 gold per item'), nl,
-                totalgold is 10 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold),
-            );
-        );
+        (
+            UserInputs = coconut -> (
+                storeditem(coconut, X), !, X >= Amounts -> (
+                    sell_items(coconut, Space, Amounts), nl, nl,
+                    write('You gained 10 gold per item'), nl,
+                    Totalgold is 10 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold),
+                !);
+            !); 
 
-        UserInputs = tomato -> (
-            storeditem(tomato, X), X >= Amounts-> (
-                sell_items(tomato, Space, Amounts), nl, nl,
-                write('You gained 20 gold per item'), nl,
-                totalgold is 20 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = tomato -> (
+                storeditem(tomato, X), !, X >= Amounts -> (
+                    sell_items(tomato, Space, Amounts), nl, nl,
+                    write('You gained 20 gold per item'), nl,
+                    Totalgold is 20 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = mango -> (
-            storeditem(mango, X), X >= Amounts -> (
-                sell_items(mango, Space, Amounts), nl, nl,
-                write('You gained 30 gold per item'), nl,
-                totalgold is 30 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = mango -> (
+                storeditem(mango, X), !, X >= Amounts -> (
+                    sell_items(mango, Space, Amounts), nl, nl,
+                    write('You gained 30 gold per item'), nl,
+                    Totalgold is 30 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = strawberry -> (
-            storeditem(strawberry, X), X >= Amounts -> (
-                sell_items(strawberry, Space, Amounts), nl, nl,
-                write('You gained 40 gold per item'), nl,
-                totalgold is 40 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = strawberry -> (
+                storeditem(strawberry, X), !, X >= Amounts -> (
+                    sell_items(strawberry, Space, Amounts), nl, nl,
+                    write('You gained 40 gold per item'), nl,
+                    Totalgold is 40 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = baobab -> (
-            storeditem(baobab, X), X >= Amounts -> (
-                sell_items(baobab, Space, Amounts), nl, nl,
-                write('You gained 50 gold per item'), nl,
-                totalgold is 50 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = baobab -> (
+                storeditem(baobab, X), !, X >= Amounts -> (
+                    sell_items(baobab, Space, Amounts), nl, nl,
+                    write('You gained 50 gold per item'), nl,
+                    Totalgold is 50 * Amounts,
+                    NewGold is Total + totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = sapu -> (
-            storeditem(sapu, X), X >= Amounts -> (
-                sell_items(sapu, Space, Amounts), nl, nl,
-                write('You gained 10 gold per item'), nl,
-                totalgold is 10 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        ;
+            UserInputs = sapu -> (
+                storeditem(sapu, X), !, X >= Amounts -> (
+                    sell_items(sapu, Space, Amounts), nl, nl,
+                    write('You gained 10 gold per item'), nl,
+                    Totalgold is 10 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = lele -> (
-            storeditem(lele, X), X >= Amounts -> (
-                sell_items(lele, Space, Amounts), nl, nl,
-                write('You gained 20 gold per item'), nl,
-                totalgold is 20 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = lele -> (
+                storeditem(lele, X),  !, X >= Amounts -> (
+                    sell_items(lele, Space, Amounts), nl, nl,
+                    write('You gained 20 gold per item'), nl,
+                    Totalgold is 20 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = cupang -> (
-            storeditem(cupang, X), X >= Amounts -> (
-                sell_items(cupang, Space, Amounts), nl, nl,
-                write('You gained 30 gold per item'), nl,
-                totalgold is 30 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = cupang -> (
+                storeditem(cupang, X), !, X >= Amounts -> (
+                    sell_items(cupang, Space, Amounts), nl, nl,
+                    write('You gained 30 gold per item'), nl,
+                    Totalgold is 30 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = tuna -> (
-            storeditem(tuna, X), X >= Amounts -> (
-                sell_items(tuna, Space, Amounts), nl, nl,
-                write('You gained 40 gold per item'), nl,
-                totalgold is 40 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = tuna -> (
+                storeditem(tuna, X), !, X >= Amounts -> (
+                    sell_items(tuna, Space, Amounts), nl, nl,
+                    write('You gained 40 gold per item'), nl,
+                    Totalgold is 40 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        
-        UserInputs = salmon -> (
-            storeditem(salmon, X), X >= Amounts -> (
-                sell_items(salmon, Space, Amounts), nl, nl,
-                write('You gained 50 gold per item'), nl,
-                totalgold is 50 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            
+            UserInputs = salmon -> (
+                storeditem(salmon, X), !, X >= Amounts -> (
+                    sell_items(salmon, Space, Amounts), nl, nl,
+                    write('You gained 50 gold per item'), nl,
+                    Totalgold is 50 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-            /* ranching */ 
+                /* ranching */ 
 
-        UserInputs = egg -> (
-            storeditem(egg, X), X >= Amounts -> (
-                sell_items(cupang, Space, Amounts), nl, nl,
-                write('You gained 30 gold per item'), nl,
-                totalgold is 30 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = egg -> (
+                storeditem(egg, X), !, X >= Amounts -> (
+                    sell_items(cupang, Space, Amounts), nl, nl,
+                    write('You gained 30 gold per item'), nl,
+                    Totalgold is 30 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = milk -> (
-            storeditem(milk, X), X >= Amounts -> (
-                sell_items(milk, Space, Amounts), nl, nl,
-                write('You gained 40 gold per item'), nl,
-                totalgold is 40 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = milk -> (
+                storeditem(milk, X), !, X >= Amounts -> (
+                    sell_items(milk, Space, Amounts), nl, nl,
+                    write('You gained 40 gold per item'), nl,
+                    Totalgold is 40 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold),
+                    write(NewGold), nl
+                );
+            !);
 
-        UserInputs = wool -> (
-            storeditem(wool, X), X >= Amounts -> (
-                sell_items(wool, Space, Amounts), nl, nl,
-                write('You gained 50 gold per item'), nl,
-                totalgold is 50 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = wool -> (
+                storeditem(wool, X), !, X >= Amounts -> (
+                    sell_items(wool, Space, Amounts), nl, nl,
+                    write('You gained 50 gold per item'), nl,
+                    Totalgold is 50 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = steak -> (
-            storeditem(steak, X), X >= Amounts -> (
-                sell_items(steak, Space, Amounts), nl, nl,
-                write('You gained 90 gold per item'), nl,
-                totalgold is 90 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
-        );
+            UserInputs = steak -> (
+                storeditem(steak, X), !, X >= Amounts -> (
+                    sell_items(steak, Space, Amounts), nl, nl,
+                    write('You gained 90 gold per item'), nl,
+                    Totalgold is 90 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
+            !);
 
-        UserInputs = horsemilk -> (
-            storeditem(horsemilk, X), X >= Amounts -> (
-                sell_items(horsemilk, Space, Amounts), nl, nl,
-                write('You gained 120 gold per item'), nl,
-                totalgold is 120 * Amounts,
-                NewGold is total + totalgold,
-                update_amount(NewGold)
-            );
+            UserInputs = horsemilk -> (
+                storeditem(horsemilk, X), !, X >= Amounts -> (
+                    sell_items(horsemilk, Space, Amounts), nl, nl,
+                    write('You gained 120 gold per item'), nl,
+                    Totalgold is 120 * Amounts,
+                    NewGold is Total + Totalgold,
+                    update_amount(NewGold)
+                );
 
-        );
-    !).
+            !); write('We do not accept that item, psh! Try again, little kid.'), nl, nl, marketplace,
+        !)
+    ).
 
 
 /* INFORMASI LAINNYA */
 
 max_level :-
-    write('Your item is maxed up.').
+    write('Your item is maxed up.'), nl.
 
 update_amount(NewAmount) :- 
     retract(gold(X,_)), asserta(gold(X, NewAmount)).
 
-update_level_fishing(NewLevel, NewPrice):-
-    retract(eq_fish(A, _, X)), asserta(eq_fish(A, NewLevel, X)),
-    retract(eq_fish(A, Y, _)), asserta(eq_fish(A, Y, NewPrice)).
+update_fishing(NewLevel, NewPrice):-
+    retract(fishingrod(A, _, X)), asserta(fishingrod(A, NewLevel, X)),
+    retract(fishingrod(A, Y, _)), asserta(fishingrod(A, Y, NewPrice)).
 
-update_level_shovel(NewLevel, NewPrice):-
-    retract(eq_farm(A, _, X)), asserta(eq_farm(A, NewLevel, X)),
-    retract(eq_farm(A, Y, _)), asserta(eq_farm(A, Y, NewPrice)).
+update_farm(NewLevel, NewPrice):-
+    retract(shovel(A, _, X)), asserta(shovel(A, NewLevel, X)),
+    retract(shovel(A, Y, _)), asserta(shovel(A, Y, NewPrice)).
 
-update_level_bucket(NewLevel, NewPrice):-
-    retract(eq_ranch(A, _, X)), asserta(eq_ranch(A, NewLevel, X)),
-    retract(eq_ranch(A, Y, _)), asserta(eq_ranch(A, Y, NewPrice)).
+update_ranch(NewLevel, NewPrice):-
+    retract(bucket(A, _, X)), asserta(bucket(A, NewLevel, X)),
+    retract(bucket(A, Y, _)), asserta(bucket(A, Y, NewPrice)).
 
 leave :-
-    write('Goodbye. Come back when you are worthy enough to wield these items.'), nl.
+    write('Goodbye. Come back when you are worthy enough to wield these items.'), nl, !.
 
 help_market :-
     write('                                 GUIDE BOOK                                   '), nl,
@@ -664,7 +609,7 @@ alce_msg :-
     !).
 
 level_req :-
-    write('Level up your specialty first.'), nl.
+    write('Level up your specialty first.'), nl,
     write('Do not waste my time. Do you want to buy another item? (yes or no)'), nl, nl,
     read(Users), nl,
     (
@@ -691,12 +636,12 @@ sell_items(X, Used, Amount) :-
         Users = yes -> (
             storeditem(X, Y) -> (
                 retract(storeditem(X, Y)),
-                Z is Amount - 1,
+                Z is Y - Amount,
                 asserta(storeditem(X, Z)),
                 retract(reservedSpace(Used)),
                 NewAmount is Used - Amount,
                 asserta(reservedSpace(NewAmount)),
-                write('You have deleted this item'), nl
+                write('You have sold this item'), nl
             ); write('You do not own this item.'), nl, nl
         )
         ;
@@ -708,4 +653,4 @@ sell_items(X, Used, Amount) :-
     !).
 
 insufficient :-
-    write('Insufficient Amount.'), nl.
+    write('Failed to upgrade. You either have already upgraded your item or your current level is insufficient.'), nl.

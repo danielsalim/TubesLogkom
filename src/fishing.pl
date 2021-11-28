@@ -31,7 +31,7 @@ fishing :-
     write('________________________________________________|||||    '), nl,
     write('                                                |||||    '), nl,
 
-    write('My name is Master Kang. I know the best spot to fish here. Most people consult to me first.'), nl, nl,
+    write('I am a Respected Fisherman. I know the best spot to fish here. Most people consult to me first.'), nl, nl,
     
     write('-----------------------------------------'), nl,
     write('|?|   What do you want to do here?    |?|'), nl,
@@ -89,7 +89,7 @@ guide :-
 
 alce_clue :- 
 
-    write('                                       MASTER KANG                                             '), nl, nl,
+    write('                                       RESPECTED FISHERMAN                                             '), nl, nl,
     write('Yes did the Old Man tell you about this? This pond is so legendary'), nl,
     write('This was used by warlocks or alchemist from the magic era to spend their free time'), nl,
     write('There was only one Alchemist left in this realm. He would come really soon.'), nl,
@@ -111,7 +111,7 @@ alce_clue :-
 
 pond_story :-
 
-    write('                                       MASTER KANG                                            '), nl, nl,
+    write('                                       RESPECTED FISHERMAN                                            '), nl, nl,
     write('You can get the best fish only in the pond in this village. The pond is blessed with expensive fishes.'), nl,
     write('Even this pond is more profitable than fishing in the sea. Probably because this pond used to be the place for the alchemists.'), nl,
     write('Back in the day, they would use magic to make this pond breed only the best fish'), nl,
@@ -133,6 +133,6 @@ pond_story :-
 
 
 leave :-
-    write('                                       MASTER KANG                                             '), nl, nl,
+    write('                                       RESPECTED FISHERMAN                                             '), nl, nl,
     write('Come again really soon. Fish is the best asset in these desperate times.').
 
