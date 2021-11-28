@@ -216,6 +216,11 @@ addExpRanching(X, Add) :-
         );
     !).
 
+useStamina(X, Delta) :-
+    retract(stamina(X, PrevStamina, StaminaCAP)),
+    NewStamina is PrevStamina - Delta, 
+    asserta(stamina(X, NewStamina, StaminaCAP)), !.
+
 addStaminaCAP(X, Add) :-
     retract(stamina(X, _, PrevStaminaCAP)),
     NewStaminaCAP is PrevStaminaCAP + Add, 
