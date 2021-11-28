@@ -64,7 +64,8 @@ diary([]).
 nextDay :-
     retract(day(Dnow)),
     Dnext is Dnow + 1,
-    asserta(day(Dnext)).
+    asserta(day(Dnext)),
+    update_MapHarvest.
 
 sleep :-
     write('Have a nice dream ^_^'), nl, nl,
