@@ -1,6 +1,3 @@
-/* ranching.pl */
-
-:- include('map.pl').
 :- include('inventory.pl').
 :- include('character.pl').
 
@@ -8,7 +5,42 @@ init :-
     asserta(reservedSpace(25)),  
     asserta(storeditem(cow, 5)), asserta(storeditem(horse, 5)),
     asserta(storeditem(sheep, 5)), asserta(storeditem(chicken, 5)),
-    asserta(storeditem(goat, 5)).
+    asserta(storeditem(goat, 5)), asserta(eggCount(0)).
+
+:- dynamic(eggCount/1).
+
+isEgg(X) :-
+    eggCount(X).
+
+currEgg(Y, Day) :-
+    level_rancher(_, LvlRanch), eggCount(Y),
+    (
+        Var is Day mod 5,
+        LvlRanch == 1, Var == 0 -> 
+            E is 1, 
+            retract(eggCount(_)), asserta(eggCount(E));
+
+        Var is Day mod 4,
+        LvlRanch == 2, Var == 0 -> 
+            E is 1, 
+            retract(eggCount(_)), asserta(eggCount(E));
+
+        Var is Day mod 3,
+        LvlRanch == 3, Var == 0-> 
+            E is 1, 
+            retract(eggCount(_)), asserta(eggCount(E));
+
+        Var is Day mod 2,
+        LvlRanch == 4, Var == 0 -> 
+            E is 1,
+            retract(eggCount(_)), asserta(eggCount(E));
+
+        Var is Day mod 1,
+        LvlRanch == 5, Var == 0 -> 
+            E is 1, 
+            retract(eggCount(_)), asserta(eggCount(E));
+        E is 0, retract(eggCount(_)), asserta(eggCount(E))
+    ).
 
 enterRanch :- 
         write('                                             _         ___'), nl,
@@ -43,13 +75,13 @@ enterRanch :-
         stamina(_,PrevStamina,_),
         level_rancher(X, LvlRanch),
         Day is 365,
-        isEgg(Egg),
+        eggCount(Egg),
         write('So.. what are you going to check?'), nl,
         read_integer(User), nl,
         (
             User = 1 -> /* ================================ Chicken ================================= */
             (
-                (storeditem(chicken, Amount), Amount > 0),
+                storeditem(chicken, Amount), Amount > 0,
                 PrevStamina >= 10 ->
                 (
                     storeditem(chicken, Amount), 
@@ -57,9 +89,8 @@ enterRanch :-
                     (    
                         write('you have no chicken in your ranch.'), nl
                     );
-
-                    storeditem(chicken, Amount), Amount > 0,
-                    currEgg, Egg > 0 ->
+                    currEgg(Egg, Day),
+                    storeditem(chicken, Amount), Amount > 0, Egg == 1 ->
                     (
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */
                         0 is Day mod 5 ->
@@ -514,19 +545,6 @@ noSteak :-
 
 noHorsemilk :-
     write('your chicken have not layed any horsemilk.'), nl.
-
-:- dynamic(eggCount/1).
-
-isEgg(X) :-
-    eggCount(X).
-
-currEgg :-
-    level_rancher(_, LvlRanch), LvlRanch == 1, E is 1, 0 is Day mod 5 -> retract(eggCount(Y)), asserta(eggCount(E));
-    level_rancher(_, LvlRanch), LvlRanch == 2, E is 1, 0 is Day mod 4 -> retract(eggCount(Y)), asserta(eggCount(E));
-    level_rancher(_, LvlRanch), LvlRanch == 3, E is 1, 0 is Day mod 3 -> retract(eggCount(Y)), asserta(eggCount(E));
-    level_rancher(_, LvlRanch), LvlRanch == 4, E is 1, 0 is Day mod 2 -> retract(eggCount(Y)), asserta(eggCount(E));
-    level_rancher(_, LvlRanch), LvlRanch == 5, E is 1, 0 is Day mod 1 -> retract(eggCount(Y)), asserta(eggCount(E));
-    E is 0, retract(eggCount(Y)), asserta(eggCount(E)).
 
 :- dynamic(currMilk/1).
 currMilk(MilkCount) :-
