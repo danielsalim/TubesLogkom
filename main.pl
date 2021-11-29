@@ -120,6 +120,7 @@ start    :-     \+started(_), asserta(started(true)),
                 ; !), gameMenu.
 
 gameMenu :-
+    checkGoal, nl, nl,
     write('What do you want to do?'), nl,
     write('1. Check Player Status'), nl,
     write('2. Check Map'), nl,
