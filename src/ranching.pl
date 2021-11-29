@@ -35,40 +35,39 @@ enterRanch :-
         write('Welcome to the ranch!'), nl,
         write('here\'s the list of animals you currently have on your ranch'), nl,
         (inInventory(chicken)),(itemCounter(chicken, Amount), write('1.'), write(Amount), write(' chicken.')), nl,
-        (inInventory(Goat)),(itemCounter(Goat, Count), write('2.'), write(Count), write(' goat.')), nl,
-        (inInventory(Sheep)),(itemCounter(Sheep, Count), write('3.'), write(Count), write(' sheep.')), nl,
-        (inInventory(Cow)),(itemCounter(Cow, Count), write('4.'), write(Count), write(' cow.')), nl,
-        (inInventory(Horse)),(itemCounter(Horse, Count), write('5.'), write(Count), write(' horse.')), nl, nl,
+        (inInventory(goat)),(itemCounter(goat, Count), write('2.'), write(Count), write(' goat.')), nl,
+        (inInventory(sheep)),(itemCounter(sheep, Count), write('3.'), write(Count), write(' sheep.')), nl,
+        (inInventory(cow)),(itemCounter(cow, Count), write('4.'), write(Count), write(' cow.')), nl,
+        (inInventory(horse)),(itemCounter(horse, Count), write('5.'), write(Count), write(' horse.')), nl, nl,
 
         stamina(_,PrevStamina,_),
-        Day is 5,
+        level_rancher(X, LvlRanch),
+        Day is 365,
+        isEgg(Egg),
         write('So.. what are you going to check?'), nl,
         read_integer(User), nl,
         (
             User = 1 -> /* ================================ Chicken ================================= */
             (
-                /*currEgg(EggCount)Day == 5, , */
                 (storeditem(chicken, Amount), Amount > 0),
                 PrevStamina >= 10 ->
                 (
-                    storeditem(chicken, Amount), Amount == 0 -> 
+                    storeditem(chicken, Amount), 
+                    Amount == 0 -> 
                     (    
                         write('you have no chicken in your ranch.'), nl
                     );
 
-                    storeditem(chicken, Amount), Amount > 0 /*EggCount > 0*/  ->
+                    storeditem(chicken, Amount), Amount > 0,
+                    currEgg, Egg > 0 ->
                     (
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */
-                        NewDay is Day mod 5,
-                        NewDay == 0 ->
+                        0 is Day mod 5 ->
                         (
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(egg, Amount)),
-                            write('you have collected '), write(Amount), write(' egg.'),
+                            save_inventory2(egg, Amount),
+                            write('you have collected '), write(Amount), write(' egg.'), nl,
                             
-                            AfterStamina is PrevStamina - 10,
-                            retract(stamina(X,_,Y)),
-                            asserta(stamina(X,AfterStamina,Y)),
+                            useStamina(X, 10),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,50), addExpOverall(X,10)
@@ -76,18 +75,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 2, /* lvl Ranching 2 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 4 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(egg, NewCount)),
-                            write('you have collected '), write(NewCount), write(' egg.'),
+                            save_inventory2(egg, NewCount),
+                            write('you have collected '), write(NewAmount), write(' egg.'), nl,
                             
-                            AfterStamina is PrevStamina - 10,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 10),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,50), addExpOverall(X,10)
@@ -95,17 +90,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 3, /* lvl Ranching 3 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 3 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(egg, NewCount)),
-                            write('you have collected '), write(NewCount), write(' egg.'),
+                            save_inventory2(egg, NewCount),
+                            write('you have collected '), write(NewAmount), write(' egg.'), nl,
                             
-                            AfterStamina is PrevStamina - 10,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 10),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,50), addExpOverall(X,10)
@@ -113,17 +105,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 4, /* lvl Ranching 4 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 2 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(egg, NewCount)),
-                            write('you have collected '), write(NewCount), write(' egg.'),
+                            save_inventory2(egg, NewCount),
+                            write('you have collected '), write(NewAmount), write(' egg.'), nl,
                             
-                            AfterStamina is PrevStamina - 10,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 10),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,50), addExpOverall(X,10)
@@ -131,17 +120,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 5, /* lvl Ranching 5 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 1 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(egg, NewCount)),
-                            write('you have collected '), write(NewCount), write(' egg.'),
+                            save_inventory2(egg, NewCount),
+                            write('you have collected '), write(NewAmount), write(' egg.'), nl,
 
-                            AfterStamina is PrevStamina - 10,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X,10),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,50), addExpOverall(X,10)
@@ -167,12 +153,10 @@ enterRanch :-
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */ 
                         0 is Day mod 6 ->
                         (
-                            asserta(storeditem(milk, Count)),
+                            save_inventory2(milk, Amount),
                             write('you have collected '), write(Count), write(' milk.'),
                             
-                            AfterStamina is PrevStamina - 15,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 15),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,60), addExpOverall(X,15)
@@ -180,17 +164,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 2, /* lvl Ranching 2 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 5 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(milk, NewCount)),
+                            save_inventory2(milk, NewCount),
                             write('you have collected '), write(NewCount), write(' milk.'),
                             
-                            AfterStamina is PrevStamina - 15,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 15),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,60), addExpOverall(X,15)
@@ -198,17 +179,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 3, /* lvl Ranching 3 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 4 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(milk, NewCount)),
+                            save_inventory2(milk, NewCount),
                             write('you have collected '), write(NewCount), write(' milk.'),
                             
-                            AfterStamina is PrevStamina - 15,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 15),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,60), addExpOverall(X,15)
@@ -216,17 +194,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 4, /* lvl Ranching 4 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 3 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(milk, NewCount)),
+                            save_inventory2(milk, NewCount),
                             write('you have collected '), write(NewCount), write(' milk.'),
                             
-                            AfterStamina is PrevStamina - 15,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 15),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,60), addExpOverall(X,15)
@@ -234,17 +209,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 5, /* lvl Ranching 5 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 2 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(milk, NewCount)),
+                            save_inventory2(milk, NewCount),
                             write('you have collected '), write(NewCount), write(' milk.'),
 
-                            AfterStamina is PrevStamina - 15,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 15),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,60), addExpOverall(X,15)
@@ -270,12 +242,10 @@ enterRanch :-
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */ 
                         0 is Day mod 7 ->
                         (
-                            asserta(storeditem(wool, Count)),
+                            save_inventory2(wool, Amount),
                             write('you have collected '), write(Count), write(' wool.'),
                             
-                            AfterStamina is PrevStamina - 20,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 20),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,80), addExpOverall(X,20)
@@ -283,17 +253,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 2, /* lvl Ranching 2 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 6 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(wool, NewCount)),
+                            save_inventory2(wool, NewCount),
                             write('you have collected '), write(NewCount), write(' wool.'),
                             
-                            AfterStamina is PrevStamina - 20,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 20),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,80), addExpOverall(X,20)
@@ -301,17 +268,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 3, /* lvl Ranching 3 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 5 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(wool, NewCount)),
+                            save_inventory2(wool, NewCount),
                             write('you have collected '), write(NewCount), write(' wool.'),
                             
-                            AfterStamina is PrevStamina - 20,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 20),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,80), addExpOverall(X,20)
@@ -319,17 +283,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 4, /* lvl Ranching 4 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 4 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(wool, NewCount)),
+                            save_inventory2(wool, NewCount),
                             write('you have collected '), write(NewCount), write(' wool.'),
                             
-                            AfterStamina is PrevStamina - 20,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 20),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,80), addExpOverall(X,20)
@@ -337,17 +298,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 5, /* lvl Ranching 5 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 3 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(wool, NewCount)),
+                            save_inventory2(wool, NewCount),
                             write('you have collected '), write(NewCount), write(' wool.'),
 
-                            AfterStamina is PrevStamina - 20,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 20),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,80), addExpOverall(X,20)
@@ -373,12 +331,10 @@ enterRanch :-
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */
                         0 is Day mod 8 ->
                         (
-                            asserta(storeditem(steak, Count)),
+                            save_inventory2(steak, Amount),
                             write('you have collected '), write(Count), write(' steak.'),
                             
-                            AfterStamina is PrevStamina - 25,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 25),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,100), addExpOverall(X,25)
@@ -386,17 +342,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 2, /* lvl Ranching 2 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 7 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(steak, NewCount)),
+                            save_inventory2(steak, NewCount),
                             write('you have collected '), write(NewCount), write(' steak.'),
                             
-                            AfterStamina is PrevStamina - 25,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 25),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,100), addExpOverall(X,25)
@@ -404,17 +357,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 3, /* lvl Ranching 3 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 6 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(steak, NewCount)),
+                            save_inventory2(steak, NewCount),
                             write('you have collected '), write(NewCount), write(' steak.'),
                             
-                            AfterStamina is PrevStamina - 25,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 25),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,100), addExpOverall(X,25)
@@ -422,17 +372,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 4, /* lvl Ranching 4 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 5 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(steak, NewCount)),
+                            save_inventory2(steak, NewCount),
                             write('you have collected '), write(NewCount), write(' steak.'),
                             
-                            AfterStamina is PrevStamina - 25,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 25),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,100), addExpOverall(X,25)
@@ -440,17 +387,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 5, /* lvl Ranching 5 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 4 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(steak, NewCount)),
+                            save_inventory2(steak, NewCount),
                             write('you have collected '), write(NewCount), write(' steak.'),
 
-                            AfterStamina is PrevStamina - 25,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 25),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,100), addExpOverall(X,25)
@@ -476,12 +420,10 @@ enterRanch :-
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */ 
                         0 is Day mod 9 ->
                         (
-                            asserta(storeditem(horsemilk, Count)),
+                            save_inventory2(horsemilk, Amount),
                             write('you have collected '), write(Count), write(' horsemilk.'),
                             
-                            AfterStamina is PrevStamina - 30,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 30),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,120), addExpOverall(X,30)
@@ -489,17 +431,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 2, /* lvl Ranching 2 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 8 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(horsemilk, NewCount)),
+                            save_inventory2(horsemilk, NewCount),
                             write('you have collected '), write(NewCount), write(' horsemilk.'),
                             
-                            AfterStamina is PrevStamina - 30,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 30),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,120), addExpOverall(X,30)
@@ -507,17 +446,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 3, /* lvl Ranching 3 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 7 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(horsemilk, NewCount)),
+                            save_inventory2(horsemilk, NewCount),
                             write('you have collected '), write(NewCount), write(' horsemilk.'),
                             
-                            AfterStamina is PrevStamina - 30,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 30),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,120), addExpOverall(X,30)
@@ -525,17 +461,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 4, /* lvl Ranching 4 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 6 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(horsemilk, NewCount)),
+                            save_inventory2(horsemilk, NewCount),
                             write('you have collected '), write(NewCount), write(' horsemilk.'),
                             
-                            AfterStamina is PrevStamina - 30,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 30),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,120), addExpOverall(X,30)
@@ -543,17 +476,14 @@ enterRanch :-
                         );
 
                         level_rancher(X, LvlRanch), LvlRanch == 5, /* lvl Ranching 5 */
-                        level_bucket(X, LvlBucket),
+                        bucket(X, LvlBucket, _),
                         0 is Day mod 5 ->
                         (
                             NewCount is Count*LvlBucket,
-                            retract(storeditem(egg,_)),
-                            asserta(storeditem(horsemilk, NewCount)),
+                            save_inventory2(horsemilk, NewCount),
                             write('you have collected '), write(NewCount), write(' horsemilk.'),
 
-                            AfterStamina is PrevStamina - 30,
-                            retract(stamina(_,PrevStamina,_)),
-                            asserta(stamina(_,AfterStamina,_)),
+                            useStamina(X, 30),
 
                             job(X, rancher) -> (
                                 addExpRanching(X,120), addExpOverall(X,30)
@@ -585,14 +515,18 @@ noSteak :-
 noHorsemilk :-
     write('your chicken have not layed any horsemilk.'), nl.
 
-:- dynamic(currEgg/1).
-currEgg(EggCount) :-
-    level_rancher(X, LvlRanch), LvlRanch == 1, 0 is Day mod 5 -> EggCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 2, 0 is Day mod 4 -> EggCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 3, 0 is Day mod 3 -> EggCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 4, 0 is Day mod 2 -> EggCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 5, 0 is Day mod 1 -> EggCount == 1;
-    EggCount == 0.
+:- dynamic(eggCount/1).
+
+isEgg(X) :-
+    eggCount(X).
+
+currEgg :-
+    level_rancher(_, LvlRanch), LvlRanch == 1, E is 1, 0 is Day mod 5 -> retract(eggCount(Y)), asserta(eggCount(E));
+    level_rancher(_, LvlRanch), LvlRanch == 2, E is 1, 0 is Day mod 4 -> retract(eggCount(Y)), asserta(eggCount(E));
+    level_rancher(_, LvlRanch), LvlRanch == 3, E is 1, 0 is Day mod 3 -> retract(eggCount(Y)), asserta(eggCount(E));
+    level_rancher(_, LvlRanch), LvlRanch == 4, E is 1, 0 is Day mod 2 -> retract(eggCount(Y)), asserta(eggCount(E));
+    level_rancher(_, LvlRanch), LvlRanch == 5, E is 1, 0 is Day mod 1 -> retract(eggCount(Y)), asserta(eggCount(E));
+    E is 0, retract(eggCount(Y)), asserta(eggCount(E)).
 
 :- dynamic(currMilk/1).
 currMilk(MilkCount) :-
