@@ -5,8 +5,10 @@
 :- include('character.pl').
 
 /* Definisi fungsi tanem taneman */
+/* Definisi fungsi tanem taneman */
 plantSeed :-
-    dug(X,Y) -> /* nge check tile udh di dig blm dan player harus satu tile di atas tile yg udah di dig */
+    playerPosition(X,Y,'P'),
+    isdugGround(X,Y) -> /* nge check tile udh di dig blm dan player harus satu tile di atas tile yg udah di dig */
     (
         write('       wWWWw               wWWWw                     '), nl,
         write(' vVVVv (___) wWWWw         (___)  vVVVv              '), nl,
@@ -33,13 +35,11 @@ plantSeed :-
                 (
                     storeditem(coconut_seed,Y), Y > 0  ->
                     (
-                        delete_inventory(coconut_seed,Used),
-                        playerPosition(X,Y,'P'),
+                        delete_inventory(coconut_seed,1),
                         plantCoconut(X,Y), /* nulis 'c' di tile + player pindah 1 tile di atas tile yg di plant */
+                        useStamina(_, 10),
 
-                        useStamina(X, 10),
-
-                        timeToHarvestC = 1,
+                        timeToHarvestC is 1,
                         update_TimeCoconut(timeToHarvestC),
 
                         write('Planting finished! you have just planted a coconut seed!'), nl
@@ -54,13 +54,12 @@ plantSeed :-
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
-                        delete_inventory(coconut_seed,Used),
-                        playerPosition(X,Y,'P'),
+                        delete_inventory(coconut_seed,1),
                         plantTomato(X,Y), /* nulis 't' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(X, 10),
+                        useStamina(_, 10),
                         
-                        timeToHarvestT = 2,
+                        timeToHarvestT is 2,
                         update_TimeTomato(timeToHarvestT),
                         
                         write('Planting finished! you have just planted a Tomato seed!'), nl
@@ -76,13 +75,12 @@ plantSeed :-
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
-                        delete_inventory(coconut_seed,Used),
-                        playerPosition(X,Y,'P'),
+                        delete_inventory(coconut_seed,1),
                         plantMango(X,Y), /* nulis 'm' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(X, 10),
+                        useStamina(_, 10),
                         
-                        timeToHarvestM = 3,
+                        timeToHarvestM is 3,
                         update_TimeMango(timeToHarvestM),
                         
                         write('Planting finished! you have just planted a mango seed!'), nl
@@ -98,13 +96,12 @@ plantSeed :-
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
-                        delete_inventory(coconut_seed,Used),
-                        playerPosition(X,Y,'P'),
+                        delete_inventory(coconut_seed,1),
                         plantStrawberry(X,Y), /* nulis 's' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(X, 10),
+                        useStamina(_, 10),
                         
-                        timeToHarvestS = 3,
+                        timeToHarvestS is 3,
                         update_TimeStrawberry(timeToHarvestS),
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
@@ -119,13 +116,12 @@ plantSeed :-
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
-                        delete_inventory(coconut_seed,Used),
-                        playerPosition(X,Y,'P'),
+                        delete_inventory(coconut_seed,1),
                         plantBaobab(X,Y), /* nulis 'b' di tile */
 
-                        useStamina(X, 10),
+                        useStamina(_, 10),
                         
-                        timeToHarvestB = 4, 
+                        timeToHarvestB is 4, 
                         update_TimeBaobab(timeToHarvestB),
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
@@ -134,7 +130,7 @@ plantSeed :-
                 ); noStamina /* + insert fungsi auto ganti hari */
             )
         )
-    ).
+    ); notDug.
 
 notDug :-
     write('You cannot plant on this tile!'), nl.
@@ -145,27 +141,25 @@ noStamina :-
 
 /* update waktu panen */
 update_TimeCoconut :-
-    retract(time_coconut(X,Y,_)), asserta(time_coconut(X,Y,timeToHarvestC).
+    retract(time_coconut(X,Y,_)), asserta(time_coconut(X,Y,timeToHarvestC)).
 
 update_TimeTomato :-
-    retract(time_tomato(X,Y,_)), asserta(time_tomato(X,Y,timeToHarvestT).
+    retract(time_tomato(X,Y,_)), asserta(time_tomato(X,Y,timeToHarvestT)).
 
 update_TimeMango :-
-    retract(time_mango(X,Y,_)), asserta(time_mango(X,Y,timeToHarvestM).
+    retract(time_mango(X,Y,_)), asserta(time_mango(X,Y,timeToHarvestM)).
 
 update_TimeStrawberry :-
-    retract(time_strawberry(X,Y,_)), asserta(time_strawberry(X,Y,timeToHarvestS).
+    retract(time_strawberry(X,Y,_)), asserta(time_strawberry(X,Y,timeToHarvestS)).
 
 update_TimeBaobab :-
-    retract(time_baobab(X,Y,_)), asserta(time_baobab(X,Y,timeToHarvestB).
+    retract(time_baobab(X,Y,_)), asserta(time_baobab(X,Y,timeToHarvestB)).
 
 
-/*-------------------------------*/
-/* Definisi fungsi panen taneman */
 harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin di harvest dengan indikator salah satu inisial tenaman (ex. 'c', 'm', dst) */
-    playerPosition(X,Y,'P')
+    playerPosition(X,Y,'P'),
     (
-        plantCoconut(X,Y)->
+        plantCoconut(X,Y) ->
         (
             time_coconut(X,Y,0) ->
             (
@@ -252,12 +246,12 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
                     addExpFarming(X,50), addExpOverall(X,10)
                 );addExpFarming(X,25), addExpOverall(X,10)
 
-            ); stillGrowing
-        !);
+            ); stillGrowing,!
+        )
     ); noPlant.
 
 stillGrowing :-
     write('Your plant is not ready to harvest yet, comeback here after a few days ^_^'), nl.
 
 noPlant :-
-    write('There is no plant to harvest.')
+    write('There is no plant to harvest.').
