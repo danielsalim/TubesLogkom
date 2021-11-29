@@ -132,9 +132,9 @@ plantSeed :-
 
                     ); write('you don\'t have enough coconut seed :('), nl
                 ); noStamina /* + insert fungsi auto ganti hari */
-            );
-        !); 
-    !).
+            )
+        )
+    ).
 
 notDug :-
     write('You cannot plant on this tile!'), nl.
@@ -142,10 +142,6 @@ notDug :-
 /* stamina geming */
 noStamina :-
     write('You are to exhausted to plant right now... Get some rest first and return tomorrow :)'), nl.
-
-update_Stamina :-
-    retract(stamina(User,_)), asserta(stamina(User,newStamina)).
-
 
 /* update waktu panen */
 update_TimeCoconut :-
@@ -203,7 +199,7 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
                 );addExpFarming(X,25), addExpOverall(X,10)
 
             ); stillGrowing
-        )
+        );
 
         plantMango(X,Y)->
         (
@@ -221,7 +217,7 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
                 );addExpFarming(X,25), addExpOverall(X,10)
 
             ); stillGrowing
-        )
+        );
 
         plantStrawberry(X,Y)->
         (
@@ -257,7 +253,7 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
                 );addExpFarming(X,25), addExpOverall(X,10)
 
             ); stillGrowing
-        );
+        !);
     ); noPlant.
 
 stillGrowing :-
