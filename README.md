@@ -31,14 +31,6 @@ Program ini memiliki beberapa fitur, yaitu:
 - User dapat melakukan aktivitas bercocok tanam, memancing ataupun beternak
 - User dapat memenangkan game apabila pada hari <= 365 dapat mencapai 2000 gold
 
-## Setup
-- Persyaratan dasar
-    - Install [Python](https://www.python.org/downloads/)
-    - Unduh repository ini dalam bentuk .zip
-    - Ekstrak zip ke lokasi yang diinginkan
-- Cara Eksekusi Program
-    - Jalankan program dengan nama file main.py
-
 ## Daftar File
 - main.pl	
 - character.pl	
