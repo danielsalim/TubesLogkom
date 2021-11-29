@@ -113,8 +113,8 @@ show_panel_buy :-
                         NewAmount is Total - 50,
                         update_amount(NewAmount),
                         save_inventory(coconut_seeds),
-                        write('You are proven worthy to wield these coconut seeds.'), nl
-                    ); write('You are not worthy to wield these coconut seeds.'), nl
+                        write('You are proven worthy to wield these coconut seeds.'), nl, marketplace
+                    ); write('You are not worthy to wield these coconut seeds.'), nl, marketplace
                 ); level_req
             )
         );
@@ -126,8 +126,8 @@ show_panel_buy :-
                         NewAmount is Total - 100,
                         update_amount(NewAmount),
                         save_inventory(tomato_seeds),
-                        write('You are proven worthy to wield these chocolate seeds.'), nl
-                    ); write('You are not worthy to wield these chocolate seeds.'), nl
+                        write('You are proven worthy to wield these chocolate seeds.'), nl, marketplace
+                    ); write('You are not worthy to wield these chocolate seeds.'), nl, marketplace
                 ); level_req
             )
         );
@@ -139,8 +139,8 @@ show_panel_buy :-
                         NewAmount is Total - 250,
                         update_amount(NewAmount),
                         save_inventory(mango_seeds),
-                        write('You are proven worthy to wield these mango seeds.'), nl
-                    ); write('You are not worthy to wield these mango seeds.'), nl
+                        write('You are proven worthy to wield these mango seeds.'), nl, marketplace
+                    ); write('You are not worthy to wield these mango seeds.'), nl, marketplace
                 ); level_req
             )
         );
@@ -152,8 +152,8 @@ show_panel_buy :-
                         NewAmount is Total - 500,
                         update_amount(NewAmount),
                         save_inventory(strawberry_seeds),
-                        write('You are proven worthy to wield these blueberry seeds.'), nl
-                    ); write('You are not worthy to wield these blueberry seeds.'), nl
+                        write('You are proven worthy to wield these blueberry seeds.'), nl, marketplace
+                    ); write('You are not worthy to wield these blueberry seeds.'), nl, marketplace
                 ); level_req
             )
         );
@@ -165,8 +165,8 @@ show_panel_buy :-
                         NewAmount is Total - 1000,
                         update_amount(NewAmount),
                         save_inventory(baobab_seeds),
-                        write('You are proven worthy to wield these baobab seeds.'), nl
-                    ); write('You are not worthy to wield these baobab seeds.'), nl
+                        write('You are proven worthy to wield these baobab seeds.'), nl, marketplace
+                    ); write('You are not worthy to wield these baobab seeds.'), nl, marketplace
                 ); level_req
             )
         );
@@ -178,8 +178,8 @@ show_panel_buy :-
                         NewAmount is Total - 50,
                         update_amount(NewAmount),
                         save_inventory(corn),
-                        write('You are proven worthy to wield these corn bait.'), nl
-                    ); write('You are not worthy to wield these corn bait.'), nl
+                        write('You are proven worthy to wield these corn bait.'), nl, marketplace
+                    ); write('You are not worthy to wield these corn bait.'), nl, marketplace
                 ); level_req
             )
         );
@@ -191,8 +191,8 @@ show_panel_buy :-
                         NewAmount is Total - 100,
                         update_amount(NewAmount),
                         save_inventory(basic),
-                        write('You are proven worthy to wield these basic bait.'), nl
-                    ); write('You are not worthy to wield these basic bait.'), nl
+                        write('You are proven worthy to wield these basic bait.'), nl, marketplace
+                    ); write('You are not worthy to wield these basic bait.'), nl, marketplace
                 ); level_req
             )
         );
@@ -204,8 +204,8 @@ show_panel_buy :-
                         NewAmount is Total - 250,
                         update_amount(NewAmount),
                         save_inventory(anchovy),
-                        write('You are proven worthy to get this anchovy_bait.'), nl
-                    ); write('You are not worthy to get this anchovy_bait.'), nl
+                        write('You are proven worthy to get this anchovy_bait.'), nl, marketplace
+                    ); write('You are not worthy to get this anchovy_bait.'), nl, marketplace
                 ); level_req
             )
         );
@@ -217,8 +217,8 @@ show_panel_buy :-
                         NewAmount is Total - 500,
                         update_amount(NewAmount),
                         save_inventory(squid),
-                        write('You are proven worthy to get this squid bait.'), nl
-                    ); write('You are not worthy to get this squid bait.'), nl
+                        write('You are proven worthy to get this squid bait.'), nl, marketplace
+                    ); write('You are not worthy to get this squid bait.'), nl, marketplace
                 ); level_req
             )
         );
@@ -230,8 +230,8 @@ show_panel_buy :-
                         NewAmount is Total - 1000,
                         update_amount(NewAmount),
                         save_inventory(magic),
-                        write('You are proven worthy to get this magic bait.'), nl
-                    ); write('You are not worthy to get this magic bait.'), nl
+                        write('You are proven worthy to get this magic bait.'), nl, marketplace
+                    ); write('You are not worthy to get this magic bait.'), nl, marketplace
                 ); level_req
             )
         );
@@ -243,8 +243,8 @@ show_panel_buy :-
                         NewAmount is Total - 200,
                         update_amount(NewAmount),
                         save_inventory(chicken),
-                        write('You are proven worthy to get the chicken.'), nl
-                    ; write('You are not worthy to get the chicken.'), nl
+                        write('You are proven worthy to get the chicken.'), nl, marketplace
+                    ; write('You are not worthy to get the chicken.'), nl, marketplace
                 ); level_req
             )
         );
@@ -256,8 +256,8 @@ show_panel_buy :-
                         NewAmount is total - 500,
                         update_amount(NewAmount),
                         save_inventory(goat),
-                        write('You are proven worthy to get the goat.'), nl
-                    ; write('You are not worthy to get the goat.'), nl
+                        write('You are proven worthy to get the goat.'), nl, marketplace
+                    ; write('You are not worthy to get the goat.'), nl, marketplace
                 ); level_req
             )
         );
@@ -269,8 +269,8 @@ show_panel_buy :-
                         NewAmount is total - 1000,
                         update_amount(NewAmount),
                         save_inventory(sheep),
-                        write('You are proven worthy to get the sheep.'), nl
-                    ); write('You are not worthy to get the sheep.'), nl
+                        write('You are proven worthy to get the sheep.'), nl, marketplace
+                    ); write('You are not worthy to get the sheep.'), nl, marketplace
                 ); level_req
             )
         );
@@ -282,8 +282,8 @@ show_panel_buy :-
                         NewAmount is total - 1500,
                         update_amount(NewAmount),
                         save_inventory(cow),
-                        write('You are proven worthy to get the cow.'), nl
-                    ); write('You are not worthy to get the cow.'), nl
+                        write('You are proven worthy to get the cow.'), nl, marketplace
+                    ); write('You are not worthy to get the cow.'), nl, marketplace
                 ); level_req
             )
         );
@@ -295,8 +295,8 @@ show_panel_buy :-
                         NewAmount is Total - 2000,
                         update_amount(NewAmount),
                         save_inventory(horse),
-                        write('You are proven worthy to get the horse.'), nl
-                    ); write('You are not worthy to get the horse.'), nl
+                        write('You are proven worthy to get the horse.'), nl, marketplace
+                    ); write('You are not worthy to get the horse.'), nl, marketplace
                 ); level_req
             )
         );
@@ -309,7 +309,7 @@ show_panel_buy :-
                     Price is Total - NewPrice,
                     update_fishing(LevelReq, NewPrice),
                     update_amount(Price),
-                    write('You have succesfully upgraded your item.'), nl, nl
+                    write('You have succesfully upgraded your item.'), nl, nl, marketplace
                 ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
@@ -322,7 +322,7 @@ show_panel_buy :-
                     Price is Total - NewPrice,
                     update_farm(LevelReq, NewPrice),
                     update_amount(Price),
-                    write('You have succesfully upgraded your item.'), nl, nl
+                    write('You have succesfully upgraded your item.'), nl, nl, marketplace
                 ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
@@ -335,7 +335,7 @@ show_panel_buy :-
                     Price is Total - NewPrice,
                     update_ranch(LevelReq, NewPrice),
                     update_amount(Price),
-                    write('You have succesfully upgraded your item.'), nl, nl
+                    write('You have succesfully upgraded your item.'), nl, nl, marketplace
                 ); write('Not enough gold. Come back later.'), nl, marketplace
             ); insufficient
         );
