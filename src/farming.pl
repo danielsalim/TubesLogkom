@@ -18,11 +18,11 @@ plantSeed :-
         write('****************************************             '), nl, nl,
         
         write('What a sunny day! perfect time to do some Planting, right now you have:'), nl,
-        (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed.')), nl,
-        (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat.')), nl,
-        (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed.')), nl,
-        (inInventory(Strawberry_seed)),(itemCounter(Strawberry_seed, Count), write('4.'), write(Count), write('Strawberry_seed.')), nl,
-        (inInventory(Baobab_seed)),(itemCounter(Baobab_seed, Count), write('5.'), write(Count), write('Baobab_seed.')), nl, nl,
+        (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed. (SR = 10)')), nl,
+        (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat. (SR = 15)')), nl,
+        (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed. (SR = 20)')), nl,
+        (inInventory(Strawberry_seed)),(itemCounter(Strawberry_seed, Count), write('4.'), write(Count), write('Strawberry_seed. (SR = 25)')), nl,
+        (inInventory(Baobab_seed)),(itemCounter(Baobab_seed, Count), write('5.'), write(Count), write('Baobab_seed. (SR = 30)')), nl, nl,
 
         write('So, what are you planning to plant..?'), nl,
         write('<< Stamina requirement = 10 >>'), nl,
@@ -50,14 +50,14 @@ plantSeed :-
             User = 2 -> /* nanem tomato */
             (
                 stamina(_,PrevStamina,_),
-                PrevStamina >= 10 ->
+                PrevStamina >= 15 ->
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,1),
                         plantTomato(X,Y), /* nulis 't' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(_, 10),
+                        useStamina(_, 15),
                         
                         timeToHarvestT is 2,
                         update_TimeTomato(timeToHarvestT),
@@ -71,14 +71,14 @@ plantSeed :-
             User = 3 -> /* nanem mango */
             (
                 stamina(_,PrevStamina,_),
-                PrevStamina >= 10 ->
+                PrevStamina >= 20 ->
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,1),
                         plantMango(X,Y), /* nulis 'm' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(_, 10),
+                        useStamina(_, 20),
                         
                         timeToHarvestM is 3,
                         update_TimeMango(timeToHarvestM),
@@ -92,16 +92,16 @@ plantSeed :-
             User = 4 -> /* nanem strawberry */
             (
                 stamina(_,PrevStamina,_),
-                PrevStamina >= 10 ->
+                PrevStamina >= 25 ->
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,1),
                         plantStrawberry(X,Y), /* nulis 's' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        useStamina(_, 10),
+                        useStamina(_, 25),
                         
-                        timeToHarvestS is 3,
+                        timeToHarvestS is 4,
                         update_TimeStrawberry(timeToHarvestS),
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
@@ -112,16 +112,16 @@ plantSeed :-
             User = 5 -> /* nanem baobab */
             (
                 stamina(_,PrevStamina,_),
-                PrevStamina >= 10 ->
+                PrevStamina >= 30 ->
                 (
                     storeditem(coconut_seed,Y), Y > 0 ->
                     (
                         delete_inventory(coconut_seed,1),
                         plantBaobab(X,Y), /* nulis 'b' di tile */
 
-                        useStamina(_, 10),
+                        useStamina(_, 30),
                         
-                        timeToHarvestB is 4, 
+                        timeToHarvestB is 5, 
                         update_TimeBaobab(timeToHarvestB),
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
@@ -137,7 +137,7 @@ notDug :-
 
 /* stamina geming */
 noStamina :-
-    write('You are to exhausted to plant right now... Get some rest first and return tomorrow :)'), nl.
+    write('You are too exhausted right now... Get some rest first and return tomorrow :)'), nl.
 
 /* update waktu panen */
 update_TimeCoconut :-
@@ -163,17 +163,20 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
         (
             time_coconut(X,Y,0) ->
             (
-                shovel(_, LvlShovel, _),
-                NewAmount is LvlShovel,
-                save_inventory2(coconut, NewAmount),
-                write('the wait is over! you successfully harvested '), write(NewAmount), write(' coconut.'), nl,
-
-                useStamina(X, 10),
-
-                job(X, rancher) -> (
-                    addExpFarming(X,50), addExpOverall(X,10)
-                );addExpFarming(X,25), addExpOverall(X,10)
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 10 ->
+                (
+                    shovel(_, LvlShovel, _),
+                    NewAmount is LvlShovel,
+                    save_inventory2(coconut, NewAmount),
+                    write('the wait is over! you successfully harvested '), write(NewAmount), write(' coconut.'), nl,
                 
+                    useStamina(X, 10),
+
+                    job(X, rancher) -> (
+                        addExpFarming(X,50), addExpOverall(X,10)
+                    );addExpFarming(X,25), addExpOverall(X,10)
+                ); noStamina
             ); stillGrowing
         );
 
@@ -181,35 +184,41 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
         (
             time_tomato(X,Y,0) ->
             (
-                shovel(X, LvlShovel, _),
-                NewAmount is LvlShovel,
-                save_inventory2(coconut, NewAmount),
-                write('the wait is over! you successfully harvested '), write(NewAmount), write(' tomato.'), nl,
-
-                useStamina(X, 10),
-
-                job(X, rancher) -> (
-                    addExpFarming(X,50), addExpOverall(X,10)
-                );addExpFarming(X,25), addExpOverall(X,10)
-
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 15 ->
+                (
+                    shovel(X, LvlShovel, _),
+                    NewAmount is LvlShovel,
+                    save_inventory2(coconut, NewAmount),
+                    write('the wait is over! you successfully harvested '), write(NewAmount), write(' tomato.'), nl,
+    
+                    useStamina(X, 15),
+    
+                    job(X, rancher) -> (
+                        addExpFarming(X,60), addExpOverall(X,15)
+                    );addExpFarming(X,30), addExpOverall(X,15)
+                ); noStamina    
             ); stillGrowing
         );
-
+        
         plantMango(X,Y)->
         (
             time_mango(X,Y,0) ->
             (
-                shovel(_, LvlShovel, _),
-                NewAmount is LvlShovel,
-                save_inventory2(coconut, NewAmount),
-                write('the wait is over! you successfully harvested '), write(NewAmount), write(' mango.'), nl,
-
-                useStamina(X, 10),
-
-                job(X, rancher) -> (
-                    addExpFarming(X,50), addExpOverall(X,10)
-                );addExpFarming(X,25), addExpOverall(X,10)
-
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 20 ->
+                (
+                    shovel(_, LvlShovel, _),
+                    NewAmount is LvlShovel,
+                    save_inventory2(coconut, NewAmount),
+                    write('the wait is over! you successfully harvested '), write(NewAmount), write(' mango.'), nl,
+    
+                    useStamina(X, 20),
+    
+                    job(X, rancher) -> (
+                        addExpFarming(X,80), addExpOverall(X,20)
+                    );addExpFarming(X,40), addExpOverall(X,20)
+                ); noStamina
             ); stillGrowing
         );
 
@@ -217,17 +226,20 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
         (
             time_strawberry(X,Y,0) ->
             (
-                shovel(_, LvlShovel, _),
-                NewAmount is LvlShovel,
-                save_inventory2(coconut, NewAmount),
-                write('the wait is over! you successfully harvested '), write(NewAmount), write(' strawberry.'), nl,
-
-                useStamina(X, 10),
-
-                job(X, rancher) -> (
-                    addExpFarming(X,50), addExpOverall(X,10)
-                );addExpFarming(X,25), addExpOverall(X,10)
-
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 25 ->
+                (
+                    shovel(_, LvlShovel, _),
+                    NewAmount is LvlShovel,
+                    save_inventory2(coconut, NewAmount),
+                    write('the wait is over! you successfully harvested '), write(NewAmount), write(' strawberry.'), nl,
+    
+                    useStamina(X, 25),
+    
+                    job(X, rancher) -> (
+                        addExpFarming(X,100), addExpOverall(X,20)
+                    );addExpFarming(X50), addExpOverall(X,20)
+                ); noStamina
             ); stillGrowing
         );
 
@@ -235,17 +247,20 @@ harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin
         (
             time_baobab(X,Y,0) ->
             (
-                shovel(_, LvlShovel, _),
-                NewAmount is LvlShovel,
-                save_inventory2(coconut, NewAmount),
-                write('the wait is over! you successfully harvested '), write(NewAmount), write(' baobab.'), nl,
-
-                useStamina(X, 10),
-
-                job(X, rancher) -> (
-                    addExpFarming(X,50), addExpOverall(X,10)
-                );addExpFarming(X,25), addExpOverall(X,10)
-
+                stamina(_,PrevStamina,_),
+                PrevStamina >= 30 ->
+                (
+                    shovel(_, LvlShovel, _),
+                    NewAmount is LvlShovel,
+                    save_inventory2(coconut, NewAmount),
+                    write('the wait is over! you successfully harvested '), write(NewAmount), write(' baobab.'), nl,
+    
+                    useStamina(X, 30),
+    
+                    job(X, rancher) -> (
+                        addExpFarming(X,120), addExpOverall(X,30)
+                    );addExpFarming(X,60), addExpOverall(X,30)
+                ); noStamina
             ); stillGrowing,!
         )
     ); noPlant.
