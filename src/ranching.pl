@@ -1,38 +1,3 @@
-:- dynamic(eggCount/1).
-
-isEgg(X) :-
-    eggCount(X).
-
-currEgg(Y, Day) :-
-    level_rancher(_, LvlRanch), eggCount(Y),
-    (
-        Var is Day mod 5,
-        LvlRanch == 1, Var == 0 -> 
-            E is 1, 
-            retract(eggCount(_)), asserta(eggCount(E));
-
-        Var is Day mod 4,
-        LvlRanch == 2, Var == 0 -> 
-            E is 1, 
-            retract(eggCount(_)), asserta(eggCount(E));
-
-        Var is Day mod 3,
-        LvlRanch == 3, Var == 0-> 
-            E is 1, 
-            retract(eggCount(_)), asserta(eggCount(E));
-
-        Var is Day mod 2,
-        LvlRanch == 4, Var == 0 -> 
-            E is 1,
-            retract(eggCount(_)), asserta(eggCount(E));
-
-        Var is Day mod 1,
-        LvlRanch == 5, Var == 0 -> 
-            E is 1, 
-            retract(eggCount(_)), asserta(eggCount(E));
-        E is 0, retract(eggCount(_)), asserta(eggCount(E))
-    ).
-
 enterRanch :- 
         write('                                             _         ___'), nl,
         write('          ,;;,                           _.-" "-._    [___]'), nl,
@@ -66,7 +31,6 @@ enterRanch :-
         stamina(_,PrevStamina,_),
         level_rancher(X, LvlRanch),
         Day is 365,
-        eggCount(Egg),
         write('So.. what are you going to check?'), nl,
         read_integer(User), nl,
         (
@@ -80,8 +44,7 @@ enterRanch :-
                     (    
                         write('you have no chicken in your ranch.'), nl
                     );
-                    currEgg(Egg, Day),
-                    storeditem(chicken, Amount), Amount > 0, Egg == 1 ->
+                    storeditem(chicken, Amount), Amount > 0 ->
                     (
                         level_rancher(X, LvlRanch), LvlRanch == 1, /* lvl Ranching 1 */
                         0 is Day mod 5 ->
@@ -161,8 +124,7 @@ enterRanch :-
 
             User = 2 -> /* ================================ Goat ================================= */
             (
-                (inInventory(Goat)),(itemCounter(Goat, Count)),
-                currMilk(MilkCount), stamina(_,PrevStamina,_),
+                (inInventory(Goat)),(itemCounter(Goat, Count)), stamina(_,PrevStamina,_),
                 PrevStamina >= 15 ->
                 (
                     Count == 0 -> 
@@ -250,8 +212,7 @@ enterRanch :-
 
             User = 3 -> /* ================================ Sheep ================================= */
             (
-                (inInventory(Sheep)),(itemCounter(Sheep, Count)),
-                currWool(WoolCount), stamina(_,PrevStamina,_),
+                (inInventory(Sheep)),(itemCounter(Sheep, Count)), stamina(_,PrevStamina,_),
                 PrevStamina >= 20 ->
                 (
                     Count == 0 ->
@@ -339,8 +300,7 @@ enterRanch :-
 
             User = 4 -> /* ================================ Cow ================================= */
             (
-                (inInventory(Cow)),(itemCounter(Cow, Count)),
-                currSteak(SteakCount), stamina(_,PrevStamina,_),
+                (inInventory(Cow)),(itemCounter(Cow, Count)), stamina(_,PrevStamina,_),
                 PrevStamina >= 25 ->
                 (
                     Count == 0 -> 
@@ -428,8 +388,7 @@ enterRanch :-
             
             User = 5 -> /* ================================ Horse ================================= */
             (
-                (inInventory(Horse)),(itemCounter(Horse, Count)),
-                currHorsemilk(HorsemilkCount), stamina(_,PrevStamina,_),
+                (inInventory(Horse)),(itemCounter(Horse, Count)),stamina(_,PrevStamina,_),
                 PrevStamina >= 30 ->
                 (
                     Count == 0 -> 
@@ -536,39 +495,3 @@ noSteak :-
 
 noHorsemilk :-
     write('your chicken have not layed any horsemilk.'), nl.
-
-:- dynamic(currMilk/1).
-currMilk(MilkCount) :-
-    level_rancher(X, LvlRanch), LvlRanch == 1, 0 is Day mod 6 -> MilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 2, 0 is Day mod 5 -> MilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 3, 0 is Day mod 4 -> MilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 4, 0 is Day mod 3 -> MilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 5, 0 is Day mod 2 -> MilkCount == 1;
-    MilkCount == 0.
-
-:- dynamic(currWool/1).
-currWool(WoolCount) :-
-    level_rancher(X, LvlRanch), LvlRanch == 1, 0 is Day mod 5 -> WoolCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 2, 0 is Day mod 4 -> WoolCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 3, 0 is Day mod 3 -> WoolCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 4, 0 is Day mod 2 -> WoolCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 5, 0 is Day mod 1 -> WoolCount == 1;
-    WoolCount == 0.
-
-:- dynamic(currSteak/1).
-currSteak(SteakCount) :-
-    level_rancher(X, LvlRanch), LvlRanch == 1, 0 is Day mod 5 -> SteakCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 2, 0 is Day mod 4 -> SteakCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 3, 0 is Day mod 3 -> SteakCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 4, 0 is Day mod 2 -> SteakCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 5, 0 is Day mod 1 -> SteakCount == 1;
-    SteakCount == 0.
-
-:- dynamic(currHorsemilk/1).
-currHorsemilk(HorsemilkCount) :-
-    level_rancher(X, LvlRanch), LvlRanch == 1, 0 is Day mod 5 -> HorsemilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 2, 0 is Day mod 4 -> HorsemilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 3, 0 is Day mod 3 -> HorsemilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 4, 0 is Day mod 2 -> HorsemilkCount == 1;
-    level_rancher(X, LvlRanch), LvlRanch == 5, 0 is Day mod 1 -> HorsemilkCount == 1;
-    HorsemilkCount == 0.
