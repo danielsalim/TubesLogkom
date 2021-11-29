@@ -1,12 +1,3 @@
-:- include('inventory.pl').
-:- include('character.pl').
-
-init :- 
-    asserta(reservedSpace(25)),  
-    asserta(storeditem(cow, 5)), asserta(storeditem(horse, 5)),
-    asserta(storeditem(sheep, 5)), asserta(storeditem(chicken, 5)),
-    asserta(storeditem(goat, 5)), asserta(eggCount(0)).
-
 :- dynamic(eggCount/1).
 
 isEgg(X) :-
