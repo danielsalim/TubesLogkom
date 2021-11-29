@@ -286,7 +286,7 @@ pond_story :-
 leavefishpond :-
     write('                                       REVERED FISHERMAN                                            '), nl, nl,
     write('Come again really soon. Fish is the best asset during these desperate times.'), nl,
-    waterTileMenu.
+    drawmap.
 
 noitem :-
     write('You do not own this item. Try again.'), nl, nl, fishing.
