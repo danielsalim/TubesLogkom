@@ -10,10 +10,7 @@ todoQuest(fishing,0).
 todoQuest(ranching,0).
 todoQuest(harvesting,0).
 
-player(9).
-
-
-getQuest :- write('Welcome, you have a quest to do'),nl,player(Level),
+getQuest :- write('Welcome, you have a quest to do'),nl,level(_,Level),
                 ( Level = 1 ->
                     retract(todoQuest(fishing,_)),
                     retract(todoQuest(ranching,_)),
