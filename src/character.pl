@@ -12,19 +12,17 @@ createFisherman(X) :- asserta(job(X, fisherman)),
                       asserta(level(X, 1)),
                       asserta(level_farming(X, 1)),
                       asserta(exp_farming(X, 56)),
-                      asserta(level_fishing(X, 5)),
+                      asserta(level_fishing(X, 1)),
                       asserta(exp_fishing(X, 76)),
                       asserta(level_rancher(X, 1)),
                       asserta(exp_rancher(X, 56)),
                       asserta(stamina(X,100,100)),
                       asserta(exp(X, 0)),
                       asserta(gold(X, 1000)),
-                      asserta(fishingrod(X, 5, 0)),
-                      asserta(shovel(X, 5, 200)),
-                      asserta(bucket(X, 5, 200)).
-baru :- 
-    asserta(reservedSpace(10)),  
-    asserta(storeditem(squid, 5)), asserta(storeditem(magic, 5)).
+                      asserta(fishingrod(X, 1, 0)),
+                      asserta(shovel(X, 1, 200)),
+                      asserta(bucket(X, 1, 200)),
+                      init.
 
 /* Definisi job fisherman */
 
@@ -42,7 +40,8 @@ createFarmer(X) :-    asserta(job(X, farmer)),
                       asserta(gold(X, 1000)),
                       asserta(fishingrod(X, 1, 200)),
                       asserta(shovel(X, 1, 0)),
-                      asserta(bucket(X, 1, 200)).
+                      asserta(bucket(X, 1, 200)),
+                      init.
 
 /* Definisi job fisherman */
 
@@ -60,7 +59,12 @@ createRancher(X) :-   asserta(job(X, rancher)),
                       asserta(gold(X, 1000)),
                       asserta(fishingrod(X, 1, 200)),
                       asserta(shovel(X, 1, 200)),
-                      asserta(bucket(X, 1, 0)).
+                      asserta(bucket(X, 1, 0)),
+                      init.
+init :- 
+    asserta(reservedSpace(15)),  
+    asserta(storeditem(corn, 5)), asserta(storeditem(chicken, 5)),
+    asserta(storeditem(coconut, 5)).
 
 /* Definisi Check Status */
 
@@ -77,8 +81,8 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('Username       : '), write(Username), nl,
                         write('Job            : '), job(Username, Job), write(Job), nl,
                         write('Level          : '),
-                        (level(Username, 50), write('MAX LEVEL!'), nl;
-                        level(Username, Level), Level =\= 50, write(Level), nl),
+                        (level(Username, 5), write('MAX LEVEL!'), nl;
+                        level(Username, Level), Level =\= 5, write(Level), nl),
                         write('Stamina        : '), stamina(Username, Stamina, StaminaCAP), write(Stamina), write('/'), write(StaminaCAP), nl,
                         write('EXP            : '), exp(Username, EXP), write(EXP), nl,
                         write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl,

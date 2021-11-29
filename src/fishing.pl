@@ -61,7 +61,7 @@ fishing :-
         ;
 
         User = 5 ->
-            leave
+            leavefishpond
         ;
 
 
@@ -85,13 +85,7 @@ startfish :-
                 storeditem(UserInputs, Y), Y > 0 -> (
                     use_bait(UserInputs, Reserved),
                     Jobs == fisherman ->(
-                        fish_generator(sapu, UserInputs),
-                        fish_generator(lele, UserInputs),
-                        fish_generator(cupang, UserInputs),
-                        fish_generator(tuna, UserInputs),
-                        fish_generator(salmon, UserInputs),nl, 
-                        fishing,
-
+                        fisherman(UserInputs),
                     !); non-fisherman(UserInputs),
                     
                 !); noitem
@@ -101,12 +95,7 @@ startfish :-
                 storeditem(UserInputs, Y), Y > 0 -> (
                     use_bait(UserInputs, Reserved),
                     Jobs == fisherman ->(
-                        fish_generator(sapu, UserInputs),
-                        fish_generator(lele, UserInputs),
-                        fish_generator(cupang, UserInputs),
-                        fish_generator(tuna, UserInputs),
-                        fish_generator(salmon, UserInputs),nl, 
-                        fishing,
+                        fisherman(UserInputs),
                     !); non-fisherman(UserInputs),
                 !);noitem
             );
@@ -115,13 +104,7 @@ startfish :-
                 storeditem(UserInputs, Y), Y > 0 -> (
                     use_bait(UserInputs, Reserved),
                     Jobs == fisherman ->(
-                        fish_generator(sapu, UserInputs),
-                        fish_generator(lele, UserInputs),
-                        fish_generator(cupang, UserInputs),
-                        fish_generator(tuna, UserInputs),
-                        fish_generator(salmon, UserInputs),nl, 
-                        fishing,
-
+                        fisherman(UserInputs),
                     !); non-fisherman(UserInputs),
                 !);noitem
             );
@@ -130,12 +113,7 @@ startfish :-
                 storeditem(UserInputs, Y), Y > 0 -> (
                     use_bait(UserInputs, Reserved),
                     Jobs == fisherman ->(
-                        fish_generator(sapu, UserInputs),
-                        fish_generator(lele, UserInputs),
-                        fish_generator(cupang, UserInputs),
-                        fish_generator(tuna, UserInputs),
-                        fish_generator(salmon, UserInputs),nl, 
-                        fishing,
+                        fisherman(UserInputs),
                     !); non-fisherman(UserInputs),
                 !); noitem
             );
@@ -144,16 +122,11 @@ startfish :-
                 storeditem(UserInputs, Y) -> (
                     use_bait(magic, Reserved), nl,
                     Jobs == fisherman -> (
-                        fish_generator(sapu, UserInputs),
-                        fish_generator(lele, UserInputs),
-                        fish_generator(cupang, UserInputs),
-                        fish_generator(tuna, UserInputs),
-                        fish_generator(salmon, UserInputs), nl, 
-                        fishing,
+                        fisherman(UserInputs),
                     !); non-fisherman(UserInputs),
                 !); noitem
             );
-        !);
+        !); write('Invalid input.'), nl,
 
         User = no -> (
             fishing
@@ -164,15 +137,96 @@ startfish :-
 
 /* STORYLINE */
 
+addFishExp :-
+    job(Username, Chosenjob), 
+    level_fishing(_, Lvlfishs),
+    (
+        Lvlfishs == 1 -> (
+            Chosenjob == fisherman -> (
+                addExpFishing(Username, 200), addExpOverall(Username, 200),
+            !); addExpFishing(Username, 100), addExpOverall(Username, 100),
+        !);
+
+        Lvlfishs == 2 -> (
+            Chosenjob == fisherman -> (
+                addExpFishing(Username, 250), addExpOverall(Username, 250),
+            !); addExpFishing(Username, 125), addExpOverall(Username, 125),
+
+        !);
+
+        Lvlfishs == 3 -> (
+            Chosenjob == fisherman -> (
+                addExpFishing(Username, 275), addExpOverall(Username, 275),
+            !); addExpFishing(Username, 135), addExpOverall(Username, 135),
+
+        !);
+
+        Lvlfishs == 4 -> (
+            Chosenjob == fisherman -> (
+                addExpFishing(Username, 425), addExpOverall(Username, 425),
+            !); addExpFishing(Username, 200), addExpOverall(Username, 200),
+
+        !);
+
+        Lvlfishs == 5 -> (
+            write('You have reached the maximum level of Fishing Specialty.'), nl,
+        !);
+
+    !).
+
+
+
+consume_stamina :-
+    fishingrod(_, LvlEq, _),
+    stamina(_, Y, _),
+    (
+        LvlEq == 1 -> (
+            NewStamina is Y - 30,
+            retract(stamina(X, _ , Z)), asserta(stamina(X, NewStamina, Z))
+        );
+
+        LvlEq == 2 -> (
+            NewStamina is Y - 25,
+            retract(stamina(X, _ , Z)), asserta(stamina(X, NewStamina, Z))
+            
+        );
+
+        LvlEq == 3 -> (
+            NewStamina is Y - 20,
+            retract(stamina(X, _ , Z)), asserta(stamina(X, NewStamina, Z))
+        );
+
+        LvlEq == 4 -> (
+            NewStamina is Y - 10,
+            retract(stamina(X, _ , Z)), asserta(stamina(X, NewStamina, Z))
+        );
+
+        LvlEq == 5 -> (
+            NewStamina is Y - 5,
+            retract(stamina(X, _ , Z)), asserta(stamina(X, NewStamina, Z))
+        );
+
+    !).
+
+fisherman(Bait) :-
+    (
+        fish_generator(sapu, Bait),
+        fish_generator(lele, Bait),
+        fish_generator(cupang, Bait),
+        fish_generator(tuna, Bait),
+        fish_generator(salmon, Bait), nl, addFishExp, nl, 
+        fishing, consume_stamina,
+    !).
+
 non-fisherman(Bait) :-
     (
         fish_generator2(sapu, Bait),
         fish_generator2(lele, Bait),
         fish_generator2(cupang, Bait),
         fish_generator2(tuna, Bait),
-        fish_generator2(salmon, Bait),nl, 
-        fishing
-    ).
+        fish_generator2(salmon, Bait), nl, addFishExp, nl, 
+        fishing, consume_stamina,
+    !).
 
 guide :-
     write('                                       GUIDE BOOK                                             '), nl,
@@ -231,11 +285,8 @@ pond_story :-
 
 leavefishpond :-
     write('                                       REVERED FISHERMAN                                            '), nl, nl,
-    write('Come again really soon. Fish is the best asset in these desperate times.').
-
-unlucky :-
-    write('You did not receive the highest prize.'), nl, nl,
-    startfish.
+    write('Come again really soon. Fish is the best asset during these desperate times.'), nl,
+    waterTileMenu.
 
 noitem :-
     write('You do not own this item. Try again.'), nl, nl, fishing.
