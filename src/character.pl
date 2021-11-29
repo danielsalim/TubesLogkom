@@ -59,7 +59,7 @@ createRancher(X) :-   asserta(job(X, rancher)),
 init :- 
     asserta(reservedSpace(15)),  
     asserta(storeditem(corn, 5)), asserta(storeditem(chicken, 5)),
-    asserta(storeditem(coconut, 5)).
+    asserta(storeditem(coconut_seeds, 5)).
 
 /* Definisi Check Status */
 

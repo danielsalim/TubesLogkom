@@ -1,3 +1,5 @@
+:- include('quest.pl').
+
 fishing :-
     write('***************************************************** '), nl,
     write('____ _ ____ _  _ _ _   _ ____    ___  ____ _  _ ___   '), nl,
@@ -311,6 +313,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 100 -> (
                 save_inventory(sapu),
+                updateQuestFish(1),
                 write('You received sapu-sapu fish'), nl
             );                   
         !);
@@ -319,6 +322,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 65 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -326,6 +330,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 35 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -333,6 +338,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -340,6 +346,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -349,6 +356,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 50 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);                
         !);
 
@@ -356,6 +364,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 100 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -363,6 +372,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 50 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -370,6 +380,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -377,6 +388,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -386,18 +398,21 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
         Fish == cupang, Bait == basic -> (
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
         Fish == cupang, Bait == anchovy -> (
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
 
@@ -405,6 +420,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
 
@@ -412,6 +428,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 40 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);
         !);
 
@@ -421,24 +438,28 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 1 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
         Fish == tuna, Bait == basic -> (
             random(1, 100, Result),
             Result =< 1 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
         Fish == tuna, Bait == anchovy -> (
             random(1, 100, Result),
             Result =< 5 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
         Fish == tuna, Bait == squid -> (
             random(1, 100, Result),
             Result =< 25 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
 
@@ -446,6 +467,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
 
@@ -455,6 +477,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 1 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
 
@@ -462,6 +485,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 5 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
 
@@ -469,6 +493,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
 
@@ -476,6 +501,7 @@ fish_generator(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 15 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
     !).
@@ -488,6 +514,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 100 -> (
                 save_inventory(sapu),
+                updateQuestFish(1),
                 write('You received sapu-sapu fish'), nl
             );                   
         !);
@@ -496,6 +523,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 30 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -503,6 +531,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 20 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -510,6 +539,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -517,6 +547,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(sapu),
+            updateQuestFish(1),
             write('You received sapu-sapu fish'), nl);
         !);
 
@@ -526,6 +557,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 30 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);                
         !);
 
@@ -533,6 +565,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 90, Result),
             Result =< 100 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -540,6 +573,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 45 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -547,6 +581,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -554,6 +589,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(lele),
+            updateQuestFish(1),
             write('You received lele fish'), nl);
         !);
 
@@ -563,18 +599,21 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
         Fish == cupang, Bait == basic -> (
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
         Fish == cupang, Bait == anchovy -> (
             random(1, 100, Result),
             Result =< 70 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
 
@@ -582,6 +621,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 90 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);                
         !);
 
@@ -589,6 +629,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 40 -> (
             save_inventory(cupang),
+            updateQuestFish(1),
             write('You received cupang fish'), nl);
         !);
 
@@ -598,18 +639,21 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 1 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
         Fish == tuna, Bait == anchovy -> (
             random(1, 100, Result),
             Result =< 5 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
         Fish == tuna, Bait == squid -> (
             random(1, 100, Result),
             Result =< 15 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
 
@@ -617,6 +661,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 80 -> (
             save_inventory(tuna),
+            updateQuestFish(1),
             write('You received tuna fish'), nl);
         !);
 
@@ -627,6 +672,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 5 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
 
@@ -634,6 +680,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
 
@@ -641,6 +688,7 @@ fish_generator2(Fish, Bait) :-
             random(1, 100, Result),
             Result =< 10 -> (
             save_inventory(salmon),
+            updateQuestFish(1),
             write('You received salmon fish'), nl);
         !);
     !).
