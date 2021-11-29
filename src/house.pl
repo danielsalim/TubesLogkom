@@ -70,15 +70,15 @@ nextDay :-
 sleep :-
     write('Have a nice dream ^_^'), nl, nl,
     write('...'), nl, nl,
-    nextDay, day(Today),
-    random(1, 5, LuckyNumber), write(LuckyNumber), nl,
+    random(1, 5, LuckyNumber),
     (LuckyNumber =:= 4 -> (
         write('What a lucky day! I am Snooze Fairy and I will grant your wish to teleport in the morning'), nl,
         snoozeFairy, write('...'), nl, nl
         );
     !),
-    % stamina(Username, PrevStamina),
-    % update jadi full
+    retract(stamina(X, _, StaminaCAP)),
+    asserta(stamina(X, StaminaCAP, StaminaCAP)), !,
+    nextDay, day(Today),
     write('Good morning!'), nl,
     write('Today is day '), write(Today), nl,
     write('Good luck with your journey today!'), nl.

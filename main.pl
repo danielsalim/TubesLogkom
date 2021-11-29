@@ -117,23 +117,24 @@ start    :-     \+started(_), asserta(started(true)),
                         write('         ...**                      ....&&                        **  **     '), nl,                     
                         write('        ,&&&@@                      @&&&                         ***  **     '), nl,nl,
                         write('You choose Rancher!, let\'s start ranching!'), nl
-                ; !), initialGameMenu.
+                ; !), gameMenu.
 
-initialGameMenu :-
-    write('hello world'), nl,
+gameMenu :-
     write('What do you want to do?'), nl,
     write('1. Check Player Status'), nl,
     write('2. Check Map'), nl,
-    write('3. Move'), nl,
-    write('4. Game Progress'), nl,
-    write('5. Quit Game'), nl,
+    write('3. Check Inventory'), nl,
+    write('4. Move'), nl,
+    write('5. Game Progress'), nl,
+    write('6. Quit Game'), nl,
     write('>'), read(MenuChoice), nl,
     (
-        MenuChoice = 1 -> (/*status*/);
-        MenuChoice = 2 -> (/*map*/);
-        MenuChoice = 3 -> (/*movemenu*/);
-        MenuChoice = 4 -> (/*gameprogress*/);
-        MenuChoice = 5 -> (/*quitgame*/);
+        MenuChoice = 1 -> (checkStatus(_));
+        MenuChoice = 2 -> (drawmap);
+        MenuChoice = 3 -> (show_inventory);
+        MenuChoice = 4 -> (moveMenu);
+        MenuChoice = 5 -> (gameProgress);
+        MenuChoice = 6 -> (/*quitgame*/);
     !).
 
 moveMenu :-
@@ -151,137 +152,71 @@ moveMenu :-
     !).
 
 houseTileMenu :-
-    write('You are in front of the house.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter House Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are in front of your home sweet home. Do you want to get in? (y/n)'), nl,
     write('>'), read(HMenuChoice), nl,
     (
-        HMenuChoice = 1 -> (/*house*/);
-        HMenuChoice = 2 -> (/*status*/);
-        HMenuChoice = 3 -> (/*map*/);
-        HMenuChoice = 4 -> (/*movemenu*/);
-        HMenuChoice = 5 -> (/*gameprogress*/);
-        HMenuChoice = 6 -> (/*quitgame*/);
+        HMenuChoice = y -> (house);
+        HMenuChoice = n -> (gameMenu);
     !).
 
 marketplaceTileMenu :-
-    write('You are in front of the marketplace.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Marketplace Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are in front of the marketplace. Do you want to get in? (y/n)'), nl,
     write('>'), read(MMenuChoice), nl,
     (
-        MMenuChoice = 1 -> (/*marketplace*/);
-        MMenuChoice = 2 -> (/*status*/);
-        MMenuChoice = 3 -> (/*map*/);
-        MMenuChoice = 4 -> (/*movemenu*/);
-        MMenuChoice = 5 -> (/*gameprogress*/);
-        MMenuChoice = 6 -> (/*quitgame*/);
+        MMenuChoice = y -> (marketplace);
+        MMenuChoice = n -> (gameMenu);
     !).
 
 ranchTileMenu :-
-    write('You are in front of the ranching place.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Ranching Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are in front of the ranching house. Do you want to go ranching? (y/n)'), nl,
     write('>'), read(RMenuChoice), nl,
     (
-        RMenuChoice = 1 -> (/*ranching*/);
-        RMenuChoice = 2 -> (/*status*/);
-        RMenuChoice = 3 -> (/*map*/);
-        RMenuChoice = 4 -> (/*movemenu*/);
-        RMenuChoice = 5 -> (/*gameprogress*/);
-        RMenuChoice = 6 -> (/*quitgame*/);
+        RMenuChoice = y -> (enterRanch);
+        RMenuChoice = n -> (gameMenu);
     !).
 
 alchemistTileMenu :-
-    write('You are in front of the famous alchemist house.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Alchemist Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are in front of the famous alchemist house. Do you want to get in? (y/n)'), nl,
     write('>'), read(AMenuChoice), nl,
     (
-        AMenuChoice = 1 -> (/*alchemist*/);
-        AMenuChoice = 2 -> (/*status*/);
-        AMenuChoice = 3 -> (/*map*/);
-        AMenuChoice = 4 -> (/*movemenu*/);
-        AMenuChoice = 5 -> (/*gameprogress*/);
-        AMenuChoice = 6 -> (/*quitgame*/);
+        AMenuChoice = y -> (alce);
+        AMenuChoice = n -> (gameMenu);
     !).
 
 questTileMenu :-
-    write('You are in front of the quest place.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Quest Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are in front of the quest tower. Do you want to get in? (y/n)'), nl,
     write('>'), read(QMenuChoice), nl,
     (
-        QMenuChoice = 1 -> (/*quest*/);
-        QMenuChoice = 2 -> (/*status*/);
-        QMenuChoice = 3 -> (/*map*/);
-        QMenuChoice = 4 -> (/*movemenu*/);
-        QMenuChoice = 5 -> (/*gameprogress*/);
-        QMenuChoice = 6 -> (/*quitgame*/);
+        QMenuChoice = y -> (quest);
+        QMenuChoice = n -> (gameMenu);
     !).
 
 waterTileMenu :-
-    write('You are near the fishing pond.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Fishing Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are near the fishing pond. Do you want to go fishing? (y/n)'), nl,
     write('>'), read(WMenuChoice), nl,
     (
-        WMenuChoice = 1 -> (/*fishing*/);
-        WMenuChoice = 2 -> (/*status*/);
-        WMenuChoice = 3 -> (/*map*/);
-        WMenuChoice = 4 -> (/*movemenu*/);
-        WMenuChoice = 5 -> (/*gameprogress*/);
-        WMenuChoice = 6 -> (/*quitgame*/);
+        WMenuChoice = y -> (fishing);
+        WMenuChoice = n -> (gameMenu);
     !).
 
 groundTileMenu :-
-    write('You are on the farming ground.'), nl,
-    write('What do you want to do?'), nl,
-    write('1. Enter Farming Menu'), nl,
-    write('2. Check Player Status'), nl,
-    write('3. Check Map'), nl,
-    write('4. Move'), nl,
-    write('5. Game Progress'), nl,
-    write('6. Quit Game'), nl,
+    write('You are on the farming ground. Do you want to go farming? (y/n)'), nl,
     write('>'), read(FMenuChoice), nl,
     (
-        FMenuChoice = 1 -> (/*farming*/);
-        FMenuChoice = 2 -> (/*status*/);
-        FMenuChoice = 3 -> (/*map*/);
-        FMenuChoice = 4 -> (/*movemenu*/);
-        FMenuChoice = 5 -> (/*gameprogress*/);
-        FMenuChoice = 6 -> (/*quitgame*/);
+        FMenuChoice = y -> (/*farming*/);
+        FMenuChoice = n -> (gameMenu);
     !).
+
+about :-
+    write('You were a famous designer back then, but one of your client cheated and refused to pay your work.'), nl,
+    write('').  
+
+gameProgress :-
+    day(DayNow),
+    gold(_, GoldNow),
+    Deadline is 366 - DayNow,
+    Debt is 20000 - GoldNow,
+    write('You have '), write(Deadline), write(' more days to collect '), write(Debt), write(' more Gold.'), nl, nl, !.
 
 /*          
 help :-
@@ -307,7 +242,3 @@ help :-
         ;
     !).
 */
-
-about :-
-    write('You were a famous designer back then, but one of your client cheated and refused to pay your work.'), nl,
-    write('').  
