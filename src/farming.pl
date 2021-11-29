@@ -2,6 +2,7 @@
 
 :- include('map.pl').
 :- include('inventory.pl').
+:- include('character.pl').
 
 /* Definisi fungsi tanem taneman */
 plantSeed :-
@@ -14,7 +15,7 @@ plantSeed :-
         write(' \\\\|// \\\\|// \\\\|/// \\\\|//  \\\\|// \\\\\\|///'), nl,
         write('****************************************             '), nl, nl,
         
-        write('What a sunny day! perfect time to do some Planting, right now you have:')
+        write('What a sunny day! perfect time to do some Planting, right now you have:'), nl,
         (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed.')), nl,
         (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat.')), nl,
         (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed.')), nl,
@@ -36,15 +37,14 @@ plantSeed :-
                         playerPosition(X,Y,'P'),
                         plantCoconut(X,Y), /* nulis 'c' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        newStamina is totalStamina - 10,
-                        update_Stamina(newStamina),
+                        useStamina(X, 10),
 
                         timeToHarvestC = 1,
                         update_TimeCoconut(timeToHarvestC),
 
                         write('Planting finished! you have just planted a coconut seed!'), nl
-                    ); write('you don\'t have enough coconut seed :('), nl
-                ); noStamina. /* + insert fungsi auto ganti hari */
+                    ); write('you don\'t have enough coconut seed :(')
+                ); noStamina /* + insert fungsi auto ganti hari */
             );
 
             User = 2 -> /* nanem tomato */
@@ -58,8 +58,7 @@ plantSeed :-
                         playerPosition(X,Y,'P'),
                         plantTomato(X,Y), /* nulis 't' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        newStamina is totalStamina - 10,
-                        update_Stamina(newStamina),
+                        useStamina(X, 10),
                         
                         timeToHarvestT = 2,
                         update_TimeTomato(timeToHarvestT),
@@ -67,7 +66,7 @@ plantSeed :-
                         write('Planting finished! you have just planted a Tomato seed!'), nl
 
                     ); write('you don\'t have enough Tomato seed :('), nl
-                ); noStamina. /* + insert fungsi auto ganti hari */
+                ); noStamina /* + insert fungsi auto ganti hari */
             );
 
             User = 3 -> /* nanem mango */
@@ -81,8 +80,7 @@ plantSeed :-
                         playerPosition(X,Y,'P'),
                         plantMango(X,Y), /* nulis 'm' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        newStamina is totalStamina - 10,
-                        update_Stamina(newStamina),
+                        useStamina(X, 10),
                         
                         timeToHarvestM = 3,
                         update_TimeMango(timeToHarvestM),
@@ -90,7 +88,7 @@ plantSeed :-
                         write('Planting finished! you have just planted a mango seed!'), nl
 
                     ); write('you don\'t have enough mango seed :('), nl
-                ); noStamina. /* + insert fungsi auto ganti hari */
+                ); noStamina /* + insert fungsi auto ganti hari */
             );
 
             User = 4 -> /* nanem strawberry */
@@ -104,15 +102,14 @@ plantSeed :-
                         playerPosition(X,Y,'P'),
                         plantStrawberry(X,Y), /* nulis 's' di tile + player pindah 1 tile di atas tile yg di plant */
 
-                        newStamina is totalStamina - 10,
-                        update_Stamina(newStamina),
+                        useStamina(X, 10),
                         
                         timeToHarvestS = 3,
                         update_TimeStrawberry(timeToHarvestS),
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
                     ); write('you don\'t have enough coconut seed :('), nl
-                ); noStamina. /* + insert fungsi auto ganti hari */
+                ); noStamina /* + insert fungsi auto ganti hari */
             );
 
             User = 5 -> /* nanem baobab */
@@ -126,8 +123,7 @@ plantSeed :-
                         playerPosition(X,Y,'P'),
                         plantBaobab(X,Y), /* nulis 'b' di tile */
 
-                        newStamina is totalStamina - 10,
-                        update_Stamina(newStamina),
+                        useStamina(X, 10),
                         
                         timeToHarvestB = 4, 
                         update_TimeBaobab(timeToHarvestB),
@@ -135,10 +131,10 @@ plantSeed :-
                         write('Planting finished! you have just planted a coconut seed!'), nl
 
                     ); write('you don\'t have enough coconut seed :('), nl
-                ); noStamina. /* + insert fungsi auto ganti hari */
+                ); noStamina /* + insert fungsi auto ganti hari */
             );
-        !).
-    ); notDug.
+        !); 
+    !).
 
 notDug :-
     write('You cannot plant on this tile!'), nl.
@@ -171,47 +167,97 @@ update_TimeBaobab :-
 /*-------------------------------*/
 /* Definisi fungsi panen taneman */
 harvestPlant :- /* dengan syarat player berada satu tile di atas tile yang ingin di harvest dengan indikator salah satu inisial tenaman (ex. 'c', 'm', dst) */
+    playerPosition(X,Y,'P')
     (
-        plantCoconut(X,Y), playerPosition(X,Y,'P') ->
+        plantCoconut(X,Y)->
         (
             time_coconut(X,Y,0) ->
             (
-                save_inventory(coconut),
-                write('the wait is over! you successfully harvested a coconut!'), nl,
+                shovel(_, LvlShovel, _),
+                NewAmount is LvlShovel,
+                save_inventory2(coconut, NewAmount),
+                write('the wait is over! you successfully harvested '), write(NewAmount), write(' coconut.'), nl,
+
+                useStamina(X, 10),
+
+                job(X, rancher) -> (
+                    addExpFarming(X,50), addExpOverall(X,10)
+                );addExpFarming(X,25), addExpOverall(X,10)
                 
-            ); stillGrowing.
+            ); stillGrowing
         );
 
-        plantTomato(X,Y), playerPosition(X,Y,'P') ->
+        plantTomato(X,Y)->
         (
-            
-            save_inventory(tomato),
-            
-            write('the wait is over! you successfully harvested a tomato!'), nl,
+            time_tomato(X,Y,0) ->
+            (
+                shovel(X, LvlShovel, _),
+                NewAmount is LvlShovel,
+                save_inventory2(coconut, NewAmount),
+                write('the wait is over! you successfully harvested '), write(NewAmount), write(' tomato.'), nl,
 
-        ); stillGrowing.
+                useStamina(X, 10),
 
-        plantMango(X,Y), playerPosition(X,Y,'P') ->
+                job(X, rancher) -> (
+                    addExpFarming(X,50), addExpOverall(X,10)
+                );addExpFarming(X,25), addExpOverall(X,10)
+
+            ); stillGrowing
+        )
+
+        plantMango(X,Y)->
         (
-            save_inventory(mango),
-            write('the wait is over! you successfully harvested a mango!'), nl,
+            time_mango(X,Y,0) ->
+            (
+                shovel(_, LvlShovel, _),
+                NewAmount is LvlShovel,
+                save_inventory2(coconut, NewAmount),
+                write('the wait is over! you successfully harvested '), write(NewAmount), write(' mango.'), nl,
 
-        ); stillGrowing.
+                useStamina(X, 10),
 
-        plantStrawberry(X,Y), playerPosition(X,Y,'P') ->
+                job(X, rancher) -> (
+                    addExpFarming(X,50), addExpOverall(X,10)
+                );addExpFarming(X,25), addExpOverall(X,10)
+
+            ); stillGrowing
+        )
+
+        plantStrawberry(X,Y)->
         (
-            save_inventory(strawberry),
-            expAdd
-            write('the wait is over! you successfully harvested a strawberry!'), nl,
+            time_strawberry(X,Y,0) ->
+            (
+                shovel(_, LvlShovel, _),
+                NewAmount is LvlShovel,
+                save_inventory2(coconut, NewAmount),
+                write('the wait is over! you successfully harvested '), write(NewAmount), write(' strawberry.'), nl,
 
-        ); stillGrowing.
+                useStamina(X, 10),
 
-        plantBaobab(X,Y), playerPosition(X,Y,'P') ->
+                job(X, rancher) -> (
+                    addExpFarming(X,50), addExpOverall(X,10)
+                );addExpFarming(X,25), addExpOverall(X,10)
+
+            ); stillGrowing
+        );
+
+        plantBaobab(X,Y)->
         (
-            save_inventory(baobab),
-            write('the wait is over! you successfully harvested a baobab!'), nl,
-    
-        ); stillGrowing.
+            time_baobab(X,Y,0) ->
+            (
+                shovel(_, LvlShovel, _),
+                NewAmount is LvlShovel,
+                save_inventory2(coconut, NewAmount),
+                write('the wait is over! you successfully harvested '), write(NewAmount), write(' baobab.'), nl,
+
+                useStamina(X, 10),
+
+                job(X, rancher) -> (
+                    addExpFarming(X,50), addExpOverall(X,10)
+                );addExpFarming(X,25), addExpOverall(X,10)
+
+            ); stillGrowing
+        );
     ); noPlant.
 
 stillGrowing :-
