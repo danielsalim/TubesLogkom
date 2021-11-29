@@ -112,7 +112,7 @@ show_panel_buy :-
                     Total >= 50 -> (
                         NewAmount is Total - 50,
                         update_amount(NewAmount),
-                        save_inventory(coconut),
+                        save_inventory(coconut_seeds),
                         write('You are proven worthy to wield these coconut seeds.'), nl
                     ); write('You are not worthy to wield these coconut seeds.'), nl
                 ); level_req
@@ -125,7 +125,7 @@ show_panel_buy :-
                     Total >= 100 ->(
                         NewAmount is Total - 100,
                         update_amount(NewAmount),
-                        save_inventory(tomato),
+                        save_inventory(tomato_seeds),
                         write('You are proven worthy to wield these chocolate seeds.'), nl
                     ); write('You are not worthy to wield these chocolate seeds.'), nl
                 ); level_req
@@ -138,7 +138,7 @@ show_panel_buy :-
                     Total >= 250 ->(
                         NewAmount is Total - 250,
                         update_amount(NewAmount),
-                        save_inventory(mango),
+                        save_inventory(mango_seeds),
                         write('You are proven worthy to wield these mango seeds.'), nl
                     ); write('You are not worthy to wield these mango seeds.'), nl
                 ); level_req
@@ -151,7 +151,7 @@ show_panel_buy :-
                     Total >= 500 ->(
                         NewAmount is Total - 500,
                         update_amount(NewAmount),
-                        save_inventory(strawberry),
+                        save_inventory(strawberry_seeds),
                         write('You are proven worthy to wield these blueberry seeds.'), nl
                     ); write('You are not worthy to wield these blueberry seeds.'), nl
                 ); level_req
@@ -164,7 +164,7 @@ show_panel_buy :-
                     Total >= 1000 ->(
                         NewAmount is Total - 1000,
                         update_amount(NewAmount),
-                        save_inventory(baobab),
+                        save_inventory(baobab_seeds),
                         write('You are proven worthy to wield these baobab seeds.'), nl
                     ); write('You are not worthy to wield these baobab seeds.'), nl
                 ); level_req
