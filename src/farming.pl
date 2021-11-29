@@ -44,7 +44,7 @@ plantSeed :-
 
                         write('Planting finished! you have just planted a coconut seed!'), nl
                     ); write('you don\'t have enough coconut seed :(')
-                ); noStamina /* + insert fungsi auto ganti hari */
+                ); noStamina 
             );
 
             User = 2 -> /* nanem tomato */
@@ -65,7 +65,7 @@ plantSeed :-
                         write('Planting finished! you have just planted a Tomato seed!'), nl
 
                     ); write('you don\'t have enough Tomato seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                ); noStamina 
             );
 
             User = 3 -> /* nanem mango */
@@ -86,7 +86,7 @@ plantSeed :-
                         write('Planting finished! you have just planted a mango seed!'), nl
 
                     ); write('you don\'t have enough mango seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                ); noStamina 
             );
 
             User = 4 -> /* nanem strawberry */
@@ -106,7 +106,7 @@ plantSeed :-
                         
                         write('Planting finished! you have just planted a coconut seed!'), nl
                     ); write('you don\'t have enough coconut seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                ); noStamina 
             );
 
             User = 5 -> /* nanem baobab */
@@ -127,7 +127,7 @@ plantSeed :-
                         write('Planting finished! you have just planted a coconut seed!'), nl
 
                     ); write('you don\'t have enough coconut seed :('), nl
-                ); noStamina /* + insert fungsi auto ganti hari */
+                ); noStamina 
             )
         )
     ); notDug.
