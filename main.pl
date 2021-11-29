@@ -379,6 +379,25 @@ checkGoal :-
         );
     !).
 
+quitMechanism :-
+    retractall(started(_)), retractall(job(_,_)), retractall(level(_,_)),
+    retractall(level_farming(_,_)), retractall(level_fishing(_,_)), retractall(level_rancher(_,_)),
+    retractall(exp_farming(_,_)), retractall(exp_fishing(_,_)), retractall(exp_rancher(_,_)),
+    retractall(exp(_,_)), retractall(gold(_,_)), retractall(stamina(_,_,_)),
+    retractall(fishingrod(_,_,_)), retractall(shovel(_,_,_)), retractall(bucket(_,_,_)),
+    retractall(reservedSpace(_)), retractall(storeditem(_,_)), retractall(inInventory(_)),
+    retractall(inventory(_)), retractall(day(_)).
+
+quitGame :-
+    write('Are you sure you want to quit Harvest Star? '), read(Quit), nl,
+    (
+        Quit == yes -> 
+            write('Till we meet again, then!'), nl,
+            quitMechanism
+        ;
+        write('Pyuuhh. Let us continue, then!'), nl;
+    !).
+
 /*          
 help :-
     write('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'), nl,
