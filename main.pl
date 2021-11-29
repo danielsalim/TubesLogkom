@@ -45,8 +45,7 @@ start    :-     \+started(_), asserta(started(true)),
                 write('1. Fisherman'), nl, 
                 write('2. Farmer'), nl, 
                 write('3. Rancher'), nl,
-                write('>'), read(JobChoice), nl,
-                write('Enter your username: '), read(Username), nl,
+                write('>'), read_integer(JobChoice), nl,
                 (
                     JobChoice = 1 -> createFisherman(Username),
                         write('     ,%&& %&& %'                               ), nl,  
@@ -128,13 +127,13 @@ gameMenu :-
     write('4. Move'), nl,
     write('5. Game Progress'), nl,
     write('6. Quit Game'), nl,
-    write('>'), read(MenuChoice), nl,
+    write('>'), read_integer(MenuChoice), nl,
     (
-        MenuChoice = 1 -> (checkStatus(_));
-        MenuChoice = 2 -> (drawmap);
-        MenuChoice = 3 -> (show_inventory);
-        MenuChoice = 4 -> (moveMenu);
-        MenuChoice = 5 -> (gameProgress);
+        MenuChoice = 1 -> (checkStatus(Username), gameMenu);
+        MenuChoice = 2 -> (drawmap, gameMenu);
+        MenuChoice = 3 -> (show_inventory, gameMenu);
+        MenuChoice = 4 -> (moveMenu, gameMenu);
+        MenuChoice = 5 -> (gameProgress, gameMenu);
         %MenuChoice = 6 -> (/*quitgame*/);
     !).
 
@@ -144,7 +143,7 @@ moveMenu :-
     write('2. South (v)'), nl,
     write('3. East  (>)'), nl,
     write('4. West  (<)'), nl,
-    write('>'), read(Walk), nl,
+    write('>'), read_integer(Walk), nl,
     (
         Walk = 1 -> w;
         Walk = 2 -> s;
@@ -161,6 +160,10 @@ w :- playerPosition(X,Y,'P') , NewY is Y - 1,
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(X,NewY),! ->
 			write('Hati-hati oiiii ada danau'),nl, drawmap;
+        isTempatfishing(X,NewY),! ->
+			fishingTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
 		questTile(X,NewY),! ->
 			questTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -192,6 +195,10 @@ a :- playerPosition(X,Y,'P') , NewX is X - 1,
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(NewX,Y),! ->
 			write('Hati-hati oiiii ada danau'),nl, drawmap;
+        isTempatfishing(NewX,Y),! ->
+			fishingTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
 		questTile(NewX,Y),! ->
 			questTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -223,6 +230,10 @@ s :- playerPosition(X,Y,'P') , NewY is Y + 1,
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(X,NewY),! ->
 			write('Hati-hati oiiii ada danau'),nl, drawmap;
+        isTempatfishing(X,NewY),! ->
+			fishingTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
 		questTile(X,NewY),! ->
 			questTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -254,6 +265,10 @@ d :- playerPosition(X,Y,'P') , NewX is X + 1,
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(NewX,Y),! ->
 			write('Hati-hati oiiii ada danau'),nl, drawmap;
+        isTempatfishing(NewX,Y),! ->
+			fishingTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
 		questTile(NewX,Y),! ->
 			questTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -316,7 +331,7 @@ questTileMenu :-
         QMenuChoice = n -> (gameMenu);
     !).
 
-waterTileMenu :-
+fishingTileMenu :-
     write('You are near the fishing pond. Do you want to go fishing? (y/n)'), nl,
     write('>'), read(WMenuChoice), nl,
     (
@@ -333,8 +348,10 @@ groundTileMenu :-
     !).
 */
 about :-
-    write('You were a famous designer back then, but one of your client cheated and refused to pay your work.'), nl,
-    write('').  
+    write('You owned a famous company back then, but one of your client scammed you and your company to a big debt.'), nl,
+    write('The debt collector from Bank chased you to pay the debt, unfortunately you are broke right now.'), nl,
+    write('They give you a chance for you to pay the debt in 365 days.'), nl,
+    write('Can you collect 20000 Gold in 365 days to pay the debt?').
 
 gameProgress :-
     day(DayNow),
@@ -342,6 +359,24 @@ gameProgress :-
     Deadline is 366 - DayNow,
     Debt is 20000 - GoldNow,
     write('You have '), write(Deadline), write(' more days to collect '), write(Debt), write(' more Gold.'), nl, nl, !.
+
+checkGoal :-
+    day(DayToday),
+    gold(_, Golds),
+    (
+        Golds >= 20000, DayToday =< 365 -> (
+            write('Congrats!!!'), nl,
+            write('Your hardwork just paid off your debt.'), nl,
+            write('The debt collector will no longer chase you and you will live a peaceful world.'), nl,
+            write('Good game...'), nl
+        );
+        Golds < 20000, DayToday >= 365 -> (
+            write('Oh no!'), nl,
+            write('You have given 365 days to collect 20000 Golds, unfortunately you failed :('), nl,
+            write('We are sorry to tell you that the debt collector is waiting for you outside the borders.'), nl,
+            write('The end...'), nl
+        );
+    !).
 
 /*          
 help :-
