@@ -120,6 +120,7 @@ start    :-     \+started(_), asserta(started(true)),
                 ; !), gameMenu.
 
 gameMenu :-
+    checkGoal, nl, nl,
     write('What do you want to do?'), nl,
     write('1. Check Player Status'), nl,
     write('2. Check Map'), nl,
@@ -159,7 +160,7 @@ w :- playerPosition(X,Y,'P') , NewY is Y - 1,
 		isWall(X,NewY),! ->
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(X,NewY),! ->
-			write('Hati-hati oiiii ada danau'),nl, drawmap;
+			fishing, nl, drawmap;
         isTempatfishing(X,NewY),! ->
 			fishingTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -194,7 +195,7 @@ a :- playerPosition(X,Y,'P') , NewX is X - 1,
 		isWall(NewX,Y),! ->
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(NewX,Y),! ->
-			write('Hati-hati oiiii ada danau'),nl, drawmap;
+			fishing, nl, drawmap;
         isTempatfishing(NewX,Y),! ->
 			fishingTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -229,7 +230,7 @@ s :- playerPosition(X,Y,'P') , NewY is Y + 1,
 		isWall(X,NewY),! ->
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(X,NewY),! ->
-			write('Hati-hati oiiii ada danau'),nl, drawmap;
+			fishing, nl, drawmap;
         isTempatfishing(X,NewY),! ->
 			fishingTileMenu,
 			retract(playerPosition(X,Y,'P')),
@@ -264,7 +265,7 @@ d :- playerPosition(X,Y,'P') , NewX is X + 1,
 		isWall(NewX,Y),! ->
 			write('Maaf bang ada tembok'),nl, drawmap;
 		waterTile(NewX,Y),! ->
-			write('Hati-hati oiiii ada danau'),nl, drawmap;
+			fishing ,nl, drawmap;
         isTempatfishing(NewX,Y),! ->
 			fishingTileMenu,
 			retract(playerPosition(X,Y,'P')),
