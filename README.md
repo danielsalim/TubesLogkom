@@ -12,7 +12,7 @@
 * [Kontak](#kontak)
 
 ## Informasi Umum
-Program ini dibuat untuk memenuhi tugas Mata Kuliah IF2121 Teori Bahasa Formal dan Otomata
+Program ini dibuat untuk memenuhi tugas Mata Kuliah IF2121 Logika Komputasional
 
 *Program Studi Teknik Informatika* <br />
 *Sekolah Teknik Elektro dan Informatika* <br />
