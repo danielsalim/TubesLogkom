@@ -66,11 +66,11 @@ enterRanch :-
 
         write('Welcome to the ranch!'), nl,
         write('here\'s the list of animals you currently have on your ranch'), nl,
-        (inInventory(chicken)),(itemCounter(chicken, Amount), write('1.'), write(Amount), write(' chicken.')), nl,
-        (inInventory(goat)),(itemCounter(goat, Count), write('2.'), write(Count), write(' goat.')), nl,
-        (inInventory(sheep)),(itemCounter(sheep, Count), write('3.'), write(Count), write(' sheep.')), nl,
-        (inInventory(cow)),(itemCounter(cow, Count), write('4.'), write(Count), write(' cow.')), nl,
-        (inInventory(horse)),(itemCounter(horse, Count), write('5.'), write(Count), write(' horse.')), nl, nl,
+        (inInventory(chicken)),(itemCounter(chicken, Amount), write('1.'), write(Amount), write(' chicken. (SR = 10)')), nl,
+        (inInventory(goat)),(itemCounter(goat, Count), write('2.'), write(Count), write(' goat. (SR = 15)')), nl,
+        (inInventory(sheep)),(itemCounter(sheep, Count), write('3.'), write(Count), write(' sheep. (SR = 20)')), nl,
+        (inInventory(cow)),(itemCounter(cow, Count), write('4.'), write(Count), write(' cow. (SR = 25)')), nl,
+        (inInventory(horse)),(itemCounter(horse, Count), write('5.'), write(Count), write(' horse. (SR = 30)')), nl, nl,
 
         stamina(_,PrevStamina,_),
         level_rancher(X, LvlRanch),
