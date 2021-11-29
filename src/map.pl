@@ -418,6 +418,7 @@ drawmap :- point_map(0, 0).
 
 map :- drawmap.
 
+/*
 w :- playerPosition(X,Y,'P') , NewY is Y - 1,
 	(	
 		\+isWall(X,NewY), \+waterTile(X,NewY), \+questTile(X,NewY), \+alchemistTile(X,NewY), \+marketplaceTile(X,NewY), \+ranchTile(X,NewY), \+houseTile(X,NewY), !->
@@ -540,4 +541,4 @@ d :- playerPosition(X,Y,'P') , NewX is X + 1,
 			write('Selamat datang kembali di rumah'),nl,
 			retract(playerPosition(X,Y,'P')),
 			asserta(playerPosition(NewX,Y,'P')), drawmap	
-	).
+	). */

@@ -3,7 +3,7 @@
 /* supporting files */
 
 :- include('src/character.pl').
-:- include('src/farming.pl').
+%:- include('src/farming.pl').
 :- include('src/fishing.pl').
 :- include('src/house.pl').
 :- include('src/inventory.pl').
@@ -46,6 +46,7 @@ start    :-     \+started(_), asserta(started(true)),
                 write('2. Farmer'), nl, 
                 write('3. Rancher'), nl,
                 write('>'), read(JobChoice), nl,
+                write('Enter your username: '), read(Username), nl,
                 (
                     JobChoice = 1 -> createFisherman(Username),
                         write('     ,%&& %&& %'                               ), nl,  
@@ -134,7 +135,7 @@ gameMenu :-
         MenuChoice = 3 -> (show_inventory);
         MenuChoice = 4 -> (moveMenu);
         MenuChoice = 5 -> (gameProgress);
-        MenuChoice = 6 -> (/*quitgame*/);
+        %MenuChoice = 6 -> (/*quitgame*/);
     !).
 
 moveMenu :-
@@ -150,6 +151,130 @@ moveMenu :-
         Walk = 3 -> d;
         Walk = 4 -> a;
     !).
+
+w :- playerPosition(X,Y,'P') , NewY is Y - 1,
+	(	
+		\+isWall(X,NewY), \+waterTile(X,NewY), \+questTile(X,NewY), \+alchemistTile(X,NewY), \+marketplaceTile(X,NewY), \+ranchTile(X,NewY), \+houseTile(X,NewY), !->
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P')), drawmap;
+		isWall(X,NewY),! ->
+			write('Maaf bang ada tembok'),nl, drawmap;
+		waterTile(X,NewY),! ->
+			write('Hati-hati oiiii ada danau'),nl, drawmap;
+		questTile(X,NewY),! ->
+			questTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		alchemistTile(X,NewY),! ->
+			alchemistTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		marketplaceTile(X,NewY),! ->
+			marketplaceTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		ranchTile(X,NewY),! ->
+			ranchTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		houseTile(X,NewY),! ->
+			houseTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'))
+	).
+
+a :- playerPosition(X,Y,'P') , NewX is X - 1,
+	(	
+		\+isWall(NewX,Y), \+waterTile(NewX,Y), \+questTile(NewX,Y) ,\+alchemistTile(NewX,Y),\+marketplaceTile(NewX,Y), \+ranchTile(NewX,Y), \+houseTile(NewX,Y), !->
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P')), drawmap;
+		isWall(NewX,Y),! ->
+			write('Maaf bang ada tembok'),nl, drawmap;
+		waterTile(NewX,Y),! ->
+			write('Hati-hati oiiii ada danau'),nl, drawmap;
+		questTile(NewX,Y),! ->
+			questTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		alchemistTile(NewX,Y),! ->
+			alchemistTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		marketplaceTile(NewX,Y),! ->
+			marketplaceTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		ranchTile(NewX,Y),! ->
+			ranchTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		houseTile(NewX,Y),! ->
+			houseTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'))	
+	).
+
+s :- playerPosition(X,Y,'P') , NewY is Y + 1,
+	(	
+		\+isWall(X,NewY), \+waterTile(X,NewY),\+questTile(X,NewY) , \+alchemistTile(X,NewY), \+marketplaceTile(X,NewY), \+ranchTile(X,NewY), \+houseTile(X,NewY), !->
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P')), drawmap;
+		isWall(X,NewY),! ->
+			write('Maaf bang ada tembok'),nl, drawmap;
+		waterTile(X,NewY),! ->
+			write('Hati-hati oiiii ada danau'),nl, drawmap;
+		questTile(X,NewY),! ->
+			questTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		alchemistTile(X,NewY),! ->
+			alchemistTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		marketplaceTile(X,NewY),! ->
+			marketplaceTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		ranchTile(X,NewY),! ->
+            ranchTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'));
+		houseTile(X,NewY),! ->
+            houseTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(X,NewY,'P'))		
+	).
+
+d :- playerPosition(X,Y,'P') , NewX is X + 1,
+	(	
+		\+isWall(NewX,Y), \+waterTile(NewX,Y), \+questTile(NewX,Y), \+alchemistTile(NewX,Y),\+marketplaceTile(NewX,Y), \+ranchTile(NewX,Y), \+houseTile(NewX,Y), !->
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P')), drawmap;
+		isWall(NewX,Y),! ->
+			write('Maaf bang ada tembok'),nl, drawmap;
+		waterTile(NewX,Y),! ->
+			write('Hati-hati oiiii ada danau'),nl, drawmap;
+		questTile(NewX,Y),! ->
+			questTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		alchemistTile(NewX,Y),! ->
+			alchemistTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		marketplaceTile(NewX,Y),! ->
+			marketplaceTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		ranchTile(NewX,Y),! ->
+			ranchTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'));
+		houseTile(NewX,Y),! ->
+			houseTileMenu,
+			retract(playerPosition(X,Y,'P')),
+			asserta(playerPosition(NewX,Y,'P'))	
+	).
 
 houseTileMenu :-
     write('You are in front of your home sweet home. Do you want to get in? (y/n)'), nl,
@@ -198,15 +323,15 @@ waterTileMenu :-
         WMenuChoice = y -> (fishing);
         WMenuChoice = n -> (gameMenu);
     !).
-
+/*
 groundTileMenu :-
     write('You are on the farming ground. Do you want to go farming? (y/n)'), nl,
     write('>'), read(FMenuChoice), nl,
     (
-        FMenuChoice = y -> (/*farming*/);
+        FMenuChoice = y -> (farming);
         FMenuChoice = n -> (gameMenu);
     !).
-
+*/
 about :-
     write('You were a famous designer back then, but one of your client cheated and refused to pay your work.'), nl,
     write('').  
