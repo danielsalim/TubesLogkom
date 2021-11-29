@@ -1,4 +1,4 @@
-# Tugas Besar IF2124 Teori Bahasa Formal dan Otomata
+# Tugas Besar IF2121 Logika Komputasional
 > Farm Simulation Role Playing Game
 
 ## Daftar Isi
