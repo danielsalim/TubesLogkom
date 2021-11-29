@@ -81,8 +81,8 @@ checkStatus(Username) :-write(' _____  _                         _____ _        
                         write('Username       : '), write(Username), nl,
                         write('Job            : '), job(Username, Job), write(Job), nl,
                         write('Level          : '),
-                        (level(Username, 50), write('MAX LEVEL!'), nl;
-                        level(Username, Level), Level =\= 50, write(Level), nl),
+                        (level(Username, 5), write('MAX LEVEL!'), nl;
+                        level(Username, Level), Level =\= 5, write(Level), nl),
                         write('Stamina        : '), stamina(Username, Stamina, StaminaCAP), write(Stamina), write('/'), write(StaminaCAP), nl,
                         write('EXP            : '), exp(Username, EXP), write(EXP), nl,
                         write('Gold           : '), gold(Username, Gold), write(Gold), nl, nl,
