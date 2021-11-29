@@ -19,14 +19,13 @@ plantSeed :-
         write('****************************************             '), nl, nl,
         
         write('What a sunny day! perfect time to do some Planting, right now you have:'), nl,
-        (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed.')), nl,
-        (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat.')), nl,
-        (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed.')), nl,
-        (inInventory(Strawberry_seed)),(itemCounter(Strawberry_seed, Count), write('4.'), write(Count), write('Strawberry_seed.')), nl,
-        (inInventory(Baobab_seed)),(itemCounter(Baobab_seed, Count), write('5.'), write(Count), write('Baobab_seed.')), nl, nl,
+        (inInventory(Coconut_seed)),(itemCounter(Coconut_seed, Count), write('1.'), write(Count), write('coconut seed. (SR = 10)')), nl,
+        (inInventory(Tomato_seed)),(itemCounter(Tomato_seed, Count), write('2.'), write(Count), write('goat. (SR = 15)')), nl,
+        (inInventory(Mango_seed)),(itemCounter(Mango_seed, Count), write('3.'), write(Count), write('Mango_seed. (SR = 20)')), nl,
+        (inInventory(Strawberry_seed)),(itemCounter(Strawberry_seed, Count), write('4.'), write(Count), write('Strawberry_seed. (SR = 25)')), nl,
+        (inInventory(Baobab_seed)),(itemCounter(Baobab_seed, Count), write('5.'), write(Count), write('Baobab_seed. (SR = 30)')), nl, nl,
 
         write('So, what are you planning to plant..?'), nl,
-        write('<< Stamina requirement = 10 >>'), nl,
         read_integer(User), nl,
         inventory(Storage),
         (
