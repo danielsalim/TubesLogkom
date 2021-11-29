@@ -3,7 +3,7 @@
 /* supporting files */
 
 :- include('src/character.pl').
-%:- include('src/farming.pl').
+:- include('src/farming.pl').
 :- include('src/fishing.pl').
 :- include('src/house.pl').
 :- include('src/inventory.pl').
@@ -135,7 +135,7 @@ gameMenu :-
         MenuChoice = 3 -> (show_inventory, gameMenu);
         MenuChoice = 4 -> (moveMenu, gameMenu);
         MenuChoice = 5 -> (gameProgress, gameMenu);
-        %MenuChoice = 6 -> (/*quitgame*/);
+        MenuChoice = 6 -> (quitGame);
     !).
 
 moveMenu :-
@@ -260,7 +260,8 @@ s :- playerPosition(X,Y,'P') , NewY is Y + 1,
 d :- playerPosition(X,Y,'P') , NewX is X + 1,
 	(	
 		\+isWall(NewX,Y), \+waterTile(NewX,Y), \+questTile(NewX,Y), \+alchemistTile(NewX,Y),\+marketplaceTile(NewX,Y), \+ranchTile(NewX,Y), \+houseTile(NewX,Y), !->
-			retract(playerPosition(X,Y,'P')),
+			groundTileMenu, nl,
+            retract(playerPosition(X,Y,'P')),
 			asserta(playerPosition(NewX,Y,'P')), drawmap;
 		isWall(NewX,Y),! ->
 			write('Maaf bang ada tembok'),nl, drawmap;
@@ -339,7 +340,7 @@ fishingTileMenu :-
         WMenuChoice = y -> (fishing);
         WMenuChoice = n -> (gameMenu);
     !).
-/*
+
 groundTileMenu :-
     write('You are on the farming ground. Do you want to go farming? (y/n)'), nl,
     write('>'), read(FMenuChoice), nl,
@@ -347,7 +348,7 @@ groundTileMenu :-
         FMenuChoice = y -> (farming);
         FMenuChoice = n -> (gameMenu);
     !).
-*/
+
 about :-
     write('You owned a famous company back then, but one of your client scammed you and your company to a big debt.'), nl,
     write('The debt collector from Bank chased you to pay the debt, unfortunately you are broke right now.'), nl,
