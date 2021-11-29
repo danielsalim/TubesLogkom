@@ -1,10 +1,5 @@
 /* character.pl */
 
-/* job list */
-isJob(fisherman).
-isJob(farmer).
-isJob(rancher).
-
 /* Definisi job fisherman */
 
 :- dynamic(createFisherman/1).
